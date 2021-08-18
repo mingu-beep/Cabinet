@@ -1,0 +1,15 @@
+<mapper namespace="com.cabinet.Cabinet.dao.MemberDaoInterface">
+	<!-- 회원가입 -->
+	<insert id="regMember" parameterType="memberDTO">
+		insert into memberInfo (inputId, inputPassword, inputName, inputEmail, inputPhone, inputAddress, inputBDay, genderMale)
+		values (#{inputId}, #{inputPassword}, #{inputName}, #{inputEmail}, #{inputPhone}, #{inputAddress}, #{inputBDay}, #{genderMale})
+	</insert>
+	<!-- 회원 인증키(난수) 생성 -->
+	<insert id="getKey" parameterType="Map">
+		update memberInfo set member_key = #{param2} where inputId = #{param1}
+	</insert>
+	<!-- 회원 인증키(난수) Y로 변경 -->
+	<update id="alter_memberKey" parameterType="Map">
+		update memberInfo set member_key = "Y" where inputId = #{param1} and user_key = #{param2}
+	</update>
+</mapper>
