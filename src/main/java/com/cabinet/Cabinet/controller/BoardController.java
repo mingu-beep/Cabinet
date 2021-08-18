@@ -11,7 +11,7 @@ public class BoardController {
 
     @GetMapping("/intro")
     public String boardIntro(Model model) {
-        return "story";
+        return "story"; // Controller에서 리턴하는 String은 View의 이름
     }
 
     @GetMapping("/cs")
