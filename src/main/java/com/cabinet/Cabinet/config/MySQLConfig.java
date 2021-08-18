@@ -31,9 +31,6 @@ public class MySQLConfig {
         sessionFactory.setMapperLocations(resolver.getResources("classpath:mappers/*.xml"));
         // classpath : resource 폴더를 나타냄
 
-        sessionFactory.setVfs(SpringBootVFS.class);  //<<==추가
-        sessionFactory.setTypeAliasesPackage("com.cabinet.Cabinet.dto");
-
         Resource myBatisConfig = new PathMatchingResourcePatternResolver().getResource("classpath:mybatis-config.xml");
         sessionFactory.setConfigLocation(myBatisConfig);
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cabinet.Cabinet.dao.MemberDaoInterface">
 	<!-- 회원가입 -->
-	<insert id="regMember" parameterType="MemberDTO">
+	<insert id="regMember" parameterType="com.cabinet.Cabinet.dto.MemberDTO">
 		insert into memberInfo (inputId, inputPassword, inputName, inputEmail, inputPhone, inputAddress, inputBDay, gender)
 		values (#{inputId}, #{inputPassword}, #{inputName}, #{inputEmail}, #{inputPhone}, #{inputAddress}, #{inputBDay}, #{gender})
 	</insert>
