@@ -3,8 +3,8 @@
 <mapper namespace="com.cabinet.Cabinet.dao.MemberDaoInterface">
 	<!-- 회원가입 -->
 	<insert id="regMember" parameterType="com.cabinet.Cabinet.dto.MemberDTO">
-		insert into TB_MEMBER (MEM_ID, MEM_PW, MEM_NAME, MEM_BDAY, MEM_EMAIL, MEM_PHONE, MEM_ADRS)
-		values (#{MEM_ID}, #{MEM_PW}, #{MEM_NAME}, #{MEM_BDAY}, #{MEM_EMAIL}, #{MEM_PHONE}, #{MEM_ADRS})
+		insert into TB_MEMBER (memID, memPw, memName, memEmail, memPhone, memAdrs, memBday)
+		values (#{memID}, #{memPw}, #{memName}, #{memEmail}, #{memPhone}, #{memAdrs}, #{memBday})
 	</insert>
 	<!-- 회원 인증키(난수) 생성 -->
 	<insert id="getKey" parameterType="Map">
