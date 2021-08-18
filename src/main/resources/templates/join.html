@@ -99,7 +99,7 @@
         <form
           class="form-signin col-12 col-sm-10 col-md-8"
           style="float: none; margin: 0 auto"
-          method="post"
+          method="POST"
         >
           <h1
             class="
@@ -130,6 +130,7 @@
             <input
               type="text"
               id="inputId"
+              name="inputId"
               class="form-control my-3 col-6 mx-2"
               placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합"
               required=""
@@ -137,11 +138,11 @@
             />
             <a
               href="#"
-              class="btn btn-sm btn-focus col-2 my-auto"
+              class="btn btn-sm btn-focus col-2 my-auto checkbtn"
               role="button"
               aria-pressed="true"
-              >중복 확인</a
-            >
+              >중복 확인
+            </a>
           </div>
           <div class="row">
             <p
@@ -160,6 +161,7 @@
             <input
               type="password"
               id="inputPassword"
+              name="inputPassword"
               class="form-control my-3 col-6 mx-2"
               placeholder="비밀번호를 입력해주세요"
               required=""
@@ -206,6 +208,7 @@
             <input
               type="text"
               id="inputName"
+              name="inputName"
               class="form-control my-3 col-6 mx-2"
               placeholder="이름을 입력해주세요"
               required=""
@@ -229,6 +232,7 @@
             <input
               type="email"
               id="inputEmail"
+              name="inputEmail"
               class="form-control my-3 col-6 mx-2"
               placeholder="이메일을 입력해주세요"
               required=""
@@ -259,6 +263,7 @@
             <input
               type="text"
               id="inputPhone"
+              name="inputPhone"
               class="form-control my-3 col-6 mx-2"
               placeholder="숫자만 입력해주세요"
               required=""
@@ -289,6 +294,7 @@
             <input
               type="text"
               id="inputAddress"
+              name="inputAddress"
               class="form-control my-3 col-6 mx-2"
               placeholder="주소를 입력해주세요"
               required=""
@@ -312,6 +318,7 @@
             <input
               type="date"
               id="inputBDay"
+              name="inputBDay"
               class="form-control my-3 col-6 mx-2"
               required=""
               autofocus=""
@@ -400,5 +407,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script src="/js/popup.js"></script>
   </body>
 </html>

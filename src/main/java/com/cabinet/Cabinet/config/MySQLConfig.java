@@ -3,6 +3,7 @@ package com.cabinet.Cabinet.config;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
@@ -28,11 +29,14 @@ public class MySQLConfig {
         // PathMatchingResourcePatternResolver : resource 위치 검색을 돕는 spring class
         // getResources()로 경로 검색을 해 SqlSessionFactory에 mapper와 myBatis-config를 set 해준다.
         sessionFactory.setMapperLocations(resolver.getResources("classpath:mappers/*.xml"));
-
         // classpath : resource 폴더를 나타냄
+
+        sessionFactory.setVfs(SpringBootVFS.class);  //<<==추가
+        sessionFactory.setTypeAliasesPackage("com.cabinet.Cabinet.dto");
 
         Resource myBatisConfig = new PathMatchingResourcePatternResolver().getResource("classpath:mybatis-config.xml");
         sessionFactory.setConfigLocation(myBatisConfig);
+
 
         return sessionFactory.getObject();
     }

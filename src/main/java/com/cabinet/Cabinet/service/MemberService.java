@@ -21,7 +21,7 @@ public class MemberService {
 		
 		memberDao = memberSqlSession.getMapper(MemberDaoInterface.class);
 		try {
-			resultCnt = memberDao.regMember(memberDao);
+			resultCnt = memberDao.regMember(memberDTO);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -33,10 +33,10 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
-//	@GetMapping("/join")
-//	public String memberJoin(Model model) {
-//		return "join";
-//	}
+	@GetMapping("/join")
+	public String memberJoin(Model model) {
+		return "join";
+	}
 	@GetMapping("/login")
 	public String memberLogin(Model model) {
 		return "login";
