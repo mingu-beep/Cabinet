@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -97,6 +97,8 @@
     <main>
       <div class="text-center container mt-5">
         <form
+          th:action="@{/login}"
+          th:object="${memberDTO}"
           class="form-signin col-8 col-sm-6 col-md-4"
           style="float: none; margin: 0 auto"
           method="post"

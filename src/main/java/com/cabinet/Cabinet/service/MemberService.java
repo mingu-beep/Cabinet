@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.cabinet.Cabinet.dao.MemberDaoInterface;
 import com.cabinet.Cabinet.dto.MemberDTO;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Service
 public class MemberService {
