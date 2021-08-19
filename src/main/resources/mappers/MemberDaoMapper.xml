@@ -6,6 +6,19 @@
 		insert into TB_MEMBER (memID, memPw, memName, memEmail, memPhone, memAdrs, memBday)
 		values (#{memID}, #{memPw}, #{memName}, #{memEmail}, #{memPhone}, #{memAdrs}, #{memBday})
 	</insert>
+
+	<select id="existById" parameterType="String" resultType="_boolean">
+		select if(count(*) >= 1, 1, 0)
+		from TB_MEMBER
+		where memID = #{id};
+	</select>
+
+	<select id="existByEmail" parameterType="String" resultType="_boolean">
+		select if(count(*) >= 1, 1, 0)
+		from TB_MEMBER
+		where memEmail = #{email};
+	</select>
+
 	<!-- 회원 인증키(난수) 생성 -->
 	<insert id="getKey" parameterType="Map">
 		update memberInfo set member_key = #{param2} where inputId = #{param1}

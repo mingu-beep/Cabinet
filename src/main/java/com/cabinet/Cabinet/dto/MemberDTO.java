@@ -1,13 +1,35 @@
 package com.cabinet.Cabinet.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 public class MemberDTO {
 
+    @NotBlank(message = "아이디를 입력해주세요.")
+    @Size(min=6, message = "6자 이상을 입력해주세요.")
     private String memID;
+
+    @NotBlank(message = "비밀번호를 입력해주세요.")
+    @Size(min = 8, message = "비밀번호는 8자 이상으로 입력해주세요.")
     private String memPw;
+
+    @NotBlank(message = "이름을 입력해주세요.")
     private String memName;
+
+    @NotBlank(message = "이메일을 입력해주세요.")
+    @Email(message = "올바른 이메일 주소를 입력해주세요.")
     private String memEmail;
+
+    @NotBlank(message = "휴대폰 번호를 입력해주세요.")
+    @Pattern(regexp = "(01[016789])(\\d{3,4})(\\d{4})", message = "올바른 휴대폰 번호를 입력해주세요.")
     private String memPhone;
+
+    @NotBlank(message = "주소를 입력해주세요.")
     private String memAdrs;
+
+    @NotBlank(message = "생년월일을 입력해주세요.")
     private String memBday;
 
     public String getMemID() {
