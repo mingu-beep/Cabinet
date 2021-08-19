@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- data라는 이름으로 들어논 객체의 'message' 값과 href 값의 길이가 0이 아니라면 그에 해당하는 script가 실행되는 로직 -->
+    <th:block th:if="${#strings.length(data.message) != 0}">
+        <script>
+        top.alert("[[${data.message}]]");
+      </script>
+    </th:block>
+    <th:block th:if="${#strings.length(data.href) != 0}">
+        <script>
+        top.location.href = "[[${data.href}]]";
+      </script>
+    </th:block>
+</head>
+<body></body>
+</html>
