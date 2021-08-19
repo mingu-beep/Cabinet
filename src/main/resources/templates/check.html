@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cabinet - 아이디 중복확인</title>
+  <!-- 부트스트랩 -->
+  <!-- Bootstrap CSS -->
+  <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous"
+  />
+  <!-- custom css -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+<nav class="navbar navbar-light" style="background-color: var(--blue)">
+  <div class="navbar-brand" style="color: white">Cabinet</div>
+</nav>
+<main class="text-center container">
+  <div class="row justify-content-center">
+    <form
+            method="get"
+            class="mt-5 text-center"
+            style="float: none; margin: 0 auto"
+    >
+      <input type="text" name="value" id="value" class="form-control" th:value="${value}"/>
+      <br />
+      <button class="btn" type="submit">중복 확인</button>
+    </form>
+  </div>
+  <div class="result mt-5">
+    <p th:if="${result}">중복 정보가 존재합니다.</p>
+    <p th:unless="${result}">사용 가능 합니다.</p>
+  </div>
+</main>
+<!-- fontawesome -->
+<script
+        src="https://kit.fontawesome.com/f97d0d047b.js"
+        crossorigin="anonymous"
+></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+></script>
+</body>
+</html>
