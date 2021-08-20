@@ -119,12 +119,12 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request, ModelAndView mav) {
+	public ModelAndView logout(HttpServletRequest request, ModelAndView mav) {
 		request.getSession().invalidate();
+		request.getSession(true);
 		mav.addObject("data", new Message("로그아웃 되었습니다!", "/"));
 		mav.setViewName("message");
-		request.getSession(true);
-		return "redirect:/";
+		return mav;
 	}
 	
 	@GetMapping("/mypage")
