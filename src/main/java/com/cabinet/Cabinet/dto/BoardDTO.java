@@ -6,38 +6,51 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class BoardDTO {
-	
-	@NotBlank(message = "제목을 입력해주세요.")
-	@Size(min=5, message = "5자 이상을 입력해주세요.")
-	private String title;
-	
-	@NotBlank(message = "내용을 입력해주세요.")
-	@Size(max=3000, message = "최대 3000자")
-	private String subject;
-	
+
+	private String bdTitle;
+	private String bdContent;
+
 	private String writer;
 	private Date writeDate;
-	public String getTitle() {
-		return title;
+
+	private String bdImg;
+
+	public String getBdImg() {
+		return bdImg;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+
+	public void setBdImg(String bdImg) {
+		this.bdImg = bdImg;
 	}
-	public String getSubject() {
-		return subject;
+
+	public String getBdTitle() {
+		return bdTitle;
 	}
-	public void setSubject(String subject) {
-		this.subject = subject;
+
+	public void setBdTitle(String bdTitle) {
+		this.bdTitle = bdTitle;
 	}
+
+	public String getBdContent() {
+		return bdContent;
+	}
+
+	public void setBdContent(String bdContent) {
+		this.bdContent = bdContent;
+	}
+
 	public String getWriter() {
 		return writer;
 	}
+
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
+
 	public Date getWriteDate() {
 		return writeDate;
 	}
+
 	public void setWriteDate(Date writeDate) {
 		this.writeDate = writeDate;
 	}
