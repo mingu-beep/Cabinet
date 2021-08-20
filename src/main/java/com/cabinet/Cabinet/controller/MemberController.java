@@ -1,5 +1,6 @@
 package com.cabinet.Cabinet.controller;
 
+import com.cabinet.Cabinet.dto.LoginDTO;
 import com.cabinet.Cabinet.dto.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,7 @@ import javax.validation.Valid;
 public class MemberController {
 
 	@Autowired
-	private MemberService member_service;
+	private MemberService memberService;
 //	@Autowired
 //	private AdminStoreListService store_service;
 //	@Autowired
@@ -33,7 +34,7 @@ public class MemberController {
 
 	@GetMapping("/idCheck")
 	public String checkIdDuplicate(@RequestParam String value, Model model){
-		boolean result = member_service.checkIdDuplicate(value);
+		boolean result = memberService.checkIdDuplicate(value);
 		model.addAttribute("value", value);
 		model.addAttribute("result", result);
 
@@ -41,7 +42,7 @@ public class MemberController {
 	}
 	@GetMapping("/emailCheck")
 	public String checkEmailDuplicate(@RequestParam String value, Model model){
-		boolean result = member_service.checkEmailDuplicate(value);
+		boolean result = memberService.checkEmailDuplicate(value);
 		model.addAttribute("value", value);
 		model.addAttribute("result", result);
 		return "check";
@@ -60,7 +61,7 @@ public class MemberController {
 		else{
 			//회원가입 메서드
 			try {
-				member_service.member_service(memberDTO);
+				memberService.member_service(memberDTO);
 				mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
 				mav.setViewName("message");
 			}
@@ -74,11 +75,26 @@ public class MemberController {
 	}
 
 	@GetMapping("/login")
-	public String memberLogin(Model model) {
-
-		model.addAttribute("memDTO", new MemberDTO());
+	public String getLogin(Model model) {
+		model.addAttribute("loginDTO", new LoginDTO());
 		return "login";
 	}
+	@PostMapping("/login")
+	public ModelAndView postLogin(ModelAndView mav, LoginDTO loginDTO){
+		boolean login = memberService.checkIdAndPw(loginDTO);
+
+		if (login) {
+			mav.addObject("data", new Message("환영합니다!", "/"));
+			mav.setViewName("message");
+		}
+		else {
+			mav.addObject("data", new Message("아이디 혹은 비밀번호를 확인해주세요.", "login"));
+			mav.setViewName("message");
+		}
+
+		return mav;
+	}
+
 	@GetMapping("/my")
 	public String memberMypage(Model model) {
 		return "mypage";
