@@ -111,7 +111,7 @@
       <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
         물건 올리기
       </h1>
-      <form class="col-12" style="float: none; margin: 0 auto" method="POST">
+      <form th:action="@{all}" th:object="${boardDTO}" class="col-12" style="float: none; margin: 0 auto" method="POST">
         <section class="title-section row">
           <label
                   class="
@@ -126,6 +126,7 @@
           >제목</label
           >
           <input
+                  th:field="*{}"
                   type="text"
                   class="form-control my-3 col-6 mx-2"
                   id="bdTitle"
@@ -185,6 +186,7 @@
           >가격</label
           >
           <input
+                  th:field="*{}"
                   type="text"
                   class="form-control my-3 col-6 mx-2"
                   id="bdPrice"
@@ -204,6 +206,7 @@
           >내용</label
           >
           <textarea
+                  th:field="*{}"
                   type="text"
                   class="form-control my-3 col-6 mx-2"
                   id="bdContent"
