@@ -13,6 +13,7 @@ import com.cabinet.Cabinet.service.MemberService;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -116,7 +117,16 @@ public class MemberController {
 
 		return mav;
 	}
-
+	
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, ModelAndView mav) {
+		request.getSession().invalidate();
+		mav.addObject("data", new Message("로그아웃 되었습니다!", "/"));
+		mav.setViewName("message");
+		request.getSession(true);
+		return "redirect:/";
+	}
+	
 	@GetMapping("/mypage")
 	public String memberMypage(Model model) {
 		return "mypage";
