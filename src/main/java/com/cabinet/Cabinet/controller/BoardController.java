@@ -1,21 +1,24 @@
 package com.cabinet.Cabinet.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.cabinet.Cabinet.dao.BoardMapper;
 
 @Controller
-@RequestMapping("/board")
 public class BoardController {
 
-    @GetMapping("/intro")
-    public String boardIntro(Model model) {
-        return "story"; // Controller에서 리턴하는 String은 View의 이름
-    }
-
-    @GetMapping("/cs")
-    public String boardCS(Model model) {
-        return "cs";
-    }
+	@Resource(name="com.cabinet.Cabinet.dao.BoardMapper")
+	BoardMapper bm;
+	
+	@RequestMapping("/board")
+	private String dbTest() throws Exception {
+		System.out.println(bm.boardCount());
+		
+		return "test";
+	}
+    
 }
