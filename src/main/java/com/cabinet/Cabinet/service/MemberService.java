@@ -46,4 +46,8 @@ public class MemberService {
 		return memberDao.checkLogin(loginDTO);
 	}
 
+	public MemberDTO getInfo(String memID) {
+		memberDao = memberSqlSession.getMapper(MemberDaoInterface.class);
+		return memberDao.loginMember(memID);
+	}
 }

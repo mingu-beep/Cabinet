@@ -28,6 +28,11 @@
 		where memID = #{memID} and memPw = #{memPw};
 	</select>
 
+	<select id="loginMember" parameterType="String" resultType="com.cabinet.Cabinet.dto.MemberDTO">
+		select *
+		from TB_MEMBER
+		where memID = #{memID};
+	</select>
 	<!-- 회원 인증키(난수) 생성 -->
 	<insert id="getKey" parameterType="Map">
 		update memberInfo set member_key = #{param2} where inputId = #{param1}
