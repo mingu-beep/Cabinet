@@ -128,7 +128,13 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mypage")
-	public String memberMypage(Model model) {
+	public String memberMypage(Model model, final HttpSession session) {
+
+		Object memName = session.getAttribute("memName");
+		if (session.getAttribute("memName") != null) {
+			model.addAttribute("memName", memName);
+		}
+
 		return "mypage";
 	}
 }

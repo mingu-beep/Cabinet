@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.Date;
+
 
 @Controller
 @RequestMapping("/board")
@@ -39,12 +37,24 @@ public class BoardController {
 //	}
 
     @GetMapping("/all")
-    public String goodsAll(Model model) {
+    public String goodsAll(Model model, final HttpSession session) {
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+
         return "deal";
     }
 
     @GetMapping("/upload")
-    public String getUpload(Model model) {
+    public String getUpload(Model model, final HttpSession session) {
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+
 
         // View에서 정보를 받아오기 위해 Model에 boardDTO라는 이름으로 BoardDTO 객체를 등록한다.
         model.addAttribute("productDTO", new ProductDTO());
@@ -58,6 +68,12 @@ public class BoardController {
                              final HttpSession session,
                              HttpServletRequest req) throws IOException {
         // Model에 붙인 값을 가져오려면 Get 부분에서 추가한 객체를 받아와야한다.
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+
         String path = "C:\\attached/";
 
         if(!file.getOriginalFilename().isEmpty()) {
@@ -68,12 +84,24 @@ public class BoardController {
     }
 
     @GetMapping("/hot")
-    public String goodsHot(Model model) {
+    public String goodsHot(Model model, final HttpSession session) {
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+
         return "hot";
     }
 
     @GetMapping("/event")
-    public String goodsEvent(Model model) {
+    public String goodsEvent(Model model, final HttpSession session) {
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+
         return "event";
     }
 }
