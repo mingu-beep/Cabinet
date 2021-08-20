@@ -1,267 +1,267 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cabinet - 거래</title>
-  <!-- 부트스트랩 -->
-  <!-- Bootstrap CSS -->
-  <link
-          rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-          crossorigin="anonymous"
-  />
-  <!-- custom css -->
-  <link rel="stylesheet" href="/css/style.css" />
-</head>
-<body>
-  <header class="blog-header py-3 container">
-    <div class="row">
-      <div class="col-4"></div>
-      <div class="col-4 text-center">
-        <a href="/">
-          <img
-                  src="/img/logo.png"
-                  alt="로고"
-                  class="img-responsive center-block logo"
-          />
-        </a>
-      </div>
-      <div class="col-4 text-right">
-        <a href="/cs">고객센터</a>
-      </div>
-    </div>
-  </header>
-  <nav class="container">
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-        <div class="dropdown">
-          <button
-                  class="btn btn-notFocus dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                  style="background: none"
-          >
-            카테고리
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/intro">소개</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/shop/all">거래 게시판</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/shop/hot">핫플레이스</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/shop/event">이벤트</a>
-      </li>
-      <li class="nav-item search_wrap">
-        <div class="ml-2 my-1">
-          <form>
-            <input
-                    class="search-input"
-                    type="text"
-                    placeholder="검색"
-                    style="width: 10rem"
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cabinet - 거래</title>
+    <!-- 부트스트랩 -->
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+    />
+    <!-- custom css -->
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header class="blog-header py-3 container">
+      <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4 text-center">
+          <a href="/">
+            <img
+                    src="/img/logo.png"
+                    alt="로고"
+                    class="img-responsive center-block logo"
             />
-            <button class="search-btn" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
+          </a>
         </div>
-      </li>
-      <li class="nav-item">
-        <a th:if="${memName == null}" class="nav-link" href="/member/login">
-          <i class="fas fa-sign-in-alt fa-lg"></i>
-        </a>
-        <a
-                th:unless="${memName == null}"
-                class="nav-link"
-                href="/member/login"
-        >
-          <i class="fas fa-sign-out-alt fa-lg"></i>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a th:if="${memName == null}" class="nav-link" href="/member/join">
-          <i class="fas fa-user-plus fa-lg"></i>
-        </a>
-        <a
-                th:unless="${memName == null}"
-                class="nav-link"
-                href="/member/mypage"
-        >
-          <i class="fas fa-user fa-lg"></i>
-        </a>
-      </li>
-    </ul>
-  </nav>
-  <main class="container text-center">
-    <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
-      물건 올리기
-    </h1>
-    <form class="col-12" style="float: none; margin: 0 auto" method="POST">
-      <section class="title-section row">
-        <label
-                class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-                for="bdTitle"
-        >제목</label
-        >
-        <input
-                type="text"
-                class="form-control my-3 col-6 mx-2"
-                id="bdTitle"
-        />
-      </section>
-      <section class="category-section row">
-        <label
-                class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-        >카테고리</label
-        >
-        <select name="language">
-          <option value="none">=== 선택 ===</option>
-          <option value="korean" selected>한국어</option>
-          <option value="english">영어</option>
-          <option value="chinese">중국어</option>
-          <option value="spanish">스페인어</option>
-        </select>
-      </section>
-      <section class="type-section row">
-        <label
-                class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-        >거래방법</label
-        >
-        <select name="language">
-          <option value="none">=== 선택 ===</option>
-          <option value="korean" selected>한국어</option>
-          <option value="english">영어</option>
-          <option value="chinese">중국어</option>
-          <option value="spanish">스페인어</option>
-        </select>
-      </section>
-      <section class="price-section row">
-        <label
-                class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-                for="bdPrice"
-        >가격</label
-        >
-        <input
-                type="text"
-                class="form-control my-3 col-6 mx-2"
-                id="bdPrice"
-        />
-      </section>
-      <section class="content-section row">
-        <label
-                class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-                for="bdContent"
-        >내용</label
-        >
-        <textarea
-                type="text"
-                class="form-control my-3 col-6 mx-2"
-                id="bdContent"
-                style="height: 15rem"
-        ></textarea>
-      </section>
-      <section class="file-section row">
-        <label
-                class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-        >사진</label
-        >
-        <div class="input-group my-3 col-6 mx-2">
-          <div class="custom-file">
-            <input
-                    type="file"
-                    class="custom-file-input"
-                    id="inputGroupFile04"
-            />
-            <label class="custom-file-label" for="inputGroupFile04"
-            >사진을 선택하세요</label
+        <div class="col-4 text-right">
+          <a href="/cs">고객센터</a>
+        </div>
+      </div>
+    </header>
+    <nav class="container">
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <div class="dropdown">
+            <button
+                    class="btn btn-notFocus dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    style="background: none"
             >
+              카테고리
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
           </div>
-        </div>
-      </section>
-      <button class="btn btn-focus my-5" style="width: 5rem">올리기</button>
-      <a class="btn btn-notFocus my-5" href="all" style="width: 5rem"
-      >취소</a
-      >
-    </form>
-  </main>
-  <!-- fontawesome -->
-  <script
-          src="https://kit.fontawesome.com/f97d0d047b.js"
-          crossorigin="anonymous"
-  ></script>
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script
-          src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-          crossorigin="anonymous"
-  ></script>
-  <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-          crossorigin="anonymous"
-  ></script>
-  <script
-          src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-          crossorigin="anonymous"
-  ></script>
-</body>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/intro">소개</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/board/all">거래 게시판</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/board/hot">핫플레이스</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/board/event">이벤트</a>
+        </li>
+        <li class="nav-item search_wrap">
+          <div class="ml-2 my-1">
+            <form>
+              <input
+                      class="search-input"
+                      type="text"
+                      placeholder="검색"
+                      style="width: 10rem"
+              />
+              <button class="search-btn" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a th:if="${memName == null}" class="nav-link" href="/member/login">
+            <i class="fas fa-sign-in-alt fa-lg"></i>
+          </a>
+          <a
+                  th:unless="${memName == null}"
+                  class="nav-link"
+                  href="/member/login"
+          >
+            <i class="fas fa-sign-out-alt fa-lg"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a th:if="${memName == null}" class="nav-link" href="/member/join">
+            <i class="fas fa-user-plus fa-lg"></i>
+          </a>
+          <a
+                  th:unless="${memName == null}"
+                  class="nav-link"
+                  href="/member/mypage"
+          >
+            <i class="fas fa-user fa-lg"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <main class="container text-center">
+      <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
+        물건 올리기
+      </h1>
+      <form class="col-12" style="float: none; margin: 0 auto" method="POST">
+        <section class="title-section row">
+          <label
+                  class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+                  for="bdTitle"
+          >제목</label
+          >
+          <input
+                  type="text"
+                  class="form-control my-3 col-6 mx-2"
+                  id="bdTitle"
+          />
+        </section>
+        <section class="category-section row">
+          <label
+                  class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+          >카테고리</label
+          >
+          <select name="language">
+            <option value="none">=== 선택 ===</option>
+            <option value="korean" selected>한국어</option>
+            <option value="english">영어</option>
+            <option value="chinese">중국어</option>
+            <option value="spanish">스페인어</option>
+          </select>
+        </section>
+        <section class="type-section row">
+          <label
+                  class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+          >거래방법</label
+          >
+          <select name="language">
+            <option value="none">=== 선택 ===</option>
+            <option value="korean" selected>한국어</option>
+            <option value="english">영어</option>
+            <option value="chinese">중국어</option>
+            <option value="spanish">스페인어</option>
+          </select>
+        </section>
+        <section class="price-section row">
+          <label
+                  class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+                  for="bdPrice"
+          >가격</label
+          >
+          <input
+                  type="text"
+                  class="form-control my-3 col-6 mx-2"
+                  id="bdPrice"
+          />
+        </section>
+        <section class="content-section row">
+          <label
+                  class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+                  for="bdContent"
+          >내용</label
+          >
+          <textarea
+                  type="text"
+                  class="form-control my-3 col-6 mx-2"
+                  id="bdContent"
+                  style="height: 15rem"
+          ></textarea>
+        </section>
+        <section class="file-section row">
+          <label
+                  class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+          >사진</label
+          >
+          <div class="input-group my-3 col-6 mx-2">
+            <div class="custom-file">
+              <input
+                      type="file"
+                      class="custom-file-input"
+                      id="inputGroupFile04"
+              />
+              <label class="custom-file-label" for="inputGroupFile04"
+              >사진을 선택하세요</label
+              >
+            </div>
+          </div>
+        </section>
+        <button class="btn btn-focus my-5" style="width: 5rem">올리기</button>
+        <a class="btn btn-notFocus my-5" href="all" style="width: 5rem"
+        >취소</a
+        >
+      </form>
+    </main>
+    <!-- fontawesome -->
+    <script
+            src="https://kit.fontawesome.com/f97d0d047b.js"
+            crossorigin="anonymous"
+    ></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"
+    ></script>
+    <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

@@ -108,13 +108,13 @@ public class MemberController {
 			session.setMaxInactiveInterval(60*5);
 
 			mav.addObject("data", new Message(memberDTO.getMemName() + "님 환영합니다!", "/"));
-			mav.setViewName("message");
+
 		}
 		else {
 			mav.addObject("data", new Message("아이디 혹은 비밀번호를 확인해주세요.", "login"));
-			mav.setViewName("message");
 		}
 
+		mav.setViewName("message");
 		return mav;
 	}
 	
