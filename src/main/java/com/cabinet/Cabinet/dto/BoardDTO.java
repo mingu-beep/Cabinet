@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class BoardDTO {
 
 	private String bdTitle;
@@ -13,13 +15,13 @@ public class BoardDTO {
 	private String writer;
 	private Date writeDate;
 
-	private String bdImg;
+	private MultipartFile bdImg;
 
-	public String getBdImg() {
+	public MultipartFile getBdImg() {
 		return bdImg;
 	}
 
-	public void setBdImg(String bdImg) {
+	public void setBdImg(MultipartFile bdImg) {
 		this.bdImg = bdImg;
 	}
 
