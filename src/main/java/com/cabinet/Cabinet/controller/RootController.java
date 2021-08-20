@@ -12,11 +12,13 @@ public class RootController {
     @GetMapping("/")
     public String home(Model model, final HttpSession session) {
 
-        Object memID = session.getAttribute("memID");
-        if (memID != null) {
-            System.out.println(memID);
-            model.addAttribute("memID", memID.toString());
+        Object memName = session.getAttribute("memName");
+        if (memName != null) {
+            System.out.println("I'm here");
+            System.out.println(memName);
+            model.addAttribute("memName", memName);
         }
+        System.out.println("Out Here");
         return "index";
     }
 }

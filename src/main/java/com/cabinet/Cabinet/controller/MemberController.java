@@ -117,7 +117,7 @@ public class MemberController {
 		return mav;
 	}
 
-	@GetMapping("/my")
+	@GetMapping("/mypage")
 	public String memberMypage(Model model) {
 		return "mypage";
 	}
