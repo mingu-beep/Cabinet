@@ -30,7 +30,7 @@
           </a>
         </div>
         <div class="col-4 text-right">
-          <a href="/board/cs">고객센터</a>
+          <a href="/cs">고객센터</a>
         </div>
       </div>
     </header>
@@ -55,7 +55,7 @@
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/board/intro">소개</a>
+          <a class="nav-link" href="/intro">소개</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/shop/all">거래 게시판</a>
@@ -85,7 +85,11 @@
           <a th:if="${memName == null}" class="nav-link" href="/member/login">
             <i class="fas fa-sign-in-alt fa-lg"></i>
           </a>
-          <a th:unless="${memName == null}" class="nav-link" href="/member/login">
+          <a
+                  th:unless="${memName == null}"
+                  class="nav-link"
+                  href="/member/login"
+          >
             <i class="fas fa-sign-out-alt fa-lg"></i>
           </a>
         </li>
@@ -93,7 +97,11 @@
           <a th:if="${memName == null}" class="nav-link" href="/member/join">
             <i class="fas fa-user-plus fa-lg"></i>
           </a>
-          <a th:unless="${memName == null}" class="nav-link" href="/member/mypage">
+          <a
+                  th:unless="${memName == null}"
+                  class="nav-link"
+                  href="/member/mypage"
+          >
             <i class="fas fa-user fa-lg"></i>
           </a>
         </li>
