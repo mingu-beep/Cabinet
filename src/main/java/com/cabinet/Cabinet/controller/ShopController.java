@@ -15,6 +15,11 @@ public class ShopController {
         return "deal";
     }
 
+    @GetMapping("/upload")
+    public String goodsUpload(Model model) {
+        return "upload";
+    }
+
     @GetMapping("/hot")
     public String goodsHot(Model model) {
         return "hot";
