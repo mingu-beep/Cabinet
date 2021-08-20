@@ -1,13 +1,11 @@
 package com.cabinet.Cabinet.controller;
 
-import java.lang.reflect.Member;
-
 import com.cabinet.Cabinet.dto.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import com.cabinet.Cabinet.dto.MemberDTO;
@@ -51,23 +49,26 @@ public class MemberController {
 
 	//회원가입 컨트롤러
 	@PostMapping("/join")
-	public ModelAndView memberPass(ModelAndView mav, @Valid MemberDTO memberDTO, BindingResult bindingResult) {
-		//회원가입 메서드
-		if(bindingResult.hasErrors()) {
-			mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
+	public ModelAndView memberPass(ModelAndView mav, @Valid MemberDTO memberDTO, BindingResult errors) {
+
+		System.out.println(errors.hasErrors());
+		if(errors.hasErrors()) {
+			System.out.println("I'm here!");
+			mav.addObject("data", new Message("올바른 정보를 입력해주세요", "join"));
 			mav.setViewName("message");
 		}
-		try {
-			member_service.member_service(memberDTO);
-			mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
-			mav.setViewName("message");
+		else{
+			//회원가입 메서드
+			try {
+				member_service.member_service(memberDTO);
+				mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
+				mav.setViewName("message");
+			}
+			catch (Exception e) {
+				mav.addObject("data", new Message("중복 정보가 존재합니다.\n다시 입력해주세요.", "join"));
+				mav.setViewName("message");
+			}
 		}
-		catch (Exception e) {
-			mav.addObject("data", new Message("중복된 정보입니다.", "join"));
-			mav.setViewName("message");
-		}
-		//인증 메일 보내기 메서드
-//		mail_sender.mailSendWithUserKey(memberDTO.getMem_email(), memberDTO.getMem_id());
 
 		return mav;
 	}
