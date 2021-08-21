@@ -11,13 +11,11 @@
 			bdNo,
 			memID,
 			bdTitle,
-			bdView,
 			bdContent 
 		)values(
 			#{bdNo},
 			#{writer},
 			#{bdTitle},
-			#{bdImg},
 			#{bdContent}
 		)
 	</insert>
@@ -25,6 +23,12 @@
 		insert into TB_BOARD (ctNo, memID, memName, bdTitle, bdContent, bdDate)
 		values (#{ctNo}, #{memID}, #{memName}, #{bdTitle}, #{bdContent}, #{writeDate})
 	</insert>
+	<select id="boardNo">
+		SELECT
+		bdNo 
+		FROM
+		TB_BOARD
+	</select>
 	<!--<select id="getBoard">
             SELECT
             bdNo, memID, bdTitle,  bdView, bdContent
