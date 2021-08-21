@@ -30,7 +30,21 @@ import java.util.Map;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+//Spring 웹의 구동 방식
+//            1. Controller에서 RequestMapping을 통해 알맞은 Controller가 실행된다.
+//                - 이때 RequestMapping은 각각 GetMapping과 PostMapping으로 대체 가능
+//                - 반환형이 String일때에는 보여주고자하는 페이지를 구현한 html파일 이름을 return 해야 화면에 출력된다.
+//                - 종종 메서드가 Model값을 받아오는 경우가 있는데, 이는 웹페이지에 보여주거나 받아오고 싶은 객체를 addAttribute를 통해 붙여 전달할 때 사용된다.
+//                - DTO는 데이터를 담는 통, Model과의 차이점은 모델은 칸막이가 없다면 DTO는 칸막이가 있어 우리가 이름을 미리 붙여놓을 수 있고,
+//                model을 통해서만 html로 보낼 수 있다..
+//                - DAO는 직접적으로 데이터베이스와 통신하는 객체
+//            2. Model에 붙힌 DTO를 통해 모델에서 받은 값을 이용할 수 있다. 즉 model을 사용하는 경우에는 Controller파일에서 하는게 좋을거 같다
+//            3. model을 직접 사용하지 않고 데이터만을 사용하는 경우 Service에서 일반 클래스 구현하듯 구현하면 된다.
+//            4. 처리가 끝난 데이터를 Dao에 전달하면 자동으로 mapper가 그 값을 받아 미리 입력해둔 쿼리가 실행되어 데이터베이스와 연동된다.
 
+//    ** DTO에 구현하는 것 : 우리가 받아오고자하는 데이터, 메서드는 getter setter만 구현하는게 일반적
+//    ** DAO에 구현하는 것 : 데이터베이스에서 하고자하는 일들을 추상화 메서드로 구현한다.
+//    ** mapper에 구현하는 것 : 실제적인 데이터베이스 쿼리, 이때 parameterType에는 메서드에서 받는 데이터 타입을 명시하고 resultType은 흔히 우리가 말하는 return Type과 같다
     @Autowired
     private BoardService boardService;
     private BoardDao boardDao;
@@ -43,26 +57,28 @@ public class BoardController {
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-        int startPage = (paramMap.get("startPage")!=null?Integer.parseInt(paramMap.get("startPage").toString()):1);
-        
-        int visiblePages = (paramMap.get("visiblePages")!=null?Integer.parseInt(paramMap.get("visiblePages").toString()):10);
-        
-        //전체 건수 가져오기
-        int totalCnt = boardDao.getContentCnt(paramMap);
-        
-        int startLimitPage = 0;
-        //2.mysql limit 범위를 구하기 위해 계산
-        if(startPage==1){
-            startLimitPage = 0;
-        }else{
-            startLimitPage = (startPage-1)*visiblePages;
-        }
-        
-        paramMap.put("start", startLimitPage);
-        
-        //view 에서 보여줄 정보 추출
-        model.addAttribute("startPage", startPage+"");//현재 페이지
-        return "goodsAll";
+//        int startPage = (paramMap.get("startPage")!=null?Integer.parseInt(paramMap.get("startPage").toString()):1);
+//
+//        int visiblePages = (paramMap.get("visiblePages")!=null?Integer.parseInt(paramMap.get("visiblePages").toString()):10);
+//
+//        //전체 건수 가져오기
+//        int totalCnt = boardDao.getContentCnt(paramMap);
+//
+//        int startLimitPage = 0;
+//        //2.mysql limit 범위를 구하기 위해 계산
+//        if(startPage==1){
+//            startLimitPage = 0;
+//        }else{
+//            startLimitPage = (startPage-1)*visiblePages;
+//        }
+//
+//        paramMap.put("start", startLimitPage);
+//
+//        //view 에서 보여줄 정보 추출
+//        model.addAttribute("startPage", startPage+"");//현재 페이지
+
+        return "deal"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
+                           // 따라서 return 값은 html 파일 이름!
     }
 
     @GetMapping("/detail")
