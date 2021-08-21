@@ -7,7 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 @Repository("imgDao")
-public class ImgDao {
+public class ImgDAO {
 
 	    private SqlSession query;
 

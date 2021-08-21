@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.cabinet.Cabinet.dto.MemberDTO;
 
-public interface MemberDaoInterface {
+public interface MemberDAO {
 
 	//유저정보
 	int regMember(MemberDTO memberDTO) throws SQLException; //유저 회원가입 메서드

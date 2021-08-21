@@ -7,7 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cabinet.Cabinet.dao.MemberDaoInterface;
+import com.cabinet.Cabinet.dao.MemberDAO;
 import com.cabinet.Cabinet.dto.MemberDTO;
 
 @Service
@@ -15,13 +15,13 @@ public class MemberService {
 
 	@Autowired
 	private SqlSessionTemplate memberSqlSession;
-	private MemberDaoInterface memberDao;
+	private MemberDAO memberDao;
 
 	//회원가입 서비스
 	public int member_service(MemberDTO memberDTO) {
 		int resultCnt = 0;
 
-		memberDao = memberSqlSession.getMapper(MemberDaoInterface.class);
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		try {
 			resultCnt = memberDao.regMember(memberDTO);
 			if (memberDTO.getMemID().substring(0, 5).equals("admin")) {
@@ -35,22 +35,22 @@ public class MemberService {
 	}
 
 	public boolean checkIdDuplicate(String id) {
-		memberDao = memberSqlSession.getMapper(MemberDaoInterface.class);
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		return memberDao.existById(id);
 	}
 
 	public boolean checkEmailDuplicate(String email) {
-		memberDao = memberSqlSession.getMapper(MemberDaoInterface.class);
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		return memberDao.existByEmail(email);
 	}
 
 	public boolean checkIdAndPw(LoginDTO loginDTO) {
-		memberDao = memberSqlSession.getMapper(MemberDaoInterface.class);
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		return memberDao.checkLogin(loginDTO);
 	}
 
 	public MemberDTO getInfo(String memID) {
-		memberDao = memberSqlSession.getMapper(MemberDaoInterface.class);
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		return memberDao.loginMember(memID);
 	}
 }

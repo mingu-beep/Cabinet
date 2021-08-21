@@ -9,26 +9,44 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BoardDTO {
 
-	private String bdNo;
+	private String ctNo;
 	private String bdTitle;
 	private String bdContent;
-	private String writer;
+	private String memID;
+	private String memName;
 	private Date writeDate;
-	private MultipartFile bdImg;
+	private String bdImg;
 
-	
-	public String getBdNo() {
-		return bdNo;
+
+	public String getMemID() {
+		return memID;
 	}
 
-	public void setBdNo(String bdNo) {
-		this.bdNo = bdNo;
+	public void setMemID(String memID) {
+		this.memID = memID;
 	}
-	public MultipartFile getBdImg() {
+
+	public String getMemName() {
+		return memName;
+	}
+
+	public void setMemName(String memName) {
+		this.memName = memName;
+	}
+
+	public String getCtNo() {
+		return ctNo;
+	}
+
+	public void setCtNo(String ctNo) {
+		this.ctNo = ctNo;
+	}
+
+	public String getBdImg() {
 		return bdImg;
 	}
 
-	public void setBdImg(MultipartFile bdImg) {
+	public void setBdImg(String bdImg) {
 		this.bdImg = bdImg;
 	}
 
@@ -46,14 +64,6 @@ public class BoardDTO {
 
 	public void setBdContent(String bdContent) {
 		this.bdContent = bdContent;
-	}
-
-	public String getWriter() {
-		return writer;
-	}
-
-	public void setWriter(String writer) {
-		this.writer = writer;
 	}
 
 	public Date getWriteDate() {

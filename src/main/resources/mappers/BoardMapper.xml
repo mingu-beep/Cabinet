@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
-<mapper namespace="com.cabinet.Cabinet.dao.BoardDao">
+<mapper namespace="com.cabinet.Cabinet.dao.BoardDAO">
 <!-- mapper의 namespace에는 연결할 Dao의 경로를 적어주면 자동으로 연결된다-->
 	<insert id="insertContent" parameterType="java.util.HashMap">
 	<!-- id에는 Dao에서 선언한 메서드의 이름과 같게 설정해야 추상화 메서드를 구체화한 효과를 얻을 수 있다. -->
@@ -21,164 +21,168 @@
 			#{bdContent}
 		)
 	</insert>
-	<select id="getBoard">
-		SELECT 
-		bdNo, memID, bdTitle,  bdView, bdContent
-		FROM
-		TB_BOARD
-		ORDER BY bdNo asc 
-	</select>
-<!--<insert id="updateContent" parameterType="java.util.HashMap">
-		update board set
-			memID = #{writer},
-			bdTitle = #{bdTitle},
-			bdContent = #{bdContent}
-			bdView = #{bdImg}
-		where
-			bdNo = #{bdNo}
+	<insert id="addBoard" parameterType="com.cabinet.Cabinet.dto.BoardDTO">
+		insert into TB_BOARD (ctNo, memID, memName, bdTitle, bdContent, bdDate)
+		values (#{ctNo}, #{memID}, #{memName}, #{bdTitle}, #{bdContent}, #{writeDate})
 	</insert>
-	<insert id="saveImage" parameterType="java.util.Map">
-		INSERT INTO 
-		TB_BOARD 
-		VALUES(#{bdView})	
-	</insert>
-	<select id="getImg" resultType="java.util.Map">
-		SELECT bdView
-		FROM TB_BOARD
-	</select>
-	<select id="selectContentCnt" resultType="int" parameterType="java.util.HashMap">
-        select
-            count(bdNo)
-        from
+	<!--<select id="getBoard">
+            SELECT
+            bdNo, memID, bdTitle,  bdView, bdContent
+            FROM
             TB_BOARD
-    </select>
-    <select id="selectContent" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
-        select
-            bdNo,
-            bdTitle,
-            bdContent,
-            memID,
-            date_format(register_datetime, '%Y-%m-%d %H:%i:%s') comDate
-        from
+            ORDER BY bdNo asc
+        </select>
+        <insert id="updateContent" parameterType="java.util.HashMap">
+            update board set
+                memID = #{writer},
+                bdTitle = #{bdTitle},
+                bdContent = #{bdContent}
+                bdView = #{bdImg}
+            where
+                bdNo = #{bdNo}
+        </insert>
+        <insert id="saveImage" parameterType="java.util.Map">
+            INSERT INTO
             TB_BOARD
-        order by bdNo
-        limit #{start}, #{end}
-    </select>
-    <select id="selectContentView" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
-        select
-            bdNo,
-            bdTitle,
-            bdContent,
-            memID,
-            date_format(register_datetime, '%Y-%m-%d %H:%i:%s') comDate
-        from
-            TB_BOARD
-        where
-            bdNo = #{bdNo}
-    </select>
-    <insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="reply_id">
-        insert into TB_REPLY(
-            boardNo,
-            parentNo,
-            depth,
-            replyContent,
-            replyWriter,
-            replyPassword
-        )values(
-            #{boardNo},
-            #{parentNo},
-            #{depth},
-            #{replyContent},
-            #{replyWriter},
-            #{replyPassword}
-        )
-    </insert>
-    <select id="selectBoardReplyList" resultType="com.cabinet.Cabinet.dto.BoardReply" parameterType="java.util.HashMap">
-        select
-            replyNo,
-            boardNo,
-            parentNo,
-            depth,
-            replyContent,
-            replyWriter,
-            replyPassword
-        from
-            TB_REPLY
-        where
-            boardNo = #{bdNo}
-        order by replyNo asc
-    </select>
-    <delete id="deleteBoardReply" parameterType="java.util.HashMap">
-        delete
-        from
-            TB_REPLY
-        where
-            replyNo = #{replyNo}
-            and replyPassword = #{replyPassword}
-    </delete>
-    <delete id="deleteBoardReplyAll" parameterType="java.util.HashMap">
-        delete
-        from
-            TB_REPLY
-        where
-            replyNo in (
-                select
-                    replyNo
-                from
-                (select
-                    replyNo
-                from
-                    TB_REPLY
-                where
-                    replyNo = #{replyNo}
-                    and replyPassword = #{replyPassword}) a
-            ) or parentNo in (
-                select
-                    replyNo
-                from
-                (select
-                    replyNo
-                from
-                    TB_REPLY
-                where
-                    replyNo = #{replyNo}
-                    and replyPassword = #{replyPassword}) a
+            VALUES(#{bdView})
+        </insert>
+        <select id="getImg" resultType="java.util.Map">
+            SELECT bdView
+            FROM TB_BOARD
+        </select>
+        <select id="selectContentCnt" resultType="int" parameterType="java.util.HashMap">
+            select
+                count(bdNo)
+            from
+                TB_BOARD
+        </select>
+        <select id="selectContent" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
+            select
+                bdNo,
+                bdTitle,
+                bdContent,
+                memID,
+                date_format(register_datetime, '%Y-%m-%d %H:%i:%s') comDate
+            from
+                TB_BOARD
+            order by bdNo
+            limit #{start}, #{end}
+        </select>
+        <select id="selectContentView" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
+            select
+                bdNo,
+                bdTitle,
+                bdContent,
+                memID,
+                date_format(register_datetime, '%Y-%m-%d %H:%i:%s') comDate
+            from
+                TB_BOARD
+            where
+                bdNo = #{bdNo}
+        </select>
+        <insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="reply_id">
+            insert into TB_REPLY(
+                boardNo,
+                parentNo,
+                depth,
+                replyContent,
+                replyWriter,
+                replyPassword
+            )values(
+                #{boardNo},
+                #{parentNo},
+                #{depth},
+                #{replyContent},
+                #{replyWriter},
+                #{replyPassword}
             )
-    </delete>
-    <select id="selectBoardCnt" resultType="int" parameterType="java.util.HashMap">
-        select
-            count(bdNo)
-        from
-            TB_BOARD
-        where
-            bdNo = #{bdNo}
-    </select>
-    <delete id="deleteBoard" parameterType="java.util.HashMap">
-        delete
-        from
-            TB_BOARD
-        where
-            bdNo = #{bdNo}
-    </delete>
-    <select id="selectReplyPassword" resultType="int" parameterType="java.util.HashMap">
-        select
-            count(*)
-        from
-            TB_REPLY
-        where
-            replyNo = #{replyNo}
-            and replyPassword = #{replyPassword}
-    </select>
-    <update id="updateReply" parameterType="java.util.HashMap">
-        update
-            TB_REPLY
-        set
-            parentNo = #{parentNo},
-            depth = #{depth},
-            replyContent = #{replyContent},
-            replyWriter = #{replyWriter},
-            replyPassword = #{replyPassword}
-        where
-            replyNo = #{replyNo}
-    </update> -->
+        </insert>
+        <select id="selectBoardReplyList" resultType="com.cabinet.Cabinet.dto.BoardReply" parameterType="java.util.HashMap">
+            select
+                replyNo,
+                boardNo,
+                parentNo,
+                depth,
+                replyContent,
+                replyWriter,
+                replyPassword
+            from
+                TB_REPLY
+            where
+                boardNo = #{bdNo}
+            order by replyNo asc
+        </select>
+        <delete id="deleteBoardReply" parameterType="java.util.HashMap">
+            delete
+            from
+                TB_REPLY
+            where
+                replyNo = #{replyNo}
+                and replyPassword = #{replyPassword}
+        </delete>
+        <delete id="deleteBoardReplyAll" parameterType="java.util.HashMap">
+            delete
+            from
+                TB_REPLY
+            where
+                replyNo in (
+                    select
+                        replyNo
+                    from
+                    (select
+                        replyNo
+                    from
+                        TB_REPLY
+                    where
+                        replyNo = #{replyNo}
+                        and replyPassword = #{replyPassword}) a
+                ) or parentNo in (
+                    select
+                        replyNo
+                    from
+                    (select
+                        replyNo
+                    from
+                        TB_REPLY
+                    where
+                        replyNo = #{replyNo}
+                        and replyPassword = #{replyPassword}) a
+                )
+        </delete>
+        <select id="selectBoardCnt" resultType="int" parameterType="java.util.HashMap">
+            select
+                count(bdNo)
+            from
+                TB_BOARD
+            where
+                bdNo = #{bdNo}
+        </select>
+        <delete id="deleteBoard" parameterType="java.util.HashMap">
+            delete
+            from
+                TB_BOARD
+            where
+                bdNo = #{bdNo}
+        </delete>
+        <select id="selectReplyPassword" resultType="int" parameterType="java.util.HashMap">
+            select
+                count(*)
+            from
+                TB_REPLY
+            where
+                replyNo = #{replyNo}
+                and replyPassword = #{replyPassword}
+        </select>
+        <update id="updateReply" parameterType="java.util.HashMap">
+            update
+                TB_REPLY
+            set
+                parentNo = #{parentNo},
+                depth = #{depth},
+                replyContent = #{replyContent},
+                replyWriter = #{replyWriter},
+                replyPassword = #{replyPassword}
+            where
+                replyNo = #{replyNo}
+        </update> -->
 </mapper>

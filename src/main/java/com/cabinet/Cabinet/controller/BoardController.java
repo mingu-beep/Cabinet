@@ -1,7 +1,7 @@
 package com.cabinet.Cabinet.controller;
 
-import com.cabinet.Cabinet.dao.BoardDao;
-import com.cabinet.Cabinet.dao.ImgDao;
+import com.cabinet.Cabinet.dao.BoardDAO;
+import com.cabinet.Cabinet.dao.ImgDAO;
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.service.BoardService;
@@ -47,7 +47,7 @@ public class BoardController {
 //    ** mapper에 구현하는 것 : 실제적인 데이터베이스 쿼리, 이때 parameterType에는 메서드에서 받는 데이터 타입을 명시하고 resultType은 흔히 우리가 말하는 return Type과 같다
     @Autowired
     private BoardService boardService;
-    private BoardDao boardDao;
+    private BoardDAO boardDao;
     
     //deal
     @GetMapping("/all")
@@ -83,8 +83,8 @@ public class BoardController {
 
     @GetMapping("/detail")
     public String detailView(@RequestParam Map<String, Object> paramMap, Model model) {
-    	model.addAttribute("replyList", boardDao.getReplyList(paramMap));
-    	model.addAttribute("detailView", boardDao.getContentView(paramMap));
+    	//model.addAttribute("replyList", boardDao.getReplyList(paramMap));
+    	//model.addAttribute("detailView", boardDao.getContentView(paramMap));
     	
     	return "detailView";
     }
@@ -118,7 +118,8 @@ public class BoardController {
                 String path = "C:\\attached/" + file.getOriginalFilename();
                 file.transferTo(new File(path));
 
-                boardDTO.setWriter(session.getAttribute("memName").toString());
+                boardDTO.setMemID(session.getAttribute("memID").toString());
+                boardDTO.setMemName(session.getAttribute("memName").toString());
                 productDTO.setPdImg(path);
 
                 boardService.setBoardData(boardDTO, productDTO);
@@ -126,11 +127,11 @@ public class BoardController {
             }
 
         }
-        return "all";
+        return "deal";
     }
 
     @Autowired
-    private ImgDao imgDao;
+    private ImgDAO imgDao;
 
     @RequestMapping(value="/formFile")
     public String formFile() {
