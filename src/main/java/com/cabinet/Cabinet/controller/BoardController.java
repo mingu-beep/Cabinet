@@ -62,7 +62,6 @@ public class BoardController {
             model.addAttribute("memName", memName);
         }
 
-
         // View에서 정보를 받아오기 위해 Model에 boardDTO라는 이름으로 BoardDTO 객체를 등록한다.
         model.addAttribute("productDTO", new ProductDTO());
         model.addAttribute("boardDTO", new BoardDTO());
@@ -79,20 +78,25 @@ public class BoardController {
         Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
+
+            if(!file.getOriginalFilename().isEmpty()) {
+                String path = "C:\\attached/" + file.getOriginalFilename();
+                file.transferTo(new File(path));
+
+                boardDTO.setWriter(session.getAttribute("memName").toString());
+                productDTO.setPdImg(path);
+
+                boardService.setBoardData(boardDTO, productDTO);
+
+            }
+
         }
-
-        String path = "C:\\attached/";
-
-        if(!file.getOriginalFilename().isEmpty()) {
-            file.transferTo(new File(path + file.getOriginalFilename()));
-        }
-
         return "all";
     }
 
     @Autowired
     private ImgDao imgDao;
-    
+
     @RequestMapping(value="/formFile")
     public String formFile() {
     	return "formFile";
@@ -122,6 +126,8 @@ public class BoardController {
     	headers.setContentType(MediaType.IMAGE_PNG);
     	return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
     }
+
+
     @GetMapping("/hot")
     public String goodsHot(Model model, final HttpSession session) {
 

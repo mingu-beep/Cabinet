@@ -5,12 +5,29 @@ import java.util.Date;
 public class ProductDTO {
 
     private int ctNo;
-
+    private int bdNo;
     private int pdPrice;
     private int dealType;
     private String pdName;
     private String memID;
     private String location;
+    private String pdImg;
+
+    public String getPdImg() {
+        return pdImg;
+    }
+
+    public void setPdImg(String pdImg) {
+        this.pdImg = pdImg;
+    }
+
+    public int getBdNo() {
+        return bdNo;
+    }
+
+    public void setBdNo(int bdNo) {
+        this.bdNo = bdNo;
+    }
 
     public int getCtNo() {
         return ctNo;

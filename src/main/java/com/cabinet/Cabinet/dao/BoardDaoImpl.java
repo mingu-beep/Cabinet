@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cabinet.Cabinet.dto.BoardDTO;
@@ -14,7 +15,7 @@ import com.cabinet.Cabinet.dto.BoardReply;
 
 @Repository("boardD")
 public class BoardDaoImpl implements BoardDao{
-	@Inject
+	@Autowired
 	private SqlSession sqlSession;
 	
 	private static final String Namespace = "com.cabinet.Cabinet.mapper.boardMapper";
