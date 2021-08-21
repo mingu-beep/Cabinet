@@ -6,18 +6,27 @@
 <mapper namespace="com.cabinet.Cabinet.mapper.boardMapper">
 	<insert id="insertContent" parameterType="java.util.HashMap">
 		insert into TB_BOARD (
+			bdNo,
 			memID,
 			bdTitle,
 			bdView,
 			bdContent 
 		)values(
+			#{bdNo},
 			#{writer},
 			#{bdTitle},
 			#{bdImg},
 			#{bdContent}
 		)
 	</insert>
-	<insert id="updateContent" parameterType="java.util.HashMap">
+	<select id="getBoard">
+		SELECT 
+		bdNo, memID, bdTitle,  bdView, bdContent
+		FROM
+		TB_BOARD
+		ORDER BY bdNo asc 
+	</select>
+<!--<insert id="updateContent" parameterType="java.util.HashMap">
 		update board set
 			memID = #{writer},
 			bdTitle = #{bdTitle},
@@ -25,6 +34,11 @@
 			bdView = #{bdImg}
 		where
 			bdNo = #{bdNo}
+	</insert>
+	<insert id="saveImage" parameterType="java.util.Map">
+		INSERT INTO 
+		TB_BOARD 
+		VALUES(#{bdView})	
 	</insert>
 	<select id="getImg" resultType="java.util.Map">
 		SELECT bdView
@@ -164,5 +178,5 @@
             replyPassword = #{replyPassword}
         where
             replyNo = #{replyNo}
-    </update>
+    </update> -->
 </mapper>

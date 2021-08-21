@@ -1,5 +1,6 @@
 package com.cabinet.Cabinet.controller;
 
+import com.cabinet.Cabinet.dao.BoardDao;
 import com.cabinet.Cabinet.dao.ImgDao;
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
@@ -32,28 +33,46 @@ public class BoardController {
 
     @Autowired
     private BoardService boardService;
-
-//	@Resource(name="com.cabinet.Cabinet.dao.BoardMapper")
-//	BoardMapper bm;
-//
-//	@RequestMapping("/board")
-//	private String dbTest() throws Exception {
-//		System.out.println(bm.boardCount());
-//
-//		return "test";
-//	}
-
+    private BoardDao boardDao;
+    
+    //deal
     @GetMapping("/all")
-    public String goodsAll(Model model, final HttpSession session) {
+    public String goodsAll(Model model, final HttpSession session, @RequestParam Map<String, Object> paramMap) {
 
         Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-
-        return "deal";
+        int startPage = (paramMap.get("startPage")!=null?Integer.parseInt(paramMap.get("startPage").toString()):1);
+        
+        int visiblePages = (paramMap.get("visiblePages")!=null?Integer.parseInt(paramMap.get("visiblePages").toString()):10);
+        
+        //전체 건수 가져오기
+        int totalCnt = boardDao.getContentCnt(paramMap);
+        
+        int startLimitPage = 0;
+        //2.mysql limit 범위를 구하기 위해 계산
+        if(startPage==1){
+            startLimitPage = 0;
+        }else{
+            startLimitPage = (startPage-1)*visiblePages;
+        }
+        
+        paramMap.put("start", startLimitPage);
+        
+        //view 에서 보여줄 정보 추출
+        model.addAttribute("startPage", startPage+"");//현재 페이지
+        return "goodsAll";
     }
 
+    @GetMapping("/detail")
+    public String detailView(@RequestParam Map<String, Object> paramMap, Model model) {
+    	model.addAttribute("replyList", boardDao.getReplyList(paramMap));
+    	model.addAttribute("detailView", boardDao.getContentView(paramMap));
+    	
+    	return "detailView";
+    }
+    
     @GetMapping("/upload")
     public String getUpload(Model model, final HttpSession session) {
 

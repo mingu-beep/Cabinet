@@ -9,14 +9,21 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BoardDTO {
 
+	private String bdNo;
 	private String bdTitle;
 	private String bdContent;
-
 	private String writer;
 	private Date writeDate;
-
 	private MultipartFile bdImg;
 
+	
+	public String getBdNo() {
+		return bdNo;
+	}
+
+	public void setBdNo(String bdNo) {
+		this.bdNo = bdNo;
+	}
 	public MultipartFile getBdImg() {
 		return bdImg;
 	}

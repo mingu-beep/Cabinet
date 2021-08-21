@@ -13,7 +13,7 @@ import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.BoardReply;
 
 
-@Repository("boardD")
+@Repository("boardDaoImpl")
 public class BoardDaoImpl implements BoardDao{
 	@Autowired
 	private SqlSession sqlSession;
