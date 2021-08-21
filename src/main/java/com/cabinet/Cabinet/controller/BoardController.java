@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,7 +109,7 @@ public class BoardController {
     public String postUpload(Model model, BoardDTO boardDTO, ProductDTO productDTO,
                              @RequestParam("file") MultipartFile file,
                              final HttpSession session,
-                             HttpServletRequest req) throws IOException {
+                             HttpServletRequest req) throws IOException, ParseException {
         // Model에 붙인 값을 가져오려면 Get 부분에서 추가한 객체를 받아와야한다.
 
         Object memName = session.getAttribute("memName");
@@ -117,11 +119,9 @@ public class BoardController {
             if(!file.getOriginalFilename().isEmpty()) {
                 String path = "C:\\attached/" + file.getOriginalFilename();
                 file.transferTo(new File(path));
-
-//                System.out.println(boardDao.boardNo(boardDTO));
-                System.out.println(productDTO.getPdName());
                 boardDTO.setMemID(session.getAttribute("memID").toString());
                 boardDTO.setMemName(session.getAttribute("memName").toString());
+                productDTO.setMemID(session.getAttribute("memID").toString());
                 productDTO.setPdImg(path);
 
                 boardService.setBoardData(boardDTO, productDTO);

@@ -12,6 +12,15 @@ public class ProductDTO {
     private String memID;
     private String location;
     private String pdImg;
+    private Date pdUpDate;
+
+    public Date getPdDate() {
+        return pdUpDate;
+    }
+
+    public void setPdDate(Date pdUpDate) {
+        this.pdUpDate = pdUpDate;
+    }
 
     public String getPdImg() {
         return pdImg;

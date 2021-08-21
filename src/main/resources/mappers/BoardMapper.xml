@@ -23,13 +23,19 @@
 		insert into TB_BOARD (ctNo, memID, memName, bdTitle, bdContent, bdDate)
 		values (#{ctNo}, #{memID}, #{memName}, #{bdTitle}, #{bdContent}, #{writeDate})
 	</insert>
-	<select id="boardNo" parameterType="com.cabinet.Cabinet.dto.BoardDTO" resultType="int">
+	<select id="boardNo" parameterType="com.cabinet.Cabinet.dto.BoardDTO" resultType="_int">
 		SELECT
-		bdNo 
+			bdNo
 		FROM
-		TB_BOARD
-		where memID=#{memID} and bdDate=#{writeDate} and bdTitle=#{bdTitle}
+			TB_BOARD
+		WHERE
+			memID=#{memID} and bdDate=#{writeDate} and bdTitle=#{bdTitle}
 	</select>
+
+	<insert id="addProduct" parameterType="com.cabinet.Cabinet.dto.ProductDTO">
+		insert into TB_PRODUCT (bdNo, ctNo, pdName, pdUpDate, pdImg, pdPrice, dealType, memID)
+		values (#{bdNo}, #{ctNo}, #{pdName}, #{pdUpDate}, #{pdImg}, #{pdPrice}, #{dealType}, #{memID})
+	</insert>
 	<!--<select id="getBoard">
             SELECT
             bdNo, memID, bdTitle,  bdView, bdContent
