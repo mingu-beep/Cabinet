@@ -118,6 +118,8 @@ public class BoardController {
                 String path = "C:\\attached/" + file.getOriginalFilename();
                 file.transferTo(new File(path));
 
+
+                System.out.println(productDTO.getPdName());
                 boardDTO.setMemID(session.getAttribute("memID").toString());
                 boardDTO.setMemName(session.getAttribute("memName").toString());
                 productDTO.setPdImg(path);
