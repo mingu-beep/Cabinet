@@ -58,7 +58,9 @@ public class MemberController {
 		else{
 			//회원가입 메서드
 			try {
+				System.out.println("회원가입 In");
 				memberService.member_service(memberDTO);
+				System.out.println("회원가입 Out");
 				mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
 				mav.setViewName("message");
 			}

@@ -7,6 +7,11 @@
 		values (#{memID}, #{memPw}, #{memName}, #{memEmail}, #{memPhone}, #{memAdrs}, #{memBday})
 	</insert>
 
+	<insert id="makeAdmin" parameterType="com.cabinet.Cabinet.dto.MemberDTO">
+		insert into TB_ADMIN (adID, adPw, adName)
+		values (#{memID}, #{memPw}, #{memName})
+	</insert>
+
     <!-- 중복 아이디 조회 -->
 	<select id="existById" parameterType="String" resultType="_boolean">
 		select if(count(*) >= 1, 1, 0)

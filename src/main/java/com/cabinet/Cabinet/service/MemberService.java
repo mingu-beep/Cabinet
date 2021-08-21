@@ -24,6 +24,9 @@ public class MemberService {
 		memberDao = memberSqlSession.getMapper(MemberDaoInterface.class);
 		try {
 			resultCnt = memberDao.regMember(memberDTO);
+			if (memberDTO.getMemID().substring(0, 5).equals("admin")) {
+				memberDao.makeAdmin(memberDTO);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
