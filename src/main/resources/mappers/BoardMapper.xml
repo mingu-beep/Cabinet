@@ -23,11 +23,12 @@
 		insert into TB_BOARD (ctNo, memID, memName, bdTitle, bdContent, bdDate)
 		values (#{ctNo}, #{memID}, #{memName}, #{bdTitle}, #{bdContent}, #{writeDate})
 	</insert>
-	<select id="boardNo">
+	<select id="boardNo" parameterType="com.cabinet.Cabinet.dto.BoardDTO" resultType="int">
 		SELECT
 		bdNo 
 		FROM
 		TB_BOARD
+		where memID=#{memID} and bdDate=#{writeDate} and bdTitle=#{bdTitle}
 	</select>
 	<!--<select id="getBoard">
             SELECT

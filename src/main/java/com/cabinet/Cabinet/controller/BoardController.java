@@ -118,7 +118,7 @@ public class BoardController {
                 String path = "C:\\attached/" + file.getOriginalFilename();
                 file.transferTo(new File(path));
 
-
+//                System.out.println(boardDao.boardNo(boardDTO));
                 System.out.println(productDTO.getPdName());
                 boardDTO.setMemID(session.getAttribute("memID").toString());
                 boardDTO.setMemName(session.getAttribute("memName").toString());
@@ -127,6 +127,7 @@ public class BoardController {
                 boardService.setBoardData(boardDTO, productDTO);
 
             }
+            return "deal";
 
         }
         return "deal";

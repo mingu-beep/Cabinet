@@ -30,8 +30,8 @@ public interface BoardDAO {
 
     boolean addBoard(BoardDTO boardDTO);
     boolean addProduct(ProductDTO productDTO);
+    
     int boardNo(BoardDTO boardDTO);
-
     List<BoardDTO> getBoard();
     BoardDTO getBoardOne(int idx);
     boolean addReply(BoardReply boardReply);

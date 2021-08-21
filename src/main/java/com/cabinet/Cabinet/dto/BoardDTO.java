@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BoardDTO {
 
+    private int bdNo;
 	private String ctNo;
 	private String bdTitle;
 	private String bdContent;
@@ -17,7 +18,13 @@ public class BoardDTO {
 	private Date writeDate;
 	private String bdImg;
 
+	public int getBdNo() {
+		return bdNo;
+	}
 
+	public void setBdNo(int bdNo) {
+		this.bdNo = bdNo;
+	}
 	public String getMemID() {
 		return memID;
 	}
