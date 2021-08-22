@@ -4,6 +4,7 @@ import com.cabinet.Cabinet.dao.BoardDAO;
 import com.cabinet.Cabinet.dao.MemberDAO;
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class BoardService {
@@ -43,4 +45,8 @@ public class BoardService {
         productDTO.setBdNo(boardDao.boardNo(boardDTO));
         boardDao.addProduct(productDTO);
     }
+    public List<BoardDTO> getBoardData() {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+    	return boardDao.getBoard();
+	}
 }

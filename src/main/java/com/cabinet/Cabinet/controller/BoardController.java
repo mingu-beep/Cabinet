@@ -5,6 +5,7 @@ import com.cabinet.Cabinet.dao.ImgDAO;
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.service.BoardService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -52,7 +54,7 @@ public class BoardController {
     
     //deal
     @GetMapping("/all")
-    public String goodsAll(Model model, final HttpSession session, @RequestParam Map<String, Object> paramMap) {
+    public List<BoardDTO> goodsAll(Model model, final HttpSession session, @RequestParam Map<String, Object> paramMap) {
 
         Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {
@@ -81,8 +83,8 @@ public class BoardController {
 
         // 전체 값을 보여주려면?
 
-        boardService.test();
-        return "deal"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
+        System.out.println(boardService.getBoardData());
+        return boardService.getBoardData(); // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
                            // 따라서 return 값은 html 파일 이름!
     }
 

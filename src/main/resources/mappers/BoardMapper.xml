@@ -43,14 +43,14 @@
 		from TB_PRODUCT
 		order by bdNo asc
 	</select>
-	<!--<select id="getBoard">
+	<select id="getBoard"  resultType="com.cabinet.Cabinet.dto.ProductDTO">
             SELECT
-            bdNo, memID, bdTitle,  bdView, bdContent
+			*
             FROM
             TB_BOARD
             ORDER BY bdNo asc
-        </select>
-        <insert id="updateContent" parameterType="java.util.HashMap">
+    </select>
+   <!--<insert id="updateContent" parameterType="java.util.HashMap">
             update board set
                 memID = #{writer},
                 bdTitle = #{bdTitle},
