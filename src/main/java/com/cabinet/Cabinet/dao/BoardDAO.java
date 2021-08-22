@@ -24,11 +24,13 @@ public interface BoardDAO {
     // 모든 정보를 받아오는 썸네일용 쿼리
     List<BoardDTO> getBoard();
     List<ProductDTO> getProduct();
-    List<BoardDTO> getMine();
+
 
     BoardDTO getBoardWithBdNo(int bdNo);
     ProductDTO getProductWithBdNo(int bdNo);
-
+    BoardDTO getBoardWithMemNo(int memNo);
+    ProductDTO getProductWithMemNo(int memNo);
+    
     boolean updateContent(BoardDTO boardDTO);
     
 

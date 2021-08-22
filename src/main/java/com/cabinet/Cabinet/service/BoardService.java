@@ -58,8 +58,12 @@ public class BoardService {
         return boardDao.getProductWithBdNo(bdNo);
     }
 
-    public List<BoardDTO> getMyData() {
+    public BoardDTO getBoardWithMemNo(int memNo) {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
-    	return boardDao.getMine();
+    	return boardDao.getBoardWithMemNo(memNo);
+	}
+    public ProductDTO getProductWithMemNo(int memNo) {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+    	return boardDao.getProductWithMemNo(memNo);
 	}
 }

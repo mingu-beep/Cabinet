@@ -58,15 +58,22 @@
             where
                 bdNo = #{bdNo}
     </update>
-    <select id="getMine"  resultType="com.cabinet.Cabinet.dto.ProductDTO">
+    <select id="getBoardWithMemNo"  parameterType="_int" resultType="com.cabinet.Cabinet.dto.ProductDTO">
             SELECT
 			*
             FROM
             TB_BOARD
-            WHERE "memName"
+            WHERE memNo = #{memNo}
             ORDER BY bdNo asc
     </select>
-
+    <select id="getProductWithMemNo"  parameterType="_int" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+            SELECT
+			*
+            FROM
+            TB_BOARD
+            WHERE memNo = #{memNo}
+            ORDER BY bdNo asc
+    </select>
 	<select id="getBoardWithBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardDTO">
 		select *
 		from TB_BOARD
