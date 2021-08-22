@@ -69,10 +69,10 @@ public class BoardController {
     }
 
     @GetMapping("/detail")
-    public String detailView(@RequestParam Map<String, Object> paramMap, Model model) {
-    	//model.addAttribute("replyList", boardDao.getReplyList(paramMap));
-    	//model.addAttribute("detailView", boardDao.getContentView(paramMap));
-    	
+    public String detailView(@RequestParam("bdNo") int bdNo, Model model) {
+        System.out.println(bdNo);
+        model.addAttribute("board",boardService.getBoardWithBdNo(bdNo));
+        model.addAttribute("product",boardService.getProductWithBdNo(bdNo));
     	return "detail";
     }
 //    

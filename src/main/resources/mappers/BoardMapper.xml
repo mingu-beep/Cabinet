@@ -43,7 +43,7 @@
 		from TB_PRODUCT
 		order by bdNo asc
 	</select>
-	<select id="getBoard"  resultType="com.cabinet.Cabinet.dto.ProductDTO">
+	<select id="getBoard"  resultType="com.cabinet.Cabinet.dto.BoardDTO">
             SELECT
 			*
             FROM
@@ -66,6 +66,17 @@
             WHERE "memName"
             ORDER BY bdNo asc
     </select>
+
+	<select id="getBoardWithBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardDTO">
+		select *
+		from TB_BOARD
+		where bdNo = #{bdNo}
+	</select>
+	<select id="getProductWithBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+		select *
+		from TB_PRODUCT
+		where bdNo = #{bdNo}
+	</select>
 <!-- <select id="selectContentView" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
             select
                 bdNo,

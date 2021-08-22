@@ -16,26 +16,18 @@ import com.cabinet.Cabinet.dto.ProductDTO;
 
 
 public interface BoardDAO {
-// 교수님 코드 부분
-//    int regContent(Map<String, Object> paramMap);
-//    int modifyContent(Map<String, Object> paramMap);
-//    int getContentCnt(Map<String, Object> paramMap);
-//    List<BoardDTO> getContentList(Map<String, Object> paramMap);
-//    BoardDTO getContentView(Map<String, Object> paramMap);
-//    int regReply(Map<String, Object> paramMap);
-//    List<BoardReply> getReplyList(Map<String, Object> paramMap);
-//    int delReply(Map<String, Object> paramMap);
-//    int getBoardCheck(Map<String, Object> paramMap);
-//    int delBoard(Map<String, Object> paramMap);
-//    boolean checkReply(Map<String, Object> paramMap);
-//    boolean updateReply(Map<String, Object> paramMap);
 
+    // 게시글 등록할 때 정보를 board와 product 테이블에 저장하는 쿼리 실행용
     boolean addBoard(BoardDTO boardDTO);
     boolean addProduct(ProductDTO productDTO);
 
+    // 모든 정보를 받아오는 썸네일용 쿼리
     List<BoardDTO> getBoard();
     List<ProductDTO> getProduct();
     List<BoardDTO> getMine();
+
+    BoardDTO getBoardWithBdNo(int bdNo);
+    ProductDTO getProductWithBdNo(int bdNo);
 
     boolean updateContent(BoardDTO boardDTO);
     
