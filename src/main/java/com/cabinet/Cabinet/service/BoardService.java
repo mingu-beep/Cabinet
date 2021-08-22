@@ -21,11 +21,6 @@ public class BoardService {
     private SqlSessionTemplate boardSqlSession;
     private BoardDAO boardDao;
 
-    public void test() {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        boardDao.getAllProduct();
-    }
-
     public void setBoardData(BoardDTO boardDTO, ProductDTO productDTO) throws ParseException {
 
         // 쿼리의 where 조건의 writeDate 때문에 오류가 발생함.
@@ -44,6 +39,10 @@ public class BoardService {
         boardDao.addBoard(boardDTO);
         productDTO.setBdNo(boardDao.boardNo(boardDTO));
         boardDao.addProduct(productDTO);
+    }
+    public List<ProductDTO> getProductData() {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.getProduct();
     }
     public List<BoardDTO> getBoardData() {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);

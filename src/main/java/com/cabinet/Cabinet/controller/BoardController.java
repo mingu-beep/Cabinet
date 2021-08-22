@@ -54,37 +54,17 @@ public class BoardController {
     
     //deal
     @GetMapping("/all")
-    public List<BoardDTO> goodsAll(Model model, final HttpSession session, @RequestParam Map<String, Object> paramMap) {
+    public String goodsAll(Model model, final HttpSession session, @RequestParam Map<String, Object> paramMap) {
 
         Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-//        int startPage = (paramMap.get("startPage")!=null?Integer.parseInt(paramMap.get("startPage").toString()):1);
-//
-//        int visiblePages = (paramMap.get("visiblePages")!=null?Integer.parseInt(paramMap.get("visiblePages").toString()):10);
-//
-//        //전체 건수 가져오기
-//        int totalCnt = boardDao.getContentCnt(paramMap);
-//
-//        int startLimitPage = 0;
-//        //2.mysql limit 범위를 구하기 위해 계산
-//        if(startPage==1){
-//            startLimitPage = 0;
-//        }else{
-//            startLimitPage = (startPage-1)*visiblePages;
-//        }
-//
-//        paramMap.put("start", startLimitPage);
-//
-//        //view 에서 보여줄 정보 추출
-//        model.addAttribute("startPage", startPage+"");//현재 페이지
 
+        model.addAttribute("boardList",boardService.getBoardData());
+        model.addAttribute("productList",boardService.getProductData());
 
-        // 전체 값을 보여주려면?
-
-        System.out.println(boardService.getBoardData());
-        return boardService.getBoardData(); // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
+        return "deal"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
                            // 따라서 return 값은 html 파일 이름!
     }
 

@@ -38,7 +38,7 @@
 	</insert>
 
 
-	<select id="getAllProduct" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+	<select id="getProduct" resultType="com.cabinet.Cabinet.dto.ProductDTO">
 		select *
 		from TB_PRODUCT
 		order by bdNo asc

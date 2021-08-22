@@ -33,10 +33,11 @@ public interface BoardDAO {
     boolean addBoard(BoardDTO boardDTO);
     boolean addProduct(ProductDTO productDTO);
 
-    List<ProductDTO> getAllProduct();
+    List<BoardDTO> getBoard();
+    List<ProductDTO> getProduct();
+
 
     int boardNo(BoardDTO boardDTO);
-    List<BoardDTO> getBoard();
     BoardDTO getBoardOne(int idx);
     boolean addReply(BoardReply boardReply);
     List<BoardReply> getReply(int boardIdx);
