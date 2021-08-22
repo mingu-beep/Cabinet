@@ -36,6 +36,13 @@
 		insert into TB_PRODUCT (bdNo, ctNo, pdName, pdUpDate, pdImg, pdPrice, dealType, memID)
 		values (#{bdNo}, #{ctNo}, #{pdName}, #{pdUpDate}, #{pdImg}, #{pdPrice}, #{dealType}, #{memID})
 	</insert>
+
+
+	<select id="getAllProduct" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+		select *
+		from TB_PRODUCT
+		order by bdNo asc
+	</select>
 	<!--<select id="getBoard">
             SELECT
             bdNo, memID, bdTitle,  bdView, bdContent

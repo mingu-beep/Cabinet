@@ -24,7 +24,6 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -79,6 +78,10 @@ public class BoardController {
 //        //view 에서 보여줄 정보 추출
 //        model.addAttribute("startPage", startPage+"");//현재 페이지
 
+
+        // 전체 값을 보여주려면?
+
+        boardService.test();
         return "deal"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
                            // 따라서 return 값은 html 파일 이름!
     }
