@@ -126,21 +126,7 @@ public class BoardController {
         return "deal";
     }
 
-    @GetMapping("/mylist")
-    public String goodsMine(Model model, final HttpSession session, @RequestParam("memNo") int memNo, @RequestParam Map<String, Object> paramMap) {
 
-        Object memName = session.getAttribute("memName");
-        if (session.getAttribute("memName") != null) {
-            model.addAttribute("memName", memName);
-        }
-
-        System.out.println(memNo);
-        model.addAttribute("boardList",boardService.getBoardWithMemNo(memNo));
-        model.addAttribute("productList",boardService.getProductWithMemNo(memNo));
-
-        return "mylist"; 
-    }
-    
     @Autowired
     private ImgDAO imgDao;
 

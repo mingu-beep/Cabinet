@@ -135,8 +135,24 @@ public class MemberController {
 		Object memName = session.getAttribute("memName");
 		if (session.getAttribute("memName") != null) {
 			model.addAttribute("memName", memName);
+			model.addAttribute("memID", session.getAttribute("memID").toString());
 		}
 
 		return "mypage";
 	}
+
+	@GetMapping("/mylist")
+	public String goodsMine(Model model, final HttpSession session, @RequestParam("memID")String memID) {
+
+		Object memName = session.getAttribute("memName");
+		if (session.getAttribute("memName") != null) {
+			model.addAttribute("memName", memName);
+		}
+
+		System.out.println(memID);
+		model.addAttribute("productList",memberService.getProductWithMemID(memID));
+
+		return "mylist";
+	}
+
 }

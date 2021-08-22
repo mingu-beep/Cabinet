@@ -1,8 +1,10 @@
 package com.cabinet.Cabinet.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.cabinet.Cabinet.dto.LoginDTO;
+import com.cabinet.Cabinet.dto.ProductDTO;
 import org.apache.ibatis.annotations.Param;
 
 import com.cabinet.Cabinet.dto.MemberDTO;
@@ -25,5 +27,7 @@ public interface MemberDAO {
 	void makeAdmin(MemberDTO memberDTO);
 	// 로그인시 회원 체크 메서드
 	boolean checkLogin(LoginDTO loginDTO);
+
+	List<ProductDTO> getProductWithMemID(String memID);
 
 }

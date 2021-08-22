@@ -1,8 +1,11 @@
 package com.cabinet.Cabinet.service;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import com.cabinet.Cabinet.dao.BoardDAO;
 import com.cabinet.Cabinet.dto.LoginDTO;
+import com.cabinet.Cabinet.dto.ProductDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,5 +55,10 @@ public class MemberService {
 	public MemberDTO getInfo(String memID) {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		return memberDao.loginMember(memID);
+	}
+
+	public List<ProductDTO> getProductWithMemID(String memID) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		return memberDao.getProductWithMemID(memID);
 	}
 }

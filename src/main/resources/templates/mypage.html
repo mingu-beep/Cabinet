@@ -109,6 +109,9 @@
     </nav>
     <main>
       <div class="text-center container mt-5">
+        <div th:if="${memName != null}">
+          <a class="btn btn-focus my-2" th:href="@{mylist(memID=${memID})}">내가 올린 물건 </a>
+        </div>
         <form
           class="form-signin col-12 col-sm-10 col-md-8"
           style="float: none; margin: 0 auto"

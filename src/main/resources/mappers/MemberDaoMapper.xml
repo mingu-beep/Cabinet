@@ -46,4 +46,13 @@
 	<update id="alter_memberKey" parameterType="Map">
 		update memberInfo set member_key = "Y" where inputId = #{param1} and user_key = #{param2}
 	</update>
+
+	<select id="getProductWithMemID"  parameterType="String" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+		SELECT
+		*
+		FROM
+		TB_PRODUCT
+		WHERE memID = #{memID}
+		ORDER BY bdNo asc
+	</select>
 </mapper>

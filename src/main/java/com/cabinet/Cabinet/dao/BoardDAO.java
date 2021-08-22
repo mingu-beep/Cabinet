@@ -28,8 +28,7 @@ public interface BoardDAO {
 
     BoardDTO getBoardWithBdNo(int bdNo);
     ProductDTO getProductWithBdNo(int bdNo);
-    BoardDTO getBoardWithMemNo(int memNo);
-    ProductDTO getProductWithMemNo(int memNo);
+    List<ProductDTO> getProductWithMemID(String memID);
     
     boolean updateContent(BoardDTO boardDTO);
     
