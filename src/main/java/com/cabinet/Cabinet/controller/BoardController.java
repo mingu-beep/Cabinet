@@ -127,7 +127,25 @@ public class BoardController {
         return "deal";
     }
 
-
+    @GetMapping("/update")
+    public String getupdate(Model model, BoardDTO boardDTO,@RequestParam("file") MultipartFile file, final HttpSession session) {
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+        boardService.updateContent(boardDTO);
+        return "mylist";
+    }
+    @GetMapping("/delete")
+    public String deleteBoard(Model model, final HttpSession session, @RequestParam("bdNo") int bdNo) {
+    	Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+        boardService.deleteBoard(bdNo);
+        return "mylist";
+    }
+    
     @Autowired
     private ImgDAO imgDao;
 

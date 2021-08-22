@@ -57,6 +57,13 @@ public class BoardService {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.getProductWithBdNo(bdNo);
     }
-
-
+    
+    public int deleteBoard(int bdNo) {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.deleteBoard(bdNo);
+	}
+    public boolean updateContent(BoardDTO boardDTO) {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.updateContent(boardDTO);
+	}
 }

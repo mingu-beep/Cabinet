@@ -70,6 +70,13 @@
 		from TB_PRODUCT
 		where bdNo = #{bdNo}
 	</select>
+	<delete id="deleteBoard" parameterType="com.cabinet.Cabinet.dto.ProductDTO">
+            delete
+            from
+                TB_BOARD
+            where
+                bdNo = #{bdNo}
+    </delete>
 <!-- <select id="selectContentView" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
             select
                 bdNo,
