@@ -48,4 +48,8 @@ public class BoardService {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
     	return boardDao.getBoard();
 	}
+    public List<BoardDTO> getMyData() {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+    	return boardDao.getMine();
+	}
 }

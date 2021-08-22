@@ -73,8 +73,16 @@ public class BoardController {
     	//model.addAttribute("replyList", boardDao.getReplyList(paramMap));
     	//model.addAttribute("detailView", boardDao.getContentView(paramMap));
     	
-    	return "detailView";
+    	return "detail";
     }
+//    
+//    @GetMapping("/mylist/detail")
+//    public String mydetailView(@RequestParam Map<String, Object> paramMap, Model model) {
+//    	//model.addAttribute("replyList", boardDao.getReplyList(paramMap));
+//    	//model.addAttribute("detailView", boardDao.getContentView(paramMap));
+//    	
+//    	return "/detail";
+//    }
     
     @GetMapping("/upload")
     public String getUpload(Model model, final HttpSession session) {
@@ -118,6 +126,20 @@ public class BoardController {
         return "deal";
     }
 
+    @GetMapping("/mylist")
+    public String goodsMine(Model model, final HttpSession session, @RequestParam Map<String, Object> paramMap) {
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+
+        model.addAttribute("boardList",boardService.getMyData());
+        model.addAttribute("productList",boardService.getProductData());
+
+        return "mylist"; 
+    }
+    
     @Autowired
     private ImgDAO imgDao;
 

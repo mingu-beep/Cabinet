@@ -35,7 +35,10 @@ public interface BoardDAO {
 
     List<BoardDTO> getBoard();
     List<ProductDTO> getProduct();
+    List<BoardDTO> getMine();
 
+    boolean updateContent(BoardDTO boardDTO);
+    
 
     int boardNo(BoardDTO boardDTO);
     BoardDTO getBoardOne(int idx);

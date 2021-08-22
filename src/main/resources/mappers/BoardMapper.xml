@@ -50,16 +50,47 @@
             TB_BOARD
             ORDER BY bdNo asc
     </select>
-   <!--<insert id="updateContent" parameterType="java.util.HashMap">
-            update board set
-                memID = #{writer},
+  	<update id="updateContent" parameterType="com.cabinet.Cabinet.dto.ProductDTO">
+            update TB_BOARD set
+                memID = #{memID},
                 bdTitle = #{bdTitle},
                 bdContent = #{bdContent}
-                bdView = #{bdImg}
             where
                 bdNo = #{bdNo}
-        </insert>
-        <insert id="saveImage" parameterType="java.util.Map">
+    </update>
+    <select id="getMine"  resultType="com.cabinet.Cabinet.dto.ProductDTO">
+            SELECT
+			*
+            FROM
+            TB_BOARD
+            WHERE "memName"
+            ORDER BY bdNo asc
+    </select>
+<!-- <select id="selectContentView" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
+            select
+                bdNo,
+                bdTitle,
+                bdContent,
+                memID,
+                date_format(register_datetime, '%Y-%m-%d %H:%i:%s') comDate
+            from
+                TB_BOARD
+            where
+                bdNo = #{bdNo}
+    </select>
+    <select id="selectMineView" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
+            select
+                bdNo,
+                bdTitle,
+                bdContent,
+                memID,
+                date_format(register_datetime, '%Y-%m-%d %H:%i:%s') comDate
+            from
+                TB_BOARD
+            where
+                "memName" ADN bdNo = #{bdNo}
+     </select>
+    <insert id="saveImage" parameterType="java.util.Map">
             INSERT INTO
             TB_BOARD
             VALUES(#{bdView})
@@ -85,18 +116,6 @@
                 TB_BOARD
             order by bdNo
             limit #{start}, #{end}
-        </select>
-        <select id="selectContentView" resultType="com.cabinet.Cabinet.dto.BoardDto" parameterType="java.util.HashMap">
-            select
-                bdNo,
-                bdTitle,
-                bdContent,
-                memID,
-                date_format(register_datetime, '%Y-%m-%d %H:%i:%s') comDate
-            from
-                TB_BOARD
-            where
-                bdNo = #{bdNo}
         </select>
         <insert id="insertBoardReply" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="reply_id">
             insert into TB_REPLY(
