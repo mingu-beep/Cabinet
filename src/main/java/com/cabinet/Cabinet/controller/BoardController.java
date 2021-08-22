@@ -69,8 +69,9 @@ public class BoardController {
     }
 
     @GetMapping("/detail")
-    public String detailView(@RequestParam("bdNo") int bdNo, Model model) {
+    public String detailView(@RequestParam("bdNo") int bdNo, Model model, final HttpSession session) {
         System.out.println(bdNo);
+        model.addAttribute("memID", session.getAttribute("memID").toString());
         model.addAttribute("board",boardService.getBoardWithBdNo(bdNo));
         model.addAttribute("product",boardService.getProductWithBdNo(bdNo));
     	return "detail";

@@ -120,6 +120,11 @@
         <p class="border-bottom py-3" th:text="${board.bdTitle}">제목</p>
         <p th:text="${product.pdPrice} + '원'">가격</p>
         <p th:text="${board.bdContent}">설명</p>
+        <div th:if="${board.memID.equals(memID)}">
+          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" style="width: 5rem"
+          >수정</a
+          >
+        </div>
       </div>
     </main>
     <!-- fontawesome -->
