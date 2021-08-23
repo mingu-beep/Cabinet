@@ -58,9 +58,9 @@ public class BoardService {
         return boardDao.getProductWithBdNo(bdNo);
     }
     
-    public int deleteBoard(int bdNo) {
+    public void deleteBoard(int bdNo) {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.deleteBoard(bdNo);
+        boardDao.deleteBoard(bdNo);
 	}
     public void updateContent(BoardDTO boardDTO, ProductDTO productDTO) throws ParseException {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);

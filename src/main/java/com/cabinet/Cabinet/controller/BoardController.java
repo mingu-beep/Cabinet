@@ -5,6 +5,7 @@ import com.cabinet.Cabinet.dao.ImgDAO;
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.service.BoardService;
+import com.cabinet.Cabinet.service.MemberService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -144,6 +145,7 @@ public class BoardController {
         return "update";
     }
 
+
     @PostMapping("/update")
     public String postUpdate(Model model, BoardDTO boardDTO, ProductDTO productDTO, final HttpSession session) throws ParseException {
 
@@ -155,7 +157,8 @@ public class BoardController {
     }
 
 
-    @GetMapping("/delete")
+
+    @RequestMapping(value="/delete")
     public String deleteBoard(Model model, final HttpSession session, @RequestParam("bdNo") int bdNo) {
     	Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {

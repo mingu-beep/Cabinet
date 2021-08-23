@@ -83,7 +83,7 @@
 		from TB_PRODUCT
 		where bdNo = #{bdNo}
 	</select>
-	<delete id="deleteBoard" parameterType="com.cabinet.Cabinet.dto.ProductDTO">
+	<delete id="deleteBoard" parameterType="_int">
             delete
             from
                 TB_BOARD

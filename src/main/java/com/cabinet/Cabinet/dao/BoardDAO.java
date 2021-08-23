@@ -33,7 +33,7 @@ public interface BoardDAO {
     void updateBoard(BoardDTO boardDTO);
     void updateProduct(ProductDTO productDTO);
 
-    int deleteBoard(int bdNo);
+    void deleteBoard(int bdNo);
 
     int boardNo(BoardDTO boardDTO);
     BoardDTO getBoardOne(int idx);
