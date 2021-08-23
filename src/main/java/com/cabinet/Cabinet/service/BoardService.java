@@ -34,7 +34,7 @@ public class BoardService {
         // 2. Date type인 DTO 변수에 맞게 String 결과를 Date 형식으로 바꿔주기 위해 .parse 사용
         // 3. 그 결과 mysql의 datetime의 형식과 맞는 date 형 변수를 얻을 수 있었다.
 
-        productDTO.setPdDate(boardDTO.getWriteDate());
+        productDTO.setPdUpDate(boardDTO.getWriteDate());
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         boardDao.addBoard(boardDTO);
         productDTO.setBdNo(boardDao.boardNo(boardDTO));
@@ -62,8 +62,15 @@ public class BoardService {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.deleteBoard(bdNo);
 	}
-    public boolean updateContent(BoardDTO boardDTO) {
+    public void updateContent(BoardDTO boardDTO, ProductDTO productDTO) throws ParseException {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.updateContent(boardDTO);
+
+        String pattern = "yyyy-MM-dd hh:mm:ss"; // db 저장 패턴 : '2021-08-21 16:46:01'
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern); // SimpleDateFormat을 우리가 정한 패턴으로 생성
+        productDTO.setPdUpDate(simpleDateFormat.parse(simpleDateFormat.format(new Date())));
+
+        boardDao.updateBoard(boardDTO);
+        boardDao.updateProduct(productDTO);
+
 	}
 }

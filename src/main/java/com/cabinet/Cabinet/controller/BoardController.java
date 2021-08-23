@@ -137,11 +137,23 @@ public class BoardController {
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
+        model.addAttribute("bdNo", bdNo);
         model.addAttribute("boardDTO",boardService.getBoardWithBdNo(bdNo));
         model.addAttribute("productDTO",boardService.getProductWithBdNo(bdNo));
         //boardService.updateContent(boardDTO);
         return "update";
     }
+
+    @PostMapping("/update")
+    public String postUpdate(Model model, BoardDTO boardDTO, ProductDTO productDTO, final HttpSession session) throws ParseException {
+
+        if (session.getAttribute("memID") != null) {
+            boardService.updateContent(boardDTO, productDTO);
+        }
+
+        return "redirect:/board/all";
+    }
+
 
     @GetMapping("/delete")
     public String deleteBoard(Model model, final HttpSession session, @RequestParam("bdNo") int bdNo) {

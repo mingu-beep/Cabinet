@@ -30,7 +30,8 @@ public interface BoardDAO {
     ProductDTO getProductWithBdNo(int bdNo);
     List<ProductDTO> getProductWithMemID(String memID);
     
-    boolean updateContent(BoardDTO boardDTO);
+    void updateBoard(BoardDTO boardDTO);
+    void updateProduct(ProductDTO productDTO);
 
     int deleteBoard(int bdNo);
 

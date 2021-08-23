@@ -111,7 +111,7 @@
   <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
     내 물건 내용 수정하기
   </h1>
-  <form th:action="@{upload}" class="col-12" style="float: none; margin: 0 auto" method="POST" enctype="multipart/form-data">
+  <form th:action="@{update(bdNo=${bdNo})}" class="col-12" style="float: none; margin: 0 auto" method="POST" enctype="multipart/form-data">
     <section class="title-section row">
       <label
               class="
@@ -168,7 +168,7 @@
         <option th:value="'01'" th:text="가전제품" selected></option>
         <option th:value="'02'" th:text="학용품"></option>
         <option th:value="'03'" th:text="의류"></option>
-        <option th:value="'04'" th:text="잡화">\</option>
+        <option th:value="'04'" th:text="잡화"></option>
       </select>
     </section>
     <section class="type-section row">

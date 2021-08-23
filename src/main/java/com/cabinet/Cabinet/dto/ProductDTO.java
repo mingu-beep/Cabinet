@@ -14,11 +14,11 @@ public class ProductDTO {
     private String pdImg;
     private Date pdUpDate;
 
-    public Date getPdDate() {
+    public Date getPdUpDate() {
         return pdUpDate;
     }
 
-    public void setPdDate(Date pdUpDate) {
+    public void setPdUpDate(Date pdUpDate) {
         this.pdUpDate = pdUpDate;
     }
 

@@ -50,15 +50,28 @@
             TB_BOARD
             ORDER BY bdNo asc
     </select>
-  	<update id="updateContent" parameterType="com.cabinet.Cabinet.dto.ProductDTO">
-            update TB_BOARD set
-                memID = #{memID},
+  	<update id="updateBoard" parameterType="com.cabinet.Cabinet.dto.BoardDTO">
+            update
+				TB_BOARD
+			set
+				ctNo = #{ctNo},
                 bdTitle = #{bdTitle},
                 bdContent = #{bdContent}
             where
                 bdNo = #{bdNo}
     </update>
-
+	<update id="updateProduct" parameterType="com.cabinet.Cabinet.dto.ProductDTO">
+		update
+			TB_PRODUCT
+		set
+			ctNo = #{ctNo},
+			dealType = #{dealType},
+			pdName = #{pdName},
+			pdPrice = #{pdPrice},
+			pdUpDate = #{pdUpDate}
+		where
+			bdNo = #{bdNo}
+	</update>
 
 	<select id="getBoardWithBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardDTO">
 		select *
