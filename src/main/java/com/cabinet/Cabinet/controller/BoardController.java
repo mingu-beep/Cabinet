@@ -71,7 +71,11 @@ public class BoardController {
     @GetMapping("/detail")
     public String detailView(@RequestParam("bdNo") int bdNo, Model model, final HttpSession session) {
         System.out.println(bdNo);
-        model.addAttribute("memID", session.getAttribute("memID").toString());
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+            model.addAttribute("memID", session.getAttribute("memID").toString());
+        }
         model.addAttribute("board",boardService.getBoardWithBdNo(bdNo));
         model.addAttribute("product",boardService.getProductWithBdNo(bdNo));
     	return "detail";
@@ -111,7 +115,7 @@ public class BoardController {
             model.addAttribute("memName", memName);
 
             if(!file.getOriginalFilename().isEmpty()) {
-                String path = "C:\\attached/" + file.getOriginalFilename();
+                String path = "C:\\attached\\" + file.getOriginalFilename();
                 file.transferTo(new File(path));
                 boardDTO.setMemID(session.getAttribute("memID").toString());
                 boardDTO.setMemName(session.getAttribute("memName").toString());
@@ -128,14 +132,17 @@ public class BoardController {
     }
 
     @GetMapping("/update")
-    public String getupdate(Model model, BoardDTO boardDTO,@RequestParam("file") MultipartFile file, final HttpSession session) {
+    public String getupdate(Model model, BoardDTO boardDTO, @RequestParam("bdNo") int bdNo, final HttpSession session) {
         Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-        boardService.updateContent(boardDTO);
-        return "mylist";
+        model.addAttribute("boardDTO",boardService.getBoardWithBdNo(bdNo));
+        model.addAttribute("productDTO",boardService.getProductWithBdNo(bdNo));
+        //boardService.updateContent(boardDTO);
+        return "update";
     }
+
     @GetMapping("/delete")
     public String deleteBoard(Model model, final HttpSession session, @RequestParam("bdNo") int bdNo) {
     	Object memName = session.getAttribute("memName");
