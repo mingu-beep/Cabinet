@@ -126,10 +126,8 @@ public class BoardController {
                 boardService.setBoardData(boardDTO, productDTO);
 
             }
-            return "deal";
-
         }
-        return "deal";
+        return "redirect:/board/all";
     }
 
     @GetMapping("/update")
