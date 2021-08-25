@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cabinet.Cabinet.dao.ChatDAO">
+
+    <select id="selectMaxRoomNo" resultType="_int">
+        select
+            IFNULL(MAX(roomNumber),0)
+        from
+            TB_ROOM
+    </select>
+
+    <insert id="insertRoom" parameterType="com.cabinet.Cabinet.dto.RoomDTO">
+        insert into
+            TB_ROOM (roomNumber, roomName)
+        values
+            (#{roomNumber}, #{roomName})
+    </insert>
+
+    <select id="selectRoom" resultType="com.cabinet.Cabinet.dto.RoomDTO">
+        select
+            *
+        from
+            TB_ROOM
+    </select>
+
+    <insert id="insertMessage" parameterType="com.cabinet.Cabinet.dto.MessageDTO">
+        insert into
+            TB_MESSAGE(roomNumber, userName, msg)
+        values
+            (#{roomNumber}, #{userName},#{msg});
+    </insert>
+
+    <select id="selectMessages" parameterType="String" resultType="com.cabinet.Cabinet.dto.MessageDTO">
+        select
+            *
+        from
+            TB_MESSAGE
+        where
+            (roomNumber = #{roomNumber})
+    </select>
+</mapper>
