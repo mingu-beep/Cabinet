@@ -1,19 +1,10 @@
 package com.cabinet.Cabinet.dao;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.BoardReply;
 import com.cabinet.Cabinet.dto.ProductDTO;
-
-
-
-
 
 public interface BoardDAO {
 
@@ -24,7 +15,6 @@ public interface BoardDAO {
     // 모든 정보를 받아오는 썸네일용 쿼리
     List<BoardDTO> getBoard();
     List<ProductDTO> getProduct();
-
 
     BoardDTO getBoardWithBdNo(int bdNo);
     ProductDTO getProductWithBdNo(int bdNo);
@@ -39,6 +29,8 @@ public interface BoardDAO {
     BoardDTO getBoardOne(int idx);
     boolean addReply(BoardReply boardReply);
     List<BoardReply> getReply(int boardIdx);
+
+    void updateView(int bdNo);
     
 }
 
