@@ -121,7 +121,7 @@ public class BoardController {
                 boardDTO.setMemID(session.getAttribute("memID").toString());
                 boardDTO.setMemName(session.getAttribute("memName").toString());
                 productDTO.setMemID(session.getAttribute("memID").toString());
-                productDTO.setPdImg(path);
+                productDTO.setPdImg("/upload/"+file.getOriginalFilename());
 
                 boardService.setBoardData(boardDTO, productDTO);
 
@@ -158,12 +158,13 @@ public class BoardController {
 
     @RequestMapping(value="/delete")
     public String deleteBoard(Model model, final HttpSession session, @RequestParam("bdNo") int bdNo) {
-    	Object memName = session.getAttribute("memName");
-        if (session.getAttribute("memName") != null) {
-            model.addAttribute("memName", memName);
+    	Object memID = session.getAttribute("memID");
+        if (session.getAttribute("memID") != null) {
+            boardService.deleteBoard(bdNo);
+            model.addAttribute("memID", memID);
         }
-        boardService.deleteBoard(bdNo);
-        return "mylist";
+
+        return "redirect:/member/mylist";
     }
     
     @Autowired
