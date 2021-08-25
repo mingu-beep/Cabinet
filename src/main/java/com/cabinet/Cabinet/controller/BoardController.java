@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -150,7 +150,7 @@ public class BoardController {
         if (session.getAttribute("memID") != null) {
             boardService.updateContent(boardDTO, productDTO);
         }
-
+        
         return "redirect:/board/all";
     }
 
@@ -164,7 +164,7 @@ public class BoardController {
             model.addAttribute("memID", memID);
         }
 
-        return "redirect:/member/mylist";
+        return  "redirect:/member/mylist?memID=" + session.getAttribute("memID").toString();
     }
     
     @Autowired

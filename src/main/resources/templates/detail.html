@@ -121,10 +121,10 @@
         <p th:text="${product.pdPrice} + '원'">가격</p>
         <p th:text="${board.bdContent}">설명</p>
         <div th:if="${board.memID.equals(memID)}">
-          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" style="width: 5rem"
+          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" onclick="return confirm('수정을 하시겠습니까?');" style="width: 5rem"
           >수정</a
           >
-		  <a class="btn btn-notFocus my-5" th:href="@{delete(bdNo=${board.bdNo})}" style="width: 5rem"
+		  <a class="btn btn-notFocus my-5" th:href="@{delete(bdNo=${board.bdNo})}" onclick="return confirm('삭제를 하시겠습니까?');" style="width: 5rem" 
           >삭제</a>
        </div>
       </div>
