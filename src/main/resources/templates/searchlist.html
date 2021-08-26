@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Cabinet - 거래</title>
+  <title>Cabinet - 검색</title>
   <!-- 부트스트랩 -->
   <!-- Bootstrap CSS -->
   <link
@@ -71,11 +71,9 @@
         <form>
           <input
                   class="search-input"
-                  type="hidden"
+                  type="text"
                   placeholder="검색"
                   style="width: 10rem"
-                  th:name="keyword"
-                  th:value = "{keyword}"
           />
               <a class="search-btn fas fa-search" id="search" type="submit" th:href="@{search}" ></a>
         </form>
@@ -201,5 +199,12 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
 ></script>
+<script type="text/javascript" th:inline="javascript">
+	window.onscroll = function(ev) {
+		if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+			alert("페이지 마지막입니다.");
+		}
+	}	
+</script><!-- 무한스크롤 -->
 </body>
 </html>

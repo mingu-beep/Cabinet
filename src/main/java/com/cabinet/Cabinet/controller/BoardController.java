@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -148,6 +149,29 @@ public class BoardController {
 
         return  "redirect:/member/mylist?memID=" + session.getAttribute("memID").toString();
     }
+    
+
+	@RequestMapping(value = "/search")
+	public String openSearch(BoardDTO boardDTO, final HttpSession session, ModelAndView mav, Model model, 
+			 HttpServletRequest request,
+			@RequestParam("keyword")String keyword) // 메인에서 검색시 리스트
+			throws Exception {
+		
+	        Object memName = session.getAttribute("memName");
+	        if (session.getAttribute("memName") != null) {
+	            model.addAttribute("memName", memName);
+	            model.addAttribute("memID", session.getAttribute("memID").toString());
+	        }
+	        
+			System.out.println("검색키워드=" + keyword);
+			boardService.searchBoard(boardDTO.getBdNo());
+
+			model.addAttribute("boardList",boardService.searchBoard(boardDTO.getBdNo()));
+	
+			return "redirect:/searchlist";
+	}
+
+
 
     @GetMapping("/hot")
     public String goodsHot(Model model, final HttpSession session) {

@@ -9,11 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import org.springframework.web.servlet.ModelAndView;
+
+import com.cabinet.Cabinet.dto.BoardDTO;
+import com.cabinet.Cabinet.dto.Message;
+import com.cabinet.Cabinet.service.BoardService;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class RootController {
+	
+	
 
     @GetMapping("/")
     public String home(Model model, final HttpSession session) {

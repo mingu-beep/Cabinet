@@ -99,4 +99,24 @@
 		where
 			bdNo = #{bdNo}
 	</update>
+		
+	<select id="searchBoard" parameterType="com.cabinet.Cabinet.dto.ProductDTO" resultType="com.cabinet.Cabinet.dto.ProductDTO"> <!-- 메인검색 리스트 -->
+				SELECT 
+					BD.bdNo,
+					BD.ctNo,
+					BD.memID,
+				    BD.memName,
+					BD.bdTitle,
+					BD.bdContent,
+					BD.bdDate,
+				    BD.bdView,
+			       	PRO.pdImg
+		      FROM TB_BOARD BD, TB_PRODUCT PRO
+		      WHERE BD.bdNo = PRO.bdNo
+		      <if test="keyword != null">
+		   	 AND (bdTitle LIKE '%' || #{keyword} || '%' OR bdContent LIKE '%' || #{keyword} || '%')
+		     </if> 
+		     AND GUBUN = '0'
+		     ORDER BY bdNo DESC 		   
+	</select>
 </mapper>

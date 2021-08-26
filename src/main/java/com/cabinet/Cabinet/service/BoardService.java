@@ -83,4 +83,10 @@ public class BoardService {
         boardDao.updateView(bdNo);
 
     }
+	
+	public List<BoardDTO> searchBoard(int bdNo) {
+		boardDao = boardSqlSession.getMapper(BoardDAO.class);
+		List<BoardDTO> searchNum = boardDao.searchBoard(bdNo);
+        return searchNum;
+	}
 }

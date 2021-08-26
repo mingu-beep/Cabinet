@@ -1,9 +1,11 @@
 package com.cabinet.Cabinet.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
+import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 
 public interface BoardDAO {
 
@@ -29,5 +31,8 @@ public interface BoardDAO {
 
     void updateView(int bdNo);
     
+	List<BoardDTO> searchBoard(int bdNo); // 메인검색
+	
+
 }
 
