@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import com.cabinet.Cabinet.dto.MemberDTO;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/member")
@@ -51,25 +53,32 @@ public class MemberController {
 
 	//회원가입 컨트롤러
 	@PostMapping("/join")
-	public ModelAndView memberPass(ModelAndView mav, @Valid MemberDTO memberDTO, BindingResult errors) {
+	public ModelAndView memberPass(ModelAndView mav, @Valid MemberDTO memberDTO, Errors errors) {
 
 		if(errors.hasErrors()) {
-			mav.addObject("data", new Message("올바른 정보를 입력해주세요", "join"));
+			mav.addObject("memberDTO", memberDTO);
+
+			Map<String, String> validatorResult = memberService.validateHandling(errors);
+			System.out.println(validatorResult);
+			for(String key: validatorResult.keySet()){
+				mav.addObject(key, validatorResult.get(key));
+			}
+
+			mav.setViewName("join");
+			return mav;
+		}
+
+		//회원가입 메서드
+		try {
+			System.out.println("회원가입 In");
+			memberService.member_service(memberDTO);
+			System.out.println("회원가입 Out");
+			mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
 			mav.setViewName("message");
 		}
-		else{
-			//회원가입 메서드
-			try {
-				System.out.println("회원가입 In");
-				memberService.member_service(memberDTO);
-				System.out.println("회원가입 Out");
-				mav.addObject("data", new Message("회원가입이 완료되었습니다.", "login"));
-				mav.setViewName("message");
-			}
-			catch (Exception e) {
-				mav.addObject("data", new Message("중복 정보가 존재합니다.\n다시 입력해주세요.", "join"));
-				mav.setViewName("message");
-			}
+		catch (Exception e) {
+			mav.addObject("data", new Message("중복 정보가 존재합니다.\n다시 입력해주세요.", "join"));
+			mav.setViewName("message");
 		}
 
 		return mav;

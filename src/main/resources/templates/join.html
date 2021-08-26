@@ -115,6 +115,7 @@
                 class="form-signin col-12 col-sm-10 col-md-8"
                 style="float: none; margin: 0 auto"
                 method="POST"
+                modelAttribute="memberDTO"
         >
           <h1
                   class="
@@ -145,6 +146,7 @@
             </p>
             <input
                     th:field="*{memID}"
+                    th:value="${memberDTO.memID}"
                     type="text"
                     id="memID"
                     class="form-control my-3 col-6 mx-2"
@@ -156,6 +158,7 @@
                     aria-pressed="true"
             >중복 확인
             </div>
+            <small class="errorMessage col-12" th:text="${valid_memID}"></small>
           </div>
           <!-- 비밀번호 -->
           <div class="row">
@@ -180,6 +183,7 @@
                     placeholder="8자이상의 비밀번호를 입력해주세요"
 
             />
+            <small class="errorMessage col-12" th:text="${valid_memPw}"></small>
           </div>
           <!-- 비밀번호 확인 -->
           <div class="row">
@@ -221,12 +225,14 @@
             </p>
             <input
                     th:field="*{memName}"
+                    th:value="${memberDTO.memName}"
                     type="text"
                     id="memName"
                     class="form-control my-3 col-6 mx-2"
                     placeholder="이름을 입력해주세요"
 
             />
+            <small class="errorMessage col-12" th:text="${valid_memName}"></small>
           </div>
           <!-- 이메일 -->
           <div class="row">
@@ -245,18 +251,21 @@
             </p>
             <input
                     th:field="*{memEmail}"
+                    th:value="${memberDTO.memEmail}"
                     type="email"
                     id="memEmail"
                     class="form-control my-3 col-6 mx-2"
                     placeholder="이메일을 입력해주세요"
 
             />
+
             <div
                     class="btn btn-sm btn-focus col-2 my-auto checkEmailBtn"
                     role="button"
                     aria-pressed="true"
             >중복 확인</div
             >
+            <small class="errorMessage col-12" th:text="${valid_memEmail}"></small>
           </div>
           <!-- 휴대폰 -->
           <div class="row">
@@ -275,6 +284,7 @@
             </p>
             <input
                     th:field="*{memPhone}"
+                    th:value="${memberDTO.memPhone}"
                     type="text"
                     id="memPhone"
                     class="form-control my-3 col-6 mx-2"
@@ -288,6 +298,7 @@
                     aria-pressed="true"
             >인증번호 받기</a
             >
+            <small class="errorMessage col-12" th:text="${valid_memPhone}"></small>
           </div>
           <!-- 주소 -->
           <div class="row">
@@ -306,12 +317,14 @@
             </p>
             <input
                     th:field="*{memAdrs}"
+                    th:value="${memberDTO.memAdrs}"
                     type="text"
                     id="memAdrs"
                     class="form-control my-3 col-6 mx-2"
                     placeholder="주소를 입력해주세요"
 
             />
+            <small class="errorMessage col-12" th:text="${valid_memAdrs}"></small>
           </div>
           <!-- 생일 -->
           <div class="row">
@@ -330,11 +343,13 @@
             </p>
             <input
                     th:field="*{memBday}"
+                    th:value="${memberDTO.memBday}"
                     type="date"
                     id="memBday"
                     class="form-control my-3 col-6 mx-2"
 
             />
+            <small class="errorMessage col-12" th:text="${valid_memBday}"></small>
           </div>
           <button
                   class="btn btn-lg btn-block btn-focus my-2 col-5 mt-5"

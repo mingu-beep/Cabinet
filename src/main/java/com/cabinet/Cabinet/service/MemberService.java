@@ -1,7 +1,9 @@
 package com.cabinet.Cabinet.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cabinet.Cabinet.dao.BoardDAO;
 import com.cabinet.Cabinet.dto.LoginDTO;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.cabinet.Cabinet.dao.MemberDAO;
 import com.cabinet.Cabinet.dto.MemberDTO;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
 @Service
 public class MemberService {
@@ -35,6 +39,16 @@ public class MemberService {
 		}
 
 		return resultCnt;
+	}
+
+	public Map<String, String> validateHandling(Errors errors) {
+		Map<String, String> validatorResult = new HashMap<>();
+
+		for (FieldError error : errors.getFieldErrors()) {
+			String validKeyName = String.format("valid_%s", error.getField());
+			validatorResult.put(validKeyName, error.getDefaultMessage());
+		}
+		return validatorResult;
 	}
 
 	public boolean checkIdDuplicate(String id) {
