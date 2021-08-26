@@ -207,6 +207,7 @@
                     placeholder="비밀번호를 한번 더 입력해주세요"
 
             />
+            <div class="check_password col-12" id="pw_check"></div>
           </div>
           <!-- 이름 -->
           <div class="row">
@@ -385,5 +386,22 @@
             crossorigin="anonymous"
     ></script>
     <script src="/js/popup.js"></script>
+    <script th:inline="javascript">
+      $("#ConfirmPassword").blur(function(){
+          console.log("blur out");
+          if($('#memPw').val() != $("#ConfirmPassword").val()) {
+            console.log("불일치");
+            $("#pw_check").text("비밀번호가 일치하지 않습니다.");
+            $("#pw_check").css("color", "red");
+            $("#pw_check").attr("disabled",true);
+          }
+          else {
+            console.log("일치");
+            $("#pw_check").text("");
+            $("#pw_check").attr("disabled",false);
+          }
+      });
+
+    </script>
   </body>
 </html>
