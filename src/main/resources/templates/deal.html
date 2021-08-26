@@ -167,10 +167,10 @@
                           th:href="@{detail(bdNo=${board.bdNo})}"
                           class="btn btn-sm btn-outline-secondary btn-focus"
                   >
-                    View
+                    더보기
                   </a>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted" th:text="${board.bdView} + ' view'">조회수</small>
               </div>
             </div>
           </div>

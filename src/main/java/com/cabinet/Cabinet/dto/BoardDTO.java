@@ -17,6 +17,15 @@ public class BoardDTO {
 	private String memName;
 	private Date writeDate;
 	private String bdImg;
+	private int bdView;
+
+	public int getBdView() {
+		return bdView;
+	}
+
+	public void setBdView(int bdView) {
+		this.bdView = bdView;
+	}
 
 	public int getBdNo() {
 		return bdNo;
