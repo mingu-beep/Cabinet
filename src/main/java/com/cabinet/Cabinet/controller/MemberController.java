@@ -34,6 +34,7 @@ public class MemberController {
 	@GetMapping("/idCheck")
 	public String checkIdDuplicate(@RequestParam String value, Model model){
 		boolean result = memberService.checkIdDuplicate(value);
+		model.addAttribute("type", "id");
 		model.addAttribute("value", value);
 		model.addAttribute("result", result);
 
@@ -42,6 +43,7 @@ public class MemberController {
 	@GetMapping("/emailCheck")
 	public String checkEmailDuplicate(@RequestParam String value, Model model){
 		boolean result = memberService.checkEmailDuplicate(value);
+		model.addAttribute("type", "email");
 		model.addAttribute("value", value);
 		model.addAttribute("result", result);
 		return "check";

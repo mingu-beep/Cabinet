@@ -142,7 +142,7 @@
         <label for="content">comment</label>
         <form name="commentInsertForm">
           <div class="input-group">
-            <p type="hidden" id="replyWriter" th:text="${memID}"></p>
+            <input type="hidden" id="replyWriter" th:value="${memID}"/>
             <input type="hidden" name="bdNo" id="thisBdNo" th:value="${board.bdNo}"/>
             <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
             <span class="input-group-btn">
@@ -198,7 +198,7 @@
     $('[name=requestTransaction]').click(function(){
         if(confirm("거래를 요청하시겠습니까?")) {
           var roomData = {
-              "memID" : $('#replyWriter').text(),
+              "memID" : $('#replyWriter').val(),
               "pdName" : $('#pdName').text()
           };
           createRoom(roomData);

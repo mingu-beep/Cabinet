@@ -157,7 +157,7 @@
             />
             <div class="card-body">
               <p class="card-title" th:text="${board.bdTitle}">title</p>
-              <p class="card-description" th:text="${board.bdContent}">description</p>
+              <p class="card-description" th:text="${board.bdContent}" style="text-overflow:ellipsis;">description</p>
               <p class="card-price" th:text="${productList[now.index].pdPrice} + '원'">0,000원</p>
               <div
                       class="d-flex justify-content-between align-items-center"
