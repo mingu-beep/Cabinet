@@ -3,7 +3,6 @@ package com.cabinet.Cabinet.dao;
 import java.util.List;
 
 import com.cabinet.Cabinet.dto.BoardDTO;
-import com.cabinet.Cabinet.dto.BoardReply;
 import com.cabinet.Cabinet.dto.ProductDTO;
 
 public interface BoardDAO {
@@ -27,8 +26,6 @@ public interface BoardDAO {
 
     int boardNo(BoardDTO boardDTO);
     BoardDTO getBoardOne(int idx);
-    boolean addReply(BoardReply boardReply);
-    List<BoardReply> getReply(int boardIdx);
 
     void updateView(int bdNo);
     

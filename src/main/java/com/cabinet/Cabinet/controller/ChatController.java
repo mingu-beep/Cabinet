@@ -63,7 +63,6 @@ public class ChatController {
             room.setRoomName(roomName);
             roomList.add(room);
             chatService.saveRoomInfo(room);
-            System.out.println(roomNumber);
         }
         return roomList;
     }
@@ -77,7 +76,6 @@ public class ChatController {
     public @ResponseBody List<RoomDTO> getRoom(@RequestParam HashMap<Object, Object> params){
         roomNumber = chatService.getLargestRoomNo();
         roomList = chatService.getRooms();
-        System.out.println(roomList);
         return roomList;
     }
 
