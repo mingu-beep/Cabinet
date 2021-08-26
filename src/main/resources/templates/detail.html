@@ -118,36 +118,41 @@
           data-holder-rendered="true"
         />
         <p class="border-bottom py-3" th:text="${board.bdTitle}">제목</p>
+        <p th:text="${product.pdName}" id="pdName">물품명</p>
         <p th:text="${product.pdPrice} + '원'">가격</p>
         <p th:text="${board.bdContent}">설명</p>
         <div th:if="${memID != null}">
-          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" onclick="return confirm('수정을 하시겠습니까?');" style="width: 5rem"
+          <a class="btn btn-notFocus my-5" name="requestTransaction" style="width: 6rem"
           >거래 요청</a
           >
         </div>
         <div th:if="${board.memID.equals(memID)}">
-          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" onclick="return confirm('수정을 하시겠습니까?');" style="width: 5rem"
+          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" onclick="return confirm('수정을 하시겠습니까?');" style="width: 6rem"
           >판매 완료</a
           >
-          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" onclick="return confirm('수정을 하시겠습니까?');" style="width: 5rem"
+          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" onclick="return confirm('수정을 하시겠습니까?');" style="width: 6rem"
           >수정</a
           >
-		  <a class="btn btn-notFocus my-5" th:href="@{delete(bdNo=${board.bdNo})}" onclick="return confirm('삭제를 하시겠습니까?');" style="width: 5rem" 
+		  <a class="btn btn-notFocus my-5" th:href="@{delete(bdNo=${board.bdNo})}" onclick="return confirm('삭제를 하시겠습니까?');" style="width: 6rem"
           >삭제</a>
        </div>
       </div>
 
-      <div class="container">
+      <div th:if="${memID != null}"class="container">
         <label for="content">comment</label>
         <form name="commentInsertForm">
           <div class="input-group">
-            <input type="hidden" name="bdNo" class="thisBdNo" th:value="${board.bdNo}"/>
+            <p type="hidden" id="replyWriter" th:text="${memID}"></p>
+            <input type="hidden" name="bdNo" id="thisBdNo" th:value="${board.bdNo}"/>
             <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
             <span class="input-group-btn">
                     <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
                </span>
           </div>
         </form>
+      </div>
+      <div th:unless="${memID != null}" class="container">
+        <p>거래를 원하신다면 로그인 해주세요!</p>
       </div>
 
       <div class="container">
@@ -179,12 +184,45 @@
     ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script th:inline="javascript">
-    var bdNo = $(".thisBdNo").val(); //게시글 번호
+    var bdNo = $("#thisBdNo").val(); //게시글 번호
+
+    $(document).ready(function(){
+        commentList(); //페이지 로딩시 댓글 목록 출력
+    });
 
     $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시
         var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
         commentInsert(insertData); //Insert 함수호출(아래)
     });
+
+    $('[name=requestTransaction]').click(function(){
+        if(confirm("거래를 요청하시겠습니까?")) {
+          var roomData = {
+              "memID" : $('#replyWriter').text(),
+              "pdName" : $('#pdName').text()
+          };
+          createRoom(roomData);
+      }
+    });
+
+    function createRoom(roomData) {
+          $.ajax({ // 방 만들기
+             url: "/dealRoom",
+             type: 'post',
+             data: roomData,
+             success : function(){
+                var insertData = {
+                    "bdNo" : bdNo,
+                    "content" : "제 방에 들어와주세요!"
+                }
+                commentInsert(insertData)// 댓글 남기기
+                window.open("/room");
+             },
+             error : function(){
+                console.log("error at createRoom");
+             }
+          });
+    }
 
     //댓글 목록
     function commentList(){
@@ -219,6 +257,9 @@
                     commentList(); //댓글 작성 후 댓글 목록 reload
                     $('[name=content]').val('');
                 }
+            },
+            error : function(){
+                console.log("error at commentInsert");
             }
         });
     }
@@ -260,13 +301,6 @@
             }
         });
     }
-
-
-
-
-    $(document).ready(function(){
-        commentList(); //페이지 로딩시 댓글 목록 출력
-    });
 
   </script>
   </body>

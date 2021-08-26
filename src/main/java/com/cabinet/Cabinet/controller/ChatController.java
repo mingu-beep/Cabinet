@@ -38,6 +38,28 @@ public class ChatController {
         return mv;
     }
 
+    @RequestMapping("/dealRoom")
+    public ResponseEntity createDealRoom (@RequestParam HashMap<Object, Object> params) {
+
+        // 방 정보 가져오기
+        roomNumber = chatService.getLargestRoomNo();
+        roomList = chatService.getRooms();
+
+        // 방 만들기
+        System.out.println((String)params.get("memID"));
+        System.out.println((String)params.get("pdName"));
+        String roomName = (String)params.get("memID") + "님의 " + (String)params.get("pdName") + "거래방";
+        if(roomName != null && !roomName.trim().equals("")) {
+            RoomDTO room = new RoomDTO();
+            room.setRoomNumber(Integer.toString(++roomNumber));
+            room.setRoomName(roomName);
+            roomList.add(room);
+            chatService.saveRoomInfo(room);
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     /**
      * 방 페이지
      * @return

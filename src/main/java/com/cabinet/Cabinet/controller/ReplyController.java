@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,13 +28,17 @@ public class ReplyController {
 
     @RequestMapping("/insert") //댓글 작성
     @ResponseBody
-    public int mCommentServiceInsert(@RequestParam HashMap<Object, Object> params){
+    public int mCommentServiceInsert(@RequestParam HashMap<Object, Object> params, final HttpSession session){
 
         ReplyDTO reply = new ReplyDTO();
         reply.setBdNo(Integer.parseInt((String)params.get("bdNo")));
         reply.setReplyContent((String)params.get("content"));
-        //로그인 기능을 구현했거나 따로 댓글 작성자를 입력받는 폼이 있다면 입력 받아온 값으로 사용하면 됩니다. 저는 따로 폼을 구현하지 않았기때문에 임시로 "test"라는 값을 입력해놨습니다.
-        reply.setReplyWriter("test");
+
+        Object memID = session.getAttribute("memID");
+        if(memID != null)
+            reply.setReplyWriter(memID.toString());
+        else
+            reply.setReplyWriter("unknow");
 
         return replyService.replyInsertService(reply);
     }
