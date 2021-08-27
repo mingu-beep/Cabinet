@@ -66,8 +66,9 @@ nav {
   background: none;
   border: none;
   position: absolute;
-  right: 0;
-  top: 0.4rem;
+  right: 0.3rem;
+  top: 0.7rem;
+  color: var(--blue);
 }
 
 /* img session */
