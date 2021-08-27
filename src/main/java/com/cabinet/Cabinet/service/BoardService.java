@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -89,7 +88,6 @@ public class BoardService {
 		boardDao = boardSqlSession.getMapper(BoardDAO.class);
 		System.out.println(1);
 		List<Integer> searchNum = boardDao.searchBoard(keyword);
-
 		return searchNum;
 	}
 	
@@ -114,5 +112,4 @@ public class BoardService {
 		
 		return productList;
 	}
-	
 }

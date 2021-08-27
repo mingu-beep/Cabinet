@@ -117,7 +117,7 @@
           src="/pdImg"
           data-holder-rendered="true"
         />
-        <p class="border-bottom py-3" th:text="${board.bdTitle}">제목</p>
+        <p class="border-bottom py-3 font-weight-bold" th:text="${board.bdTitle}">제목</p>
         <p th:text="${product.pdName}" id="pdName">물품명</p>
         <p th:text="${product.pdPrice} + '원'">가격</p>
         <p th:text="${board.bdContent}">설명</p>
@@ -151,8 +151,8 @@
           </div>
         </form>
       </div>
-      <div th:unless="${memID != null}" class="container">
-        <p>거래를 원하신다면 로그인 해주세요!</p>
+      <div th:unless="${memID != null}" class="container text-center">
+        <p id="loginPlease" class="font-italic my-5">거래를 원하신다면 <a href="/member/login">로그인</a> 해주세요!</p>
       </div>
 
       <div class="container">

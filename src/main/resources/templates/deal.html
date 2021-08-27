@@ -17,195 +17,101 @@
   <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-<header class="blog-header py-3 container">
-  <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4 text-center">
-      <a href="/">
-        <img
-                src="/img/logo.png"
-                alt="로고"
-                class="img-responsive center-block logo"
-        />
-      </a>
-    </div>
-    <div class="col-4 text-right">
-      <a href="/cs">고객센터</a>
-    </div>
-  </div>
-</header>
-<nav class="container">
-  <ul class="nav justify-content-center">
-    <li class="nav-item">
-      <div class="dropdown">
-        <button
-                class="btn btn-notFocus dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton"
-                data-toggle="dropdown"
-                style="background: none"
-        >
-          카테고리
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+  <header th:replace="/fragments/header.html :: header"></header>
+  <nav th:replace="/fragments/nav.html :: nav"></nav>
+  <main>
+    <div class="album py-5">
+      <div class="container">
+        <div th:if="${memName != null}">
+          <a class="btn btn-focus my-2" href="upload">내 물건 올리기</a>
         </div>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/intro">소개</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/board/all">거래 게시판</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/board/hot">핫플레이스</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/board/event">이벤트</a>
-    </li>
-    <li class="nav-item search_wrap">
-      <div class="ml-2 my-1">
-        <form
-          th:action="@{search}"
-          th:object="${boardDTO}"
-          class="search-input"
-          style="width: 10rem"
-          method="post"
-         >
-          <input
-                  class="search-input keywordvalue"
-                  id="keywordvalue"
-                  type="text"
-                  placeholder="검색"
-                  style="width: 10rem"
-                  th:field="*{keyword}"
-          />
-              <a class="search-btn fas fa-search" id="search" type="submit" th:href="@{search}" ></a>
-        </form>
-      </div>
-    </li>
-    <li class="nav-item">
-      <a th:if="${memName == null}" class="nav-link" href="/member/login">
-        <i class="fas fa-sign-in-alt fa-lg"></i>
-      </a>
-      <a
-              th:unless="${memName == null}"
-              class="nav-link"
-              href="/member/login"
-      >
-        <i class="fas fa-sign-out-alt fa-lg"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a th:if="${memName == null}" class="nav-link" href="/member/join">
-        <i class="fas fa-user-plus fa-lg"></i>
-      </a>
-      <a
-              th:unless="${memName == null}"
-              class="nav-link"
-              href="/member/mypage"
-      >
-        <i class="fas fa-user fa-lg"></i>
-      </a>
-    </li>
-  </ul>
-</nav>
-<main>
-  <div class="album py-5">
-    <div class="container">
-      <div th:if="${memName != null}">
-        <a class="btn btn-focus my-2" href="upload">내 물건 올리기</a>
-      </div>
-      <div class="btn-group dropright my-2">
-        <button
-                type="button"
-                class="btn btn-notFocus dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                style="background: none"
-        >
-          내 위치
-        </button>
-        <div class="dropdown-menu">
-          <!-- Dropdown menu links -->
+        <div class="btn-group dropright my-2">
+          <button
+                  type="button"
+                  class="btn btn-notFocus dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style="background: none"
+          >
+            내 위치
+          </button>
+          <div class="dropdown-menu">
+            <!-- Dropdown menu links -->
+          </div>
         </div>
-      </div>
-      <br />
-      <div class="btn-group dropright my-2">
-        <button
-                type="button"
-                class="btn btn-notFocus dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                style="background: none"
-        >
-          모든 상품
-        </button>
-        <div class="dropdown-menu">
-          <!-- Dropdown menu links -->
+        <br />
+        <div class="btn-group dropright my-2">
+          <button
+                  type="button"
+                  class="btn btn-notFocus dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style="background: none"
+          >
+            모든 상품
+          </button>
+          <div class="dropdown-menu">
+            <!-- Dropdown menu links -->
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4 col-sm-6" th:each="board, now: ${boardList}">
-          <div class="card mb-4">
-            <img
-                    class="card-img-top"
-                    th:src="${productList[now.index].pdImg}"
-                    alt="Thumbnail [100%x225]"
-                    style="height: 225px; width: 100%; display: block"
-                    src="/pdImg"
-                    data-holder-rendered="true"
-            />
-            <div class="card-body">
-              <p class="card-title" th:text="${board.bdTitle}">title</p>
-              <p class="card-description" th:text="${board.bdContent}" style="text-overflow:ellipsis;">description</p>
-              <p class="card-price" th:text="${productList[now.index].pdPrice} + '원'">0,000원</p>
-              <div
-                      class="d-flex justify-content-between align-items-center"
-              >
-                <div class="btn-group">
-                  <a
-                          th:href="@{detail(bdNo=${board.bdNo})}"
-                          class="btn btn-sm btn-outline-secondary btn-focus"
-                  >
-                    더보기
-                  </a>
+        <div class="row">
+          <div class="col-md-4 col-sm-6" th:each="board, now: ${boardList}">
+            <div class="card mb-4">
+              <img
+                      class="card-img-top"
+                      th:src="${productList[now.index].pdImg}"
+                      alt="Thumbnail [100%x225]"
+                      style="height: 225px; width: 100%; display: block"
+                      src="/pdImg"
+                      data-holder-rendered="true"
+              />
+              <div class="card-body">
+                <p class="card-title" th:text="${board.bdTitle}">title</p>
+                <p class="card-description" th:text="${board.bdContent}" style="text-overflow:ellipsis;">description</p>
+                <p class="card-price" th:text="${productList[now.index].pdPrice} + '원'">0,000원</p>
+                <div
+                        class="d-flex justify-content-between align-items-center"
+                >
+                  <div class="btn-group">
+                    <a
+                            th:href="@{detail(bdNo=${board.bdNo})}"
+                            class="btn btn-sm btn-outline-secondary btn-focus"
+                    >
+                      더보기
+                    </a>
+                  </div>
+                  <small class="text-muted" th:text="${board.bdView} + ' view'">조회수</small>
                 </div>
-                <small class="text-muted" th:text="${board.bdView} + ' view'">조회수</small>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
-<!-- fontawesome -->
-<script
-        src="https://kit.fontawesome.com/f97d0d047b.js"
-        crossorigin="anonymous"
-></script>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script
-        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"
-></script>
-<script
-        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"
-></script>
-<script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"
-></script>
+  </main>
+  <!-- fontawesome -->
+  <script
+          src="https://kit.fontawesome.com/f97d0d047b.js"
+          crossorigin="anonymous"
+  ></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script
+          src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"
+  ></script>
+  <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+          integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+          crossorigin="anonymous"
+  ></script>
+  <script
+          src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+          integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+          crossorigin="anonymous"
+  ></script>
 </body>
 </html>

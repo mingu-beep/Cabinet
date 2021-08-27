@@ -170,11 +170,12 @@ public class BoardController {
 
 			System.out.println(boardService.findProduct(searchresult));
 			System.out.println(boardService.findBoard(searchresult));
+
 			model.addAttribute("productList", boardService.findProduct(searchresult));
 			model.addAttribute("boardList",  boardService.findBoard(searchresult));
-//			session.setAttribute("keyword", boardDTO.getKeyword());
-	
+
 			return "searchlist";
+
 	}
 
 	
