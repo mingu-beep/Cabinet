@@ -85,14 +85,16 @@ public class RootController {
 	        }
 	        
 			System.out.println("검색키워드=" + keyword);
-			System.out.println(boardService.searchBoard(keyword));
-			List<Integer> searchresult = boardService.searchBoard(keyword);
 
-			System.out.println(boardService.findProduct(searchresult));
-			System.out.println(boardService.findBoard(searchresult));
+	        if(keyword != ""){
+                System.out.println(boardService.searchBoard(keyword));
+                List<Integer> searchresult = boardService.searchBoard(keyword);
 
-			model.addAttribute("productList", boardService.findProduct(searchresult));
-			model.addAttribute("boardList",  boardService.findBoard(searchresult));
+                System.out.println(boardService.findProduct(searchresult));
+                System.out.println(boardService.findBoard(searchresult));
+                model.addAttribute("productList", boardService.findProduct(searchresult));
+                model.addAttribute("boardList",  boardService.findBoard(searchresult));
+	        }
 
 			return "searchlist";
 

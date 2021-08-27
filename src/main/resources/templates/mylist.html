@@ -39,8 +39,6 @@
                 <div class="card-body">
                   <p class="card-title" th:text="${product.pdName}">물품이름</p>
                   <p class="card-price" th:text="${product.pdPrice} + '원'">0,000원</p>
-<!--                  <p class="card-description" th:text="${product.pdUpDate}">업로드 날짜</p>-->
-
                   <div
                           class="d-flex justify-content-between align-items-center"
                   >
@@ -49,7 +47,7 @@
                               th:href="@{/board/detail(bdNo=${product.bdNo})}"
                               class="btn btn-sm btn-outline-secondary btn-focus"
                       >
-                        View
+                        더보기
                       </a>
                     </div>
                     <small class="text-muted">9 mins</small>

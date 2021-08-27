@@ -22,39 +22,10 @@
   <main>
     <div class="album py-5">
       <div class="container">
-        <div th:if="${memName != null}">
-          <a class="btn btn-focus my-2" href="upload">내 물건 올리기</a>
-        </div>
-        <div class="btn-group dropright my-2">
-          <button
-                  type="button"
-                  class="btn btn-notFocus dropdown-toggle"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  style="background: none"
-          >
-            내 위치
-          </button>
-          <div class="dropdown-menu">
-            <!-- Dropdown menu links -->
-          </div>
-        </div>
-        <br />
-        <div class="btn-group dropright my-2">
-          <button
-                  type="button"
-                  class="btn btn-notFocus dropdown-toggle"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                  style="background: none"
-          >
-            모든 상품
-          </button>
-          <div class="dropdown-menu">
-            <!-- Dropdown menu links -->
-          </div>
+
+        <div class="row text-center" th:if="${boardList == null}">
+          <i class="fas fa-exclamation fa-7x my-5 col-12 "></i>
+          <p class="col-12 font-weight-bold font-italic my-2" style="font-size:2rem; color:gray;">검색 결과가 없습니다.</p>
         </div>
         <div class="row">
           <div class="col-md-4 col-sm-6" th:each="board, now: ${boardList}">
@@ -76,7 +47,7 @@
                 >
                   <div class="btn-group">
                     <a
-                            th:href="@{detail(bdNo=${board.bdNo})}"
+                            th:href="@{/board/detail(bdNo=${board.bdNo})}"
                             class="btn btn-sm btn-outline-secondary btn-focus"
                     >
                       더보기
