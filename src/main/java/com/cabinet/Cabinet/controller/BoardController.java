@@ -152,36 +152,6 @@ public class BoardController {
     }
     
 
-	@RequestMapping(value = "/search")
-	public String openSearch(BoardDTO boardDTO, final HttpSession session, ModelAndView mav, Model model, 
-			 HttpServletRequest request,
-			@RequestParam("keyword")String keyword) // 메인에서 검색시 리스트
-			throws Exception {
-		
-	        Object memName = session.getAttribute("memName");
-	        if (session.getAttribute("memName") != null) {
-	            model.addAttribute("memName", memName);
-	            model.addAttribute("memID", session.getAttribute("memID").toString());
-	        }
-	        
-			System.out.println("검색키워드=" + keyword);
-			System.out.println(boardService.searchBoard(keyword));
-			List<Integer> searchresult = boardService.searchBoard(keyword);
-
-			System.out.println(boardService.findProduct(searchresult));
-			System.out.println(boardService.findBoard(searchresult));
-
-			model.addAttribute("productList", boardService.findProduct(searchresult));
-			model.addAttribute("boardList",  boardService.findBoard(searchresult));
-
-			return "searchlist";
-
-	}
-
-	
-
-
-
     @GetMapping("/hot")
     public String goodsHot(Model model, final HttpSession session) {
 
