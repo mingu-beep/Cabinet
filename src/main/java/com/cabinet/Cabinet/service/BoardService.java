@@ -84,9 +84,11 @@ public class BoardService {
 
     }
 	
-	public List<BoardDTO> searchBoard(int bdNo) {
+	public List<Integer> searchBoard(String keyword) {
 		boardDao = boardSqlSession.getMapper(BoardDAO.class);
-		List<BoardDTO> searchNum = boardDao.searchBoard(bdNo);
+		System.out.println(1);
+		List<Integer> searchNum = boardDao.searchBoard(keyword);
+		System.out.println(keyword);
         return searchNum;
 	}
 }

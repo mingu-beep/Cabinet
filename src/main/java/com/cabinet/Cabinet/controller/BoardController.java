@@ -164,9 +164,11 @@ public class BoardController {
 	        }
 	        
 			System.out.println("검색키워드=" + keyword);
-			boardService.searchBoard(boardDTO.getBdNo());
+			System.out.println(boardService.searchBoard(keyword));
+			boardService.searchBoard(keyword);
 
-			model.addAttribute("boardList",boardService.searchBoard(boardDTO.getBdNo()));
+//			model.addAttribute("boardList",boardService.searchBoard(boardDTO.getBdNo()));
+//			session.setAttribute("keyword", boardDTO.getKeyword());
 	
 			return "redirect:/searchlist";
 	}

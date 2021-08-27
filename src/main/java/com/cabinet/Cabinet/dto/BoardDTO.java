@@ -20,8 +20,8 @@ public class BoardDTO {
 	private Date writeDate;
 	private String bdImg;
 	private int bdView;
-	private String Keyword;
-	Map<String,Object> map = new HashMap<String,Object>();
+
+
 	
 	public int getBdView() {
 		return bdView;
@@ -94,15 +94,5 @@ public class BoardDTO {
 		this.writeDate = writeDate;
 	}
 
-	public String getKeyword() {
-		return Keyword;
-	}
-
-	public void setKeyword(String Keyword) {
-		this.Keyword = Keyword;
-	}
 	
-	public Map<String,Object> getMap() {
-		return map;
-	}
 }

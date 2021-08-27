@@ -31,7 +31,7 @@ public interface BoardDAO {
 
     void updateView(int bdNo);
     
-	List<BoardDTO> searchBoard(int bdNo); // 메인검색
+	List<Integer> searchBoard(String keyword); // 메인검색
 	
 
 }
