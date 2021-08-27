@@ -102,11 +102,26 @@
 		
 	<select id="searchBoard" parameterType="string" resultType="_int"> <!-- 메인검색 리스트 -->
 				SELECT 
-					BD.bdNo
+				bdNo
 		      FROM TB_BOARD
 		      WHERE
-		      bdTitle = #{keyword}
-		   	 <!--(bdTitle LIKE CONCAT('%', #{keyword}, '%') OR bdContent LIKE CONCAT('%', #{keyword}, '%'))-->
+		     (bdTitle LIKE CONCAT('%', #{keyword}, '%') OR bdContent LIKE CONCAT('%', #{keyword}, '%'))
 		     ORDER BY bdNo DESC 		   
 	</select>
+<!-- <select id="findBoard" parameterType="" resultType="com.cabinet.Cabinet.dto.BoardDTO">
+		select *
+		from TB_BOARD
+		where 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			bdNo = #{item.searchNum}			
+		</foreach>
+	</select>
+		<select id="findProduct" parameterType="" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+		select *
+		from TB_PRODUCT
+		where 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			bdNo = #{item.searchNum}			
+		</foreach>
+	</select> -->
 </mapper>

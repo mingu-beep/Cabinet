@@ -27,12 +27,13 @@ public interface BoardDAO {
     void deleteBoard(int bdNo);
 
     int boardNo(BoardDTO boardDTO);
-    BoardDTO getBoardOne(int idx);
+    //BoardDTO getBoardOne(int idx);
+
 
     void updateView(int bdNo);
     
 	List<Integer> searchBoard(String keyword); // 메인검색
-	
-
+	List<BoardDTO> findBoard(List<Integer> searchNum);
+	List<ProductDTO> findProduct(List<Integer> searchNum);
 }
 

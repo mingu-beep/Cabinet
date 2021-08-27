@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Map;
 
 
@@ -165,13 +166,18 @@ public class BoardController {
 	        
 			System.out.println("검색키워드=" + keyword);
 			System.out.println(boardService.searchBoard(keyword));
-			boardService.searchBoard(keyword);
+			List<Integer> searchresult = boardService.searchBoard(keyword);
 
-//			model.addAttribute("boardList",boardService.searchBoard(boardDTO.getBdNo()));
+			System.out.println(boardService.findProduct(searchresult));
+			System.out.println(boardService.findBoard(searchresult));
+			model.addAttribute("productList", boardService.findProduct(searchresult));
+			model.addAttribute("boardList",  boardService.findBoard(searchresult));
 //			session.setAttribute("keyword", boardDTO.getKeyword());
 	
-			return "redirect:/searchlist";
+			return "searchlist";
 	}
+
+	
 
 
 

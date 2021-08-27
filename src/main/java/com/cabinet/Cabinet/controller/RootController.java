@@ -68,4 +68,13 @@ public class RootController {
         return new ResponseEntity(HttpStatus.OK);
 
     }
+//    @RequestMapping("/search")
+//    public String searchResult(Model model, final HttpSession session) {
+//    	Object memName = session.getAttribute("memName");
+//        if (session.getAttribute("memName") != null) {
+//            model.addAttribute("memName", memName);
+//        }
+//        
+//        return "searchlist";
+//    }
 }
