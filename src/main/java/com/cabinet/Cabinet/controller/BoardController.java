@@ -173,4 +173,5 @@ public class BoardController {
 
         return "event";
     }
+
 }

@@ -38,7 +38,7 @@ public class ReplyController {
         if(memID != null)
             reply.setReplyWriter(memID.toString());
         else
-            reply.setReplyWriter("unknow");
+            reply.setReplyWriter("unknown");
 
         return replyService.replyInsertService(reply);
     }
@@ -59,6 +59,20 @@ public class ReplyController {
     public int mCommentServiceDelete(@PathVariable int replyNo){
 
         return replyService.replyDeleteService(replyNo);
+    }
+
+
+    @PostMapping("/checkWriter")
+    @ResponseBody
+    public boolean checkWriter(@RequestParam HashMap<Object, Object> params, final HttpSession session) {
+
+        String writer = (String)params.get("writer");
+
+        if(writer.equals(session.getAttribute("memID").toString()))
+            return true;
+        else
+            return false;
+
     }
 
 }

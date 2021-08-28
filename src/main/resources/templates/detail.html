@@ -17,96 +17,8 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css" />
   </head>
   <body>
-    <header class="blog-header py-3 container">
-      <div class="row">
-        <div class="col-4"></div>
-        <div class="col-4 text-center">
-          <a href="/">
-            <img
-                    src="/img/logo.png"
-                    alt="로고"
-                    class="img-responsive center-block logo"
-            />
-          </a>
-        </div>
-        <div class="col-4 text-right">
-          <a href="/cs">고객센터</a>
-        </div>
-      </div>
-    </header>
-    <nav class="container">
-      <ul class="nav justify-content-center">
-        <li class="nav-item">
-          <div class="dropdown">
-            <button
-                    class="btn btn-notFocus dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    style="background: none"
-            >
-              카테고리
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/intro">소개</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/board/all">거래 게시판</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/board/hot">핫플레이스</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/board/event">이벤트</a>
-        </li>
-        <li class="nav-item search_wrap">
-          <div class="ml-2 my-1">
-            <form>
-              <input
-                      class="search-input"
-                      type="text"
-                      placeholder="검색"
-                      style="width: 10rem"
-              />
-              <button class="search-btn" type="submit">
-                <i class="fas fa-search"></i>
-              </button>
-            </form>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a th:if="${memName == null}" class="nav-link" href="/member/login">
-            <i class="fas fa-sign-in-alt fa-lg"></i>
-          </a>
-          <a
-                  th:unless="${memName == null}"
-                  class="nav-link"
-                  href="/member/login"
-          >
-            <i class="fas fa-sign-out-alt fa-lg"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a th:if="${memName == null}" class="nav-link" href="/member/join">
-            <i class="fas fa-user-plus fa-lg"></i>
-          </a>
-          <a
-                  th:unless="${memName == null}"
-                  class="nav-link"
-                  href="/member/mypage"
-          >
-            <i class="fas fa-user fa-lg"></i>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <header th:replace="/fragments/header.html :: header"></header>
+    <nav th:replace="/fragments/nav.html :: nav"></nav>
     <main class="row justify-content-center">
       <div class="detail col-5 justify-content-center">
         <img
@@ -121,6 +33,8 @@
         <p th:text="${product.pdName}" id="pdName">물품명</p>
         <p th:text="${product.pdPrice} + '원'">가격</p>
         <p th:text="${board.bdContent}">설명</p>
+        <p th:text="${memID == 'morethansix'}">타입</p>
+        <p th:text="${memID == 'morethansix01'}">타입</p>
         <div th:if="${memID != null}">
           <a class="btn btn-notFocus my-5" name="requestTransaction" style="width: 6rem"
           >거래 요청</a
@@ -235,10 +149,11 @@
                 $.each(data, function(key, value){
                     a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
                     a += '<div class="commentInfo'+value.replyNo+'">'+' 작성자 : '+value.replyWriter;
-                    a += '<a onclick="commentUpdate('+value.replyNo+',\''+value.replyContent+'\');"> 수정 </a>';
-                    a += '<a onclick="commentDelete('+value.replyNo+');"> 삭제 </a> </div>';
+                    a += '<a onclick="commentUpdate(\''+ value.replyWriter +'\','+value.replyNo+',\''+value.replyContent+'\');"> 수정 </a>';
+                    a += '<a onclick="commentDelete(\''+ value.replyWriter +'\','+value.replyNo+');"> 삭제 </a> </div>';
                     a += '<div class="commentContent'+value.replyNo+'"> <p> 내용 : '+value.replyContent +'</p>';
                     a += '</div></div>';
+
                 });
 
                 $(".commentList").html(a);
@@ -264,16 +179,45 @@
         });
     }
 
+    function checkWriter(replyWriter){
+
+        $.ajax({
+          url: "/reply/checkWriter",
+          type: "post",
+          data: {"writer" : replyWriter},
+          async: false,
+          success: function(data){
+            result = data;
+            console.log(result);
+            console.log(data);
+          },
+          error: function(data){
+            console.log("error");
+          }
+        });
+
+        return result;
+    }
+
     //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
-    function commentUpdate(replyNo, content){
-        var a ='';
+    function commentUpdate(replyWriter, replyNo, content){
+        if(checkWriter(replyWriter)){
+          if(confirm("댓글을 수정하시겠습니까?")){
 
-        a += '<div class="input-group">';
-        a += '<input type="text" class="form-control" name="content_'+replyNo+'" value="'+content+'"/>';
-        a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+replyNo+');">수정</button> </span>';
-        a += '</div>';
+              var a ='';
 
-        $('.commentContent'+replyNo).html(a);
+              a += '<div class="input-group">';
+              a += '<input type="text" class="form-control" name="content_'+replyNo+'" value="'+content+'"/>';
+              a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+replyNo+');">수정</button> </span>';
+              a += '</div>';
+
+              $('.commentContent'+replyNo).html(a);
+          }
+        }
+        else{
+          alert("수정은 작성자 본인만 가능합니다.");
+        }
+
 
     }
 
@@ -292,14 +236,25 @@
     }
 
     //댓글 삭제
-    function commentDelete(replyNo){
-        $.ajax({
-            url : '/reply/delete/'+replyNo,
-            type : 'post',
-            success : function(data){
-                if(data == 1) commentList(bdNo); //댓글 삭제후 목록 출력
-            }
-        });
+    function commentDelete(replyWriter, replyNo){
+     if(checkWriter(replyWriter)){
+
+          if(confirm("댓글을 삭제하시겠습니까?")){
+            var a ='';
+
+            $.ajax({
+                url : '/reply/delete/'+replyNo,
+                type : 'post',
+                success : function(data){
+                    if(data == 1) commentList(bdNo); //댓글 삭제후 목록 출력
+                }
+            });
+          }
+
+      }
+      else {
+        alert("삭제는 작성자 본인만 가능합니다.");
+      }
     }
 
   </script>
