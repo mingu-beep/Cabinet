@@ -23,10 +23,9 @@ public interface MemberDAO {
 	boolean existById(String id);
 	boolean existByEmail(String email);
 
-	// 어드민 계정 추가
-	void makeAdmin(MemberDTO memberDTO);
 	// 로그인시 회원 체크 메서드
 	boolean checkLogin(LoginDTO loginDTO);
+	int checkAdmin(String memID);
 
 	List<ProductDTO> getProductWithMemID(String memID);
 

@@ -99,7 +99,6 @@ nav {
   overflow: hidden; /* 내용이 길면 감춤니다 */
   display: block; /* ie6이상 현재요소를 블럭처리합니다. */
 }
-
-#loginPlease {
-
+.admin-nav {
+  background-color: var(--blue);
 }

@@ -88,9 +88,9 @@
               비밀번호
             </p>
             <input
-                    th:field="*{memPw}"
+                    th:field="*{memPW}"
                     type="password"
-                    id="memPw"
+                    id="memPW"
                     class="form-control my-3 col-6 mx-2"
                     placeholder="8자이상의 비밀번호를 입력해주세요"
 
@@ -301,7 +301,7 @@
     <script th:inline="javascript">
       $("#ConfirmPassword").blur(function(){
           console.log("blur out");
-          if($('#memPw').val() != $("#ConfirmPassword").val()) {
+          if($('#memPW').val() != $("#ConfirmPassword").val()) {
             console.log("불일치");
             $("#pw_check").text("비밀번호가 일치하지 않습니다.");
             $("#pw_check").css("color", "red");

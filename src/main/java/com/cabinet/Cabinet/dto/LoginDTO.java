@@ -2,7 +2,15 @@ package com.cabinet.Cabinet.dto;
 
 public class LoginDTO {
     private String memID;
-    private String memPw;
+    private String memPW;
+
+    public String getMemPW() {
+        return memPW;
+    }
+
+    public void setMemPW(String memPW) {
+        this.memPW = memPW;
+    }
 
     public String getMemID() {
         return memID;
@@ -12,11 +20,5 @@ public class LoginDTO {
         this.memID = memID;
     }
 
-    public String getMemPw() {
-        return memPw;
-    }
 
-    public void setMemPw(String memPw) {
-        this.memPw = memPw;
-    }
 }

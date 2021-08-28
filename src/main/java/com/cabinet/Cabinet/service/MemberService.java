@@ -31,9 +31,6 @@ public class MemberService {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		try {
 			resultCnt = memberDao.regMember(memberDTO);
-			if (memberDTO.getMemID().substring(0, 5).equals("admin")) {
-				memberDao.makeAdmin(memberDTO);
-			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -61,9 +58,15 @@ public class MemberService {
 		return memberDao.existByEmail(email);
 	}
 
-	public boolean checkIdAndPw(LoginDTO loginDTO) {
+	public int checkIdAndPw(LoginDTO loginDTO) {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
-		return memberDao.checkLogin(loginDTO);
+		System.out.println(loginDTO.getMemID());
+		System.out.println(loginDTO.getMemPW());
+		if(memberDao.checkLogin(loginDTO)){
+			return memberDao.checkAdmin(loginDTO.getMemID());
+		}
+		else
+			return -1;
 	}
 
 	public MemberDTO getInfo(String memID) {

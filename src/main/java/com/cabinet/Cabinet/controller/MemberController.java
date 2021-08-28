@@ -102,10 +102,10 @@ public class MemberController {
 
 		// 목표 : 로그인 완료시 멤버 정보를 쿠키 및 세션에 저장.
 
-		boolean login = memberService.checkIdAndPw(loginDTO);
+		int login = memberService.checkIdAndPw(loginDTO);
 		// 사용자의 아이디와 비밀번호를 받는 DTO
 
-		if (login) {
+		if (login >= 0) {
 			// 로그인 완료시 사용자의 모든 데이터를 받아오는 부분 -> 이름 받아오려고...
 			MemberDTO memberDTO = memberService.getInfo(loginDTO.getMemID());
 
@@ -120,8 +120,10 @@ public class MemberController {
 			session.setAttribute("memName", memberDTO.getMemName());
 			session.setMaxInactiveInterval(60*5);
 
-			mav.addObject("data", new Message(memberDTO.getMemName() + "님 환영합니다!", "/"));
-
+			if(login == 0)
+				mav.addObject("data", new Message(memberDTO.getMemName() + "님 환영합니다!", "/"));
+			else
+				mav.addObject("data", new Message("관리자 권한으로 로그인하셨습니다.", "/admin/dashboard"));
 		}
 		else {
 			mav.addObject("data", new Message("아이디 혹은 비밀번호를 확인해주세요.", "login"));

@@ -3,13 +3,8 @@
 <mapper namespace="com.cabinet.Cabinet.dao.MemberDAO">
 	<!-- 회원가입 -->
 	<insert id="regMember" parameterType="com.cabinet.Cabinet.dto.MemberDTO">
-		insert into TB_MEMBER (memID, memPw, memName, memEmail, memPhone, memAdrs, memBday)
-		values (#{memID}, #{memPw}, #{memName}, #{memEmail}, #{memPhone}, #{memAdrs}, #{memBday})
-	</insert>
-
-	<insert id="makeAdmin" parameterType="com.cabinet.Cabinet.dto.MemberDTO">
-		insert into TB_ADMIN (adID, adPw, adName)
-		values (#{memID}, #{memPw}, #{memName})
+		insert into TB_MEMBER (memID, memPW, memName, memEmail, memPhone, memAdrs, memBday)
+		values (#{memID}, #{memPW}, #{memName}, #{memEmail}, #{memPhone}, #{memAdrs}, #{memBday})
 	</insert>
 
     <!-- 중복 아이디 조회 -->
@@ -30,7 +25,7 @@
 	<select id="checkLogin" parameterType="com.cabinet.Cabinet.dto.LoginDTO" resultType="_boolean">
 		select if(count(*) >= 1, 1, 0)
 		from TB_MEMBER
-		where memID = #{memID} and memPw = #{memPw};
+		where memID = #{memID} and memPW = #{memPW};
 	</select>
 
 	<select id="loginMember" parameterType="String" resultType="com.cabinet.Cabinet.dto.MemberDTO">
@@ -38,6 +33,13 @@
 		from TB_MEMBER
 		where memID = #{memID};
 	</select>
+
+	<select id="checkAdmin" parameterType="String" resultType="_int">
+		select count(*)
+		from TB_ADMIN
+		where adID = #{memID};
+	</select>
+
 	<!-- 회원 인증키(난수) 생성 -->
 	<insert id="getKey" parameterType="Map">
 		update memberInfo set member_key = #{param2} where inputId = #{param1}
