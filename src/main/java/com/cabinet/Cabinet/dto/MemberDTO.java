@@ -13,7 +13,7 @@ public class MemberDTO {
 
     @NotBlank(message = "비밀번호를 입력해주세요.")
     @Size(min = 8, message = "비밀번호는 8자 이상으로 입력해주세요.")
-    private String memPw;
+    private String memPW;
 
     @NotBlank(message = "이름을 입력해주세요.")
     private String memName;
@@ -40,12 +40,12 @@ public class MemberDTO {
         this.memID = memID;
     }
 
-    public String getMemPw() {
-        return memPw;
+    public String getMemPW() {
+        return memPW;
     }
 
-    public void setMemPw(String memPw) {
-        this.memPw = memPw;
+    public void setMemPW(String memPW) {
+        this.memPW = memPW;
     }
 
     public String getMemName() {
