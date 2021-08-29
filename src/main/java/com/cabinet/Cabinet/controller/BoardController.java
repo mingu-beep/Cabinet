@@ -5,6 +5,7 @@ import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.service.BoardService;
 
+import com.cabinet.Cabinet.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,6 +46,9 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
     private BoardDAO boardDao;
+
+    @Autowired
+    private CategoryService categoryService;
     
     //deal
     @GetMapping("/all")
@@ -55,6 +59,7 @@ public class BoardController {
             model.addAttribute("memName", memName);
         }
 
+        model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("boardList",boardService.getBoardData());
         model.addAttribute("productList",boardService.getProductData());
 
@@ -84,6 +89,7 @@ public class BoardController {
             model.addAttribute("memName", memName);
         }
 
+        model.addAttribute("categories", categoryService.getAllCategory());
         // View에서 정보를 받아오기 위해 Model에 boardDTO라는 이름으로 BoardDTO 객체를 등록한다.
         model.addAttribute("productDTO", new ProductDTO());
         model.addAttribute("boardDTO", new BoardDTO());
