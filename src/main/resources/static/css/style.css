@@ -39,6 +39,15 @@ i {
   font-size: 0.8rem;
 }
 
+.back-to-top {
+  display: none;
+  position: fixed;
+  right: 5rem;
+  bottom: 50px;
+  z-index: 999;
+  color: var(--blue);
+}
+
 /* header */
 .logo {
   width: 10rem;

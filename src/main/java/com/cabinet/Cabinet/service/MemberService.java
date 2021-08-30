@@ -58,6 +58,11 @@ public class MemberService {
 		return memberDao.existByEmail(email);
 	}
 
+	public String findId(String name, String email) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		return memberDao.findId(name, email);
+	}
+	
 	public int checkIdAndPw(LoginDTO loginDTO) {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		System.out.println(loginDTO.getMemID());

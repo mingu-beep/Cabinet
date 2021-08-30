@@ -57,4 +57,25 @@
 		WHERE memID = #{memID}
 		ORDER BY bdNo asc
 	</select>
+	
+	<select id="findId" parameterType="String" resultType="string">
+		SELECT
+		memID
+		FROM
+		TB_MEMBER
+		WHERE memName = #{name}
+		AND
+		memEmail = #{email}
+	</select>
+	<select id="findPW" resultType="com.cabinet.Cabinet.dto.MemberDTO">
+		SELECT
+		*
+		FROM
+		TB_MEMBER
+		WHERE memID = #{memID}
+		AND
+		memName = #{memName}
+		AND
+		memEmail = #{memEmail}
+	</select>
 </mapper>

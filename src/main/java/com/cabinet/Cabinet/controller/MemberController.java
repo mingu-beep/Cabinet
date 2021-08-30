@@ -1,5 +1,6 @@
 package com.cabinet.Cabinet.controller;
 
+import com.cabinet.Cabinet.dao.MemberDAO;
 import com.cabinet.Cabinet.dto.LoginDTO;
 import com.cabinet.Cabinet.dto.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,18 @@ public class MemberController {
 		return "check";
 	}
 
+	@GetMapping("/findId")
+	private String checkName(@RequestParam String namevalue, @RequestParam String emailValue, MemberDTO memberDTO , Model model) {
+		String idresult = memberService.findId(namevalue, emailValue);
+		if(idresult == null) {
+			model.addAttribute("type", "id");
+			model.addAttribute("value", idresult);
+			return "find";
+		}
+		
+		return "find";
+	}	
+	
 	//회원가입 컨트롤러
 	@PostMapping("/join")
 	public ModelAndView memberPass(ModelAndView mav, @Valid MemberDTO memberDTO, Errors errors) {

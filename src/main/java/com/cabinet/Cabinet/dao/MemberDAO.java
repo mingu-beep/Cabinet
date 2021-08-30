@@ -23,6 +23,9 @@ public interface MemberDAO {
 	boolean existById(String id);
 	boolean existByEmail(String email);
 
+	//아이디 찾기
+	String findId(String name, String email);
+	
 	// 로그인시 회원 체크 메서드
 	boolean checkLogin(LoginDTO loginDTO);
 	int checkAdmin(String memID);
