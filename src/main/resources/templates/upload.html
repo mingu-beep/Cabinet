@@ -76,11 +76,8 @@
                 "
           >카테고리</label
           >
-          <select name="language" class="category" th:field="*{productDTO.ctNo}">
-            <option th:value="'01'" th:text="가전제품" selected></option>
-            <option th:value="'02'" th:text="학용품"></option>
-            <option th:value="'03'" th:text="의류"></option>
-            <option th:value="'04'" th:text="잡화">\</option>
+          <select name="language" class="category" th:field="*{productDTO.ctNo}" >
+            <option th:each="category, now:${categories}" th:value="${category.ctNo}" th:text="${category.ctType}"></option>
           </select>
         </section>
         <section class="type-section row">

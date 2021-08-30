@@ -158,56 +158,109 @@
             </tbody>
         </table>
         <h4 class="my-3 border-bottom">카테고리 관리</h4>
+        <a class="btn btn-focused" onclick="InsertCategory()">추가</a>
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th>#</th>
-                <th>글 제목</th>
-                <th>물품 명</th>
-                <th>작성자</th>
+                <th class="text-center">타입</th>
+                <th class="text-center">물건 갯수</th>
+                <th></th>
                 <th></th>
             </tr>
             </thead>
-            <tbody>
+            <tbody class="categoryList">
             <!-- th:each 적용 -->
-            <tr th:each="board, now: ${boardList}">
-                <td th:text="${board.bdNo}">bdNo</td>
-                <td th:text="${board.bdTitle}">
-                    bdTitle
-                </td>
-                <td th:text="${productList[now.index].pdName}">pdName</td>
-                <td th:text="${board.memID}">memID</td>
-                <td>
-                    <a class="btn btn-notFocus my-5"
-                       th:href="@{delete(bdNo=${board.bdNo})}"
-                       onclick="return confirm('삭제를 하시겠습니까?');">삭제</a></td>
-            </tr>
+                <tr th:each="category, now:${categories}" th:class="${'categoryContent' + category.ctNo}">
+                    <td th:text="${category.ctNo}">ctNo</td>
+                    <td th:class="${'ctType' + category.ctNo}" th:text="${category.ctType}">
+                        ctType
+                    </td>
+                    <td th:class="${'text-center ctCNT' + category.ctNo}" th:text="${category.ctCNT}">ctCNT</td>
+                    <td>
+                        <a class="btn btn-notFocus py-0"
+                           th:onclick="categoryUpdate([[${category.ctNo}]])">수정</a>
+                    </td>
+                    <td><a class="btn btn-notFocus py-0"
+                           th:onclick="categoryDelete([[${category.ctNo}]])">삭제</a></td>
+                </tr>
             </tbody>
         </table>
     </main>
 </div>
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script
         src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"
 ></script>
-<script>
-      window.jQuery ||
-        document.write(
-          '<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>'
-        );
-    </script>
-<script src="../../assets/js/vendor/popper.min.js"></script>
-<script src="../../dist/js/bootstrap.min.js"></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script th:inline="javascript">
 
-<!-- Icons -->
-<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
-<script>
-      feather.replace();
-    </script>
+      function categoryList() {
+           $.ajax({
+                url : '/admin/ctList',
+                type : 'get',
+                success : function(data){
+                    var a ='';
+                    $.each(data, function(key, value){
+                        a += '<tr>';
+                        a += '<td>' + value.ctNo + '</td>';
+                        a += '<td class="ctType' + value.ctNo + '">' + value.ctType + '</td>';
+                        a += '<td class="text-center ctCNT"' + value.ctNo + '>' + value.ctCNT + '</td>';
+                        a += '<td><a class="btn btn-notFocus py-0" onclick="categoryUpdate(' + value.ctNo + ')">수정</a></td>';
+                        a += '<td><a class="btn btn-notFocus py-0" onclick="categoryDelete(' + value.ctNo + ')">삭제</a></td>';
+                        a += '</tr>';
+                    });
+
+                    $(".categoryList").html(a);
+                }
+           });
+      }
+
+      function categoryUpdate(ctNo) {
+        if(confirm("카테고리를 수정하시겠습니까?")){
+            var a = '';
+            a += '<td>' + ctNo + '</td>';
+            a += '<td><input type="text" class="form-control" name="content_'+ctNo+'" value="'+ $('.ctType'+ctNo).text() +'"/></td>';
+            a += '<td class="text-center">' + $('.ctCNT' + ctNo).text() + '</td>';
+            a += '<td class="input-group-btn"><button class="btn btn-focus py-0" type="button" onclick="categoryUpdateProc('+ctNo+');">수정</button> </td>';
+            a += '<td class="input-group-btn"><button class="btn btn-notFocus py-0" type="button" onclick="categoryList();">취소</button> </td>';
+            $('.categoryContent'+ctNo).html(a);
+        }
+      }
+
+      function categoryUpdateProc(ctNo) {
+        var updateContent = $('[name=content_' + ctNo + ']').val();
+
+        $.ajax({
+            url: '/admin/ctUpdate',
+            type: 'post',
+            data: {'ctNo' : ctNo,
+                   'ctType' : updateContent},
+            success: function(data){
+                if(data == 1) categoryList();
+            },
+            error: function(data){}
+        });
+      }
+      function categoryDelete(ctNo) {
+        if(confirm("댓글을 삭제하시겠습니까?")){
+            var a ='';
+
+            $.ajax({
+                url : '/admin/ctDelete/'+ctNo,
+                type : 'post',
+                success : function(data){
+                    if(data == 1) categoryList(); //댓글 삭제후 목록 출력
+                }
+            });
+          }
+      }
+</script>
 </body>
 </html>

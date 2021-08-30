@@ -53,7 +53,7 @@
             모든 상품
           </button>
           <div class="dropdown-menu">
-            <!-- Dropdown menu links -->
+            <a class="dropdown-item" th:each="category, now:${categories}" th:value="${category.ctNo}" th:text="${category.ctType}"></a>
           </div>
         </div>
         <div class="row">

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cabinet.Cabinet.dao.CategoryDAO">
+    <select id="findAll" resultType="com.cabinet.Cabinet.dto.CategoryDTO">
+        select
+            *
+        from
+            TB_CATEGORY
+    </select>
+
+    <update id="updateByCtNo" parameterType="com.cabinet.Cabinet.dto.CategoryDTO">
+        update
+            TB_CATEGORY
+        set
+            ctType = #{ctType}
+        where
+            ctNo = #{ctNo};
+    </update>
+
+    <delete id="deleteByCtNo" parameterType="_int">
+        delete from
+            TB_CATEGORY
+        where
+            ctNo = #{ctNo}
+    </delete>
+</mapper>
