@@ -9,4 +9,5 @@ public interface CategoryDAO {
 
     public boolean updateByCtNo(CategoryDTO categoryDTO);
     public boolean deleteByCtNo(int ctNo);
+    public void insertNewCategory(String ctType);
 }

@@ -83,4 +83,14 @@ public class MemberService {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		return memberDao.getProductWithMemID(memID);
 	}
+
+	public List<MemberDTO> getAllMember() {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		return memberDao.getAllMember();
+	}
+
+	public void deleteMember(int memNo) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		memberDao.deleteMember(memNo);
+	}
 }

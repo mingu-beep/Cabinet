@@ -40,15 +40,6 @@
 		where adID = #{memID};
 	</select>
 
-	<!-- 회원 인증키(난수) 생성 -->
-	<insert id="getKey" parameterType="Map">
-		update memberInfo set member_key = #{param2} where inputId = #{param1}
-	</insert>
-	<!-- 회원 인증키(난수) Y로 변경 -->
-	<update id="alter_memberKey" parameterType="Map">
-		update memberInfo set member_key = "Y" where inputId = #{param1} and user_key = #{param2}
-	</update>
-
 	<select id="getProductWithMemID"  parameterType="String" resultType="com.cabinet.Cabinet.dto.ProductDTO">
 		SELECT
 		*
@@ -57,7 +48,14 @@
 		WHERE memID = #{memID}
 		ORDER BY bdNo asc
 	</select>
-	
+
+	<select id="getAllMember" resultType="com.cabinet.Cabinet.dto.MemberDTO">
+		SELECT
+			*
+		FROM
+			TB_MEMBER
+	</select>
+
 	<select id="findId" parameterType="String" resultType="string">
 		SELECT
 		memID
@@ -78,4 +76,11 @@
 		AND
 		memEmail = #{memEmail}
 	</select>
+
+	<delete id="deleteMember" parameterType="_int">
+		delete from
+			TB_MEMBER
+		where
+			memNo = #{memNo}
+	</delete>
 </mapper>

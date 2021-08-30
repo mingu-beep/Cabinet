@@ -64,7 +64,7 @@ public class RootController {
 
     @RequestMapping("/request/transaction")
     @ResponseBody
-    public ResponseEntity requstTransaction(@RequestParam HashMap<Object, Object> param) {
+    public ResponseEntity requestTransaction(@RequestParam HashMap<Object, Object> param) {
 
         // 채팅방 만들기
         System.out.println(param);

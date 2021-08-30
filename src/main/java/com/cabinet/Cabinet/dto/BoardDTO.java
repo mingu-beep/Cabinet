@@ -18,7 +18,6 @@ public class BoardDTO {
 	private String memID;
 	private String memName;
 	private Date writeDate;
-	private String bdImg;
 	private int bdView;
 
 
@@ -60,14 +59,6 @@ public class BoardDTO {
 
 	public void setCtNo(String ctNo) {
 		this.ctNo = ctNo;
-	}
-
-	public String getBdImg() {
-		return bdImg;
-	}
-
-	public void setBdImg(String bdImg) {
-		this.bdImg = bdImg;
 	}
 
 	public String getBdTitle() {

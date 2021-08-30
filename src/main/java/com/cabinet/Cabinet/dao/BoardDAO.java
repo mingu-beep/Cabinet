@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cabinet.Cabinet.dto.BoardDTO;
+import com.cabinet.Cabinet.dto.BoardVO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 
@@ -35,5 +36,7 @@ public interface BoardDAO {
 	List<Integer> searchBoard(String keyword); // 메인검색
 	List<BoardDTO> findBoard(List<Integer> searchNum);
 	List<ProductDTO> findProduct(List<Integer> searchNum);
+
+	List<BoardVO> findAll();
 }
 

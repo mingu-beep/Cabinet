@@ -3,6 +3,7 @@ package com.cabinet.Cabinet.service;
 import com.cabinet.Cabinet.dao.BoardDAO;
 
 import com.cabinet.Cabinet.dto.BoardDTO;
+import com.cabinet.Cabinet.dto.BoardVO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,6 +23,11 @@ public class BoardService {
     @Autowired
     private SqlSessionTemplate boardSqlSession;
     private BoardDAO boardDao;
+
+    public List<BoardVO> findAll() {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAll();
+    }
 
     public void setBoardData(BoardDTO boardDTO, ProductDTO productDTO) throws ParseException {
 

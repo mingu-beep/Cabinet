@@ -11,6 +11,11 @@
             TB_CATEGORY
     </select>
 
+    <insert id="insertNewCategory" parameterType="String">
+        insert into TB_CATEGORY(ctType)
+        values (#{ctType})
+    </insert>
+
     <update id="updateByCtNo" parameterType="com.cabinet.Cabinet.dto.CategoryDTO">
         update
             TB_CATEGORY

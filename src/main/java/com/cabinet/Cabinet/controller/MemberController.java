@@ -43,6 +43,7 @@ public class MemberController {
 
 		return "check";
 	}
+
 	@GetMapping("/emailCheck")
 	public String checkEmailDuplicate(@RequestParam String value, Model model){
 		boolean result = memberService.checkEmailDuplicate(value);
@@ -136,7 +137,7 @@ public class MemberController {
 			if(login == 0)
 				mav.addObject("data", new Message(memberDTO.getMemName() + "님 환영합니다!", "/"));
 			else
-				mav.addObject("data", new Message("관리자 권한으로 로그인하셨습니다.", "/admin/dashboard"));
+				mav.addObject("data", new Message("관리자 권한으로 로그인하셨습니다.", "/admin/board"));
 		}
 		else {
 			mav.addObject("data", new Message("아이디 혹은 비밀번호를 확인해주세요.", "login"));
@@ -180,5 +181,6 @@ public class MemberController {
 
 		return "mylist";
 	}
+
 
 }

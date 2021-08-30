@@ -35,4 +35,9 @@ public class CategoryService {
         categoryDAO = categorySqlSession.getMapper(CategoryDAO.class);
         return categoryDAO.deleteByCtNo(ctNo);
     }
+
+    public void insertCategory(String ctType) {
+        categoryDAO = categorySqlSession.getMapper(CategoryDAO.class);
+        categoryDAO.insertNewCategory(ctType);
+    }
 }

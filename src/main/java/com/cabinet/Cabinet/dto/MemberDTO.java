@@ -7,6 +7,8 @@ import javax.validation.constraints.Size;
 
 public class MemberDTO {
 
+    private int memNo;
+
     @NotBlank(message = "아이디를 입력해주세요.")
     @Size(min=6, message = "6자 이상을 입력해주세요.")
     private String memID;
@@ -31,6 +33,14 @@ public class MemberDTO {
 
     @NotBlank(message = "생년월일을 입력해주세요.")
     private String memBday;
+
+    public int getMemNo() {
+        return memNo;
+    }
+
+    public void setMemNo(int memNo) {
+        this.memNo = memNo;
+    }
 
     public String getMemID() {
         return memID;

@@ -79,4 +79,41 @@
       </ul>
     </div>
   </nav>
+
+  <div th:fragment="admin-nav">
+    <div class="sidebar-sticky">
+      <ul class="nav flex-column">
+        <li class="nav-item my-1">
+          <a class="nav-link active" href="board">
+            <i class="far fa-sticky-note fa-2x mr-1"></i>
+            게시글 관리
+          </a>
+        </li>
+        <li class="nav-item my-1">
+          <a class="nav-link" href="category">
+            <i class="fas fa-layer-group fa-2x mr-1"></i>
+            카테고리 관리
+          </a>
+        </li>
+        <li class="nav-item my-1">
+          <a class="nav-link" href="event">
+            <i class="far fa-calendar fa-2x mr-1"></i>
+            이벤트 관리
+          </a>
+        </li>
+        <li class="nav-item my-1">
+          <a class="nav-link" href="member">
+            <i class="fas fa-users fa-2x mr-1"></i>
+            회원 관리
+          </a>
+        </li>
+        <li class="nav-item my-1">
+          <a class="nav-link" href="cs">
+            <i class="far fa-question-circle fa-2x mr-1"></i>
+            QnA 관리
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </html>

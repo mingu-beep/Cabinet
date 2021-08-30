@@ -50,6 +50,21 @@
             TB_BOARD
             ORDER BY bdNo asc
     </select>
+
+	<select id="findAll" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		<![CDATA[
+		select
+			b.bdNo, b.bdTitle, p.pdPrice, p.pdImg, b.bdView
+		from
+			TB_BOARD as b
+		inner join
+			TB_PRODUCT as p
+		on
+			b.bdNo = p.pdNo
+		order by b.bdNo desc
+		limit #{pageStart}, #{perPageNum}
+		]]>
+	</select>
   	<update id="updateBoard" parameterType="com.cabinet.Cabinet.dto.BoardDTO">
             update
 				TB_BOARD

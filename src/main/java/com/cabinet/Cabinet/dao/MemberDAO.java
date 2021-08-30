@@ -32,4 +32,8 @@ public interface MemberDAO {
 
 	List<ProductDTO> getProductWithMemID(String memID);
 
+	List<MemberDTO> getAllMember();
+
+	void deleteMember(int memNo);
+
 }

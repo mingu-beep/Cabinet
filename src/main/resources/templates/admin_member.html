@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cabinet - admin</title>
+  <!-- 부트스트랩 -->
+  <!-- Bootstrap CSS -->
+  <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous"
+  />
+  <!-- custom css -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+<header class="admin-nav navbar navbar-dark sticky-top flex-md-nowrap p-0">
+  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Cabinet</a>
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="#">Sign out</a>
+    </li>
+  </ul>
+</header>
+
+<div class="row">
+  <nav class="col-2 bg-light sidebar">
+    <div th:replace="/fragments/nav.html :: admin-nav"></div>
+  </nav>
+  <main class="col-9">
+    <h1
+            class="
+                  h5
+                  font-weight-bold font-weight-normal
+                  color-blue
+                  my-3
+                  pb-3
+                  border-bottom
+                "
+    >회원 관리</h1>
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>회원 아이디</th>
+        <th>회원 이름</th>
+        <th>회원 이메일</th>
+        <th style="width:auto;"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- th:each 적용 -->
+      <tr th:each="member, now: ${memberList}">
+        <td th:text="${member.memNo}">memNo</td>
+        <td th:text="${member.memID}">
+          memID
+        </td>
+        <td th:text="${member.memName}">memName</td>
+        <td th:text="${member.memEmail}">memEmail</td>
+        <td>
+          <a class="btn btn-notFocus py-0"
+             th:href="@{/admin/delete(memNo=${member.memNo})}"
+             onclick="return confirm('회원을 탈퇴시키시겠습니까?');"
+          >탈퇴</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+<!-- fontawesome -->
+<script
+        src="https://kit.fontawesome.com/f97d0d047b.js"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script th:inline="javascript">
+</script>
+</body>
+</html>
