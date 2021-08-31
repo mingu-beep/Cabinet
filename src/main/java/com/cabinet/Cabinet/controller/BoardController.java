@@ -6,6 +6,7 @@ import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.service.BoardService;
 
 import com.cabinet.Cabinet.service.CategoryService;
+import com.cabinet.Cabinet.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +50,9 @@ public class BoardController {
 
     @Autowired
     private CategoryService categoryService;
+
+    @Autowired
+    private EventService eventService;
     
     //deal
     @GetMapping("/all")
@@ -177,6 +181,7 @@ public class BoardController {
             model.addAttribute("memName", memName);
         }
 
+        model.addAttribute("eventList", eventService.getAllInfo());
         return "event";
     }
 

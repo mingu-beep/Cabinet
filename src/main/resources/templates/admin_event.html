@@ -18,12 +18,7 @@
 </head>
 <body>
 <header class="admin-nav navbar navbar-dark sticky-top flex-md-nowrap p-0">
-  <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Cabinet</a>
-  <ul class="navbar-nav px-3">
-    <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
-    </li>
-  </ul>
+  <div th:replace="/fragments/header.html :: admin-header"></div>
 </header>
 
 <div class="row">
@@ -40,7 +35,42 @@
                   pb-3
                   border-bottom
                 "
-    >이벤트 관리</h1>
+    >이벤트 관리
+      <button class="btn btn-focus" type="button" style="position:absolute; right:0;" onclick="addEvent();">추가</button>
+    </h1>
+    <table class="table table-striped table-sm">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>이벤트 이름</th>
+        <th>기한</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- th:each 적용 -->
+      <tr th:each="event, now: ${eventList}">
+        <td th:text="${event.evtNo}">evtNo</td>
+        <td>
+          <a th:href="${'/board/event'}" th:text="${event.evtTitle}">evtTitle</a>
+        </td>
+        <td th:text="${event.evtDate}">
+          evtDate
+        </td>
+        <td>
+          <a class="btn btn-notFocus py-0"
+             th:onclick="updateEvent([[${event.evtNo}]]);"
+          >수정</a>
+        </td>
+        <td>
+          <a class="btn btn-notFocus py-0"
+             th:onclick="deleteEvent([[${event.evtNo}]]);"
+          >삭제</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </main>
 </div>
 <!-- fontawesome -->
@@ -60,67 +90,67 @@
 ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script th:inline="javascript">
-
-      function categoryList() {
-           $.ajax({
-                url : '/admin/ctList',
-                type : 'get',
-                success : function(data){
-                    var a ='';
-                    $.each(data, function(key, value){
-                        a += '<tr>';
-                        a += '<td>' + value.ctNo + '</td>';
-                        a += '<td class="ctType' + value.ctNo + '">' + value.ctType + '</td>';
-                        a += '<td class="text-center ctCNT"' + value.ctNo + '>' + value.ctCNT + '</td>';
-                        a += '<td><a class="btn btn-notFocus py-0" onclick="categoryUpdate(' + value.ctNo + ')">수정</a></td>';
-                        a += '<td><a class="btn btn-notFocus py-0" onclick="categoryDelete(' + value.ctNo + ')">삭제</a></td>';
-                        a += '</tr>';
-                    });
-
-                    $(".categoryList").html(a);
-                }
-           });
-      }
-
-      function categoryUpdate(ctNo) {
-        if(confirm("카테고리를 수정하시겠습니까?")){
-            var a = '';
-            a += '<td>' + ctNo + '</td>';
-            a += '<td><input type="text" class="form-control" name="content_'+ctNo+'" value="'+ $('.ctType'+ctNo).text() +'"/></td>';
-            a += '<td class="text-center">' + $('.ctCNT' + ctNo).text() + '</td>';
-            a += '<td class="input-group-btn"><button class="btn btn-focus py-0" type="button" onclick="categoryUpdateProc('+ctNo+');">수정</button> </td>';
-            a += '<td class="input-group-btn"><button class="btn btn-notFocus py-0" type="button" onclick="categoryList();">취소</button> </td>';
-            $('.categoryContent'+ctNo).html(a);
-        }
-      }
-
-      function categoryUpdateProc(ctNo) {
-        var updateContent = $('[name=content_' + ctNo + ']').val();
-
+  function deleteEvent(evtNo) {
+    if (confirm("이벤트를 삭제하시겠습니까?")) {
         $.ajax({
-            url: '/admin/ctUpdate',
-            type: 'post',
-            data: {'ctNo' : ctNo,
-                   'ctType' : updateContent},
-            success: function(data){
-                if(data == 1) categoryList();
-            },
-            error: function(data){}
-        });
-      }
-      function categoryDelete(ctNo) {
-        if(confirm("댓글을 삭제하시겠습니까?")){
-            var a ='';
-
-            $.ajax({
-                url : '/admin/ctDelete/'+ctNo,
-                type : 'post',
-                success : function(data){
-                    if(data == 1) categoryList(); //댓글 삭제후 목록 출력
-                }
-            });
+          url:'/admin/delEvent',
+          type:'post',
+          data:{'evtNo' : evtNo},
+          success : function(data){
+            alert("해당 이벤트를 삭제했습니다.");
+            location.reload(true);
           }
+        });
+    }
+  }
+
+  function updateEvent(evtNo) {
+    if (confirm("이벤트를 수정하시겠습니까?")) {
+        var url = `/admin/updateEvent?evtNo=`+evtNo;
+        var winWidth = 600;
+        var winHeight = 650;
+        var popupOption = "width=" + winWidth + ", height=" + winHeight;
+
+        var popup = window.open(url, "이벤트 수정", popupOption);
+        var popupInterval = window.setInterval(function() {
+
+          try{
+            if(popup == null || popup.closed) {
+                window.clearInterval(popupInterval);
+                popup=null;
+
+                location.reload(true);
+            }
+          } catch(e) {
+            console.log("error");
+          }
+
+        }, 500);
+    }
+  }
+
+  function addEvent(){
+    var url = `/admin/addEvent`;
+    var winWidth = 600;
+    var winHeight = 650;
+    var popupOption = "width=" + winWidth + ", height=" + winHeight;
+
+    var popup = window.open(url, "이벤트 추가", popupOption);
+    var popupInterval = window.setInterval(function() {
+
+      try{
+        if(popup == null || popup.closed) {
+            window.clearInterval(popupInterval);
+            popup=null;
+
+            location.reload(true);
+        }
+      } catch(e) {
+        console.log("error");
       }
+
+    }, 500);
+  }
 </script>
 </body>
 </html>

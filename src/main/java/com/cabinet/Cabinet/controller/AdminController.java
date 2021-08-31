@@ -1,15 +1,27 @@
 package com.cabinet.Cabinet.controller;
 
+import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.CategoryDTO;
 
+import com.cabinet.Cabinet.dto.EventDTO;
+import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.service.BoardService;
 import com.cabinet.Cabinet.service.CategoryService;
+import com.cabinet.Cabinet.service.EventService;
 import com.cabinet.Cabinet.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,6 +37,9 @@ public class AdminController {
 
     @Autowired
     CategoryService categoryService;
+
+    @Autowired
+    EventService eventService;
 
     // 게시판 관리 페이지
     @GetMapping("/board")
@@ -95,13 +110,68 @@ public class AdminController {
     // 이벤트 관리 페이지
     @GetMapping("/event")
     public String manageEvent(Model model) {
+        model.addAttribute("eventList", eventService.getAllInfo());
         return "admin_event";
     }
+
+    @GetMapping("/addEvent")
+    public String addEventForm(Model model) {
+        model.addAttribute("type", "추가");
+        model.addAttribute("eventDTO", new EventDTO());
+        return "addEvent";
+    }
+
+    @PostMapping("/postEvent")
+    public ResponseEntity postEvent(Model model, EventDTO eventDTO,
+                                    @RequestParam("file") MultipartFile file,
+                                    HttpServletRequest req) throws IOException, ParseException {
+
+        System.out.println(eventDTO.getEvtTitle());
+        if(!file.getOriginalFilename().isEmpty()) {
+            System.out.println("I'm here");
+            String path = "C:\\attached\\" + file.getOriginalFilename();
+            file.transferTo(new File(path));
+            eventDTO.setEvtImg("/upload/" + file.getOriginalFilename());
+
+            eventService.addEventInfo(eventDTO);
+
+            return new ResponseEntity(HttpStatus.OK);
+        }
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+
+    }
+
+    @GetMapping("/updateEvent")
+    public String updateEventForm(Model model, @RequestParam("evtNo") int evtNo) {
+        model.addAttribute("type", "수정");
+        model.addAttribute("evtNo", evtNo);
+        model.addAttribute("upEventDTO", new EventDTO());
+        model.addAttribute("eventDTO", eventService.findByEvtNo(evtNo));
+        return "addEvent";
+    }
+
+    @PostMapping("/postUpdateEvent")
+    public ResponseEntity postUpdateEvent(Model model, EventDTO newEventDTO,
+                                    @RequestParam("evtNo") int evtNo,
+                                    HttpServletRequest req) throws IOException, ParseException {
+        newEventDTO.setEvtNo(evtNo);
+        eventService.updateEventInfo(newEventDTO);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/member/delEvent")
+    public ResponseEntity deleteEvent(@RequestParam HashMap<Object, Object> params){
+        int evtNo = Integer.parseInt((String) params.get("evtNo"));
+        eventService.deleteEvent(evtNo);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 
     // 회원 관리
     @GetMapping("/member")
     public String manageMember(Model model) {
-
         model.addAttribute("memberList", memberService.getAllMember());
         return "admin_member";
     }

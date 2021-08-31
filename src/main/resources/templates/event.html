@@ -20,66 +20,20 @@
     <header th:replace="/fragments/header.html :: header"></header>
     <nav th:replace="/fragments/nav.html :: nav"></nav>
     <main>
-      <div class="card-group">
-        <div class="card">
-          <a href="#">
+      <div class="card-group row">
+        <div class="card col-4 col-sm-6" th:each="event, now : ${eventList}">
             <img
               class="card-img-top"
-              src="/img/event01.png"
-              alt="Card image cap"
+              th:src="${event.evtImg}"
+              alt="image cap"
             />
             <div class="card-body">
-              <h5 class="card-title">8월 출석체크</h5>
-              <p class="card-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ex
-                totam libero magnam nihil fuga voluptatem eaque, unde adipisci
-                iure labore nobis distinctio facere, quas ipsam optio nesciunt
-                soluta id.
+              <h5 class="card-title" th:text="${event.evtTitle}">이벤트 제목</h5>
+              <p class="card-text" th:text="${event.evtContent}">
+                이벤트 내용
               </p>
+              <small class="text-muted" th:text="${event.evtDate}">기한</small>
             </div>
-          </a>
-          <!-- <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div> -->
-        </div>
-        <div class="card">
-          <a href="#">
-            <img
-              class="card-img-top"
-              src="/img/event04.png"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                This card has supporting text below as a natural lead-in to
-                additional content.
-              </p>
-            </div>
-          </a>
-          <!-- <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div> -->
-        </div>
-        <div class="card">
-          <a href="#">
-            <img
-              class="card-img-top"
-              src="/img/event03.png"
-              alt="Card image cap"
-            />
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This card has even longer content
-                than the first to show that equal height action.
-              </p>
-            </div>
-          </a>
-          <!-- <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div> -->
         </div>
       </div>
     </main>
