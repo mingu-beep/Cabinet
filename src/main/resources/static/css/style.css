@@ -111,3 +111,7 @@ nav {
 .admin-nav {
   background-color: var(--blue);
 }
+
+.caution {
+    color:var(--yellow);
+}

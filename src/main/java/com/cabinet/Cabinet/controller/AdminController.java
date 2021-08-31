@@ -187,6 +187,9 @@ public class AdminController {
     // QnA 관리
     @GetMapping("/cs")
     public String manageQnA(Model model) {
+
+        model.addAttribute("csList", boardService.findAllQnA());
+
         return "admin_cs";
     }
 }

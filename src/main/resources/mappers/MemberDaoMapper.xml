@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cabinet.Cabinet.dao.MemberDAO">
+
+	<select id="findAdminByID" parameterType="string" resultType="_int">
+		select
+			count(*)
+		from
+			TB_ADMIN
+		where
+			adID = #{memID}
+	</select>
+
+	<update id="checkAnswer" parameterType="_int">
+		update
+			TB_CS
+		set
+			csCom = 1
+		where
+			csNo = #{csNo}
+	</update>
+
 	<!-- 회원가입 -->
 	<insert id="regMember" parameterType="com.cabinet.Cabinet.dto.MemberDTO">
 		insert into TB_MEMBER (memID, memPW, memName, memEmail, memPhone, memAdrs, memBday)

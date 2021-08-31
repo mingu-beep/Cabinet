@@ -2,6 +2,7 @@ package com.cabinet.Cabinet.controller;
 
 import com.cabinet.Cabinet.dao.BoardDAO;
 import com.cabinet.Cabinet.dto.BoardDTO;
+import com.cabinet.Cabinet.dto.CsDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.service.BoardService;
 
@@ -184,5 +185,4 @@ public class BoardController {
         model.addAttribute("eventList", eventService.getAllInfo());
         return "event";
     }
-
 }

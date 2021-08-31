@@ -21,14 +21,22 @@
     <nav th:replace="/fragments/nav.html :: nav"></nav>
     <main role="main" class="inner cover">
       <h1 class="cover-heading">고객센터</h1>
+
       <p class="lead">
-        Cover is a one-page template for building simple and beautiful home
-        pages. Download, edit the text, and add your own fullscreen background
-        photo to make it your own.
+        Cabinet은 1:1 QnA 게시판을 운영하고 있습니다.
+        <br>
+        아래 버튼을 눌러 문의 사항을 남겨주세요!
       </p>
       <p class="lead">
-        <a href="#" class="btn btn-lg btn-secondary">1:1 고객센터 바로가기</a>
+        <a th:if="${memID == null}" onclick="alert('질문 남기기는 로그인 후 가능합니다.');" class="btn btn-lg btn-focus" style="color:white;">질문 남기기</a>
+        <div th:unless="${memID == null}">
+          <button class="btn btn-lg btn-focus" style="color:white;" onclick="uploadQnA();">질문 남기기</button>
+          <br>
+          <button class="btn btn-lg btn-focus my-2" style="color:white;" onclick="qnaList();">질문 확인하기</button>
+        </div>
+
       </p>
+
     </main>
 
     <!-- fontawesome -->
@@ -53,5 +61,23 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script th:inline="javascript">
+      function uploadQnA() {
+        var url = '/cs/upload';
+        var winWidth = 500;
+        var winHeight = 520;
+        var popupOption = "width=" + winWidth + ", height=" + winHeight;
+
+        var popup = window.open(url, "QnA 등록", popupOption);
+      }
+      function qnaList() {
+        var url = `/cs/list`;
+        var winWidth = 600;
+        var winHeight = 650;
+        var popupOption = "width=" + winWidth + ", height=" + winHeight;
+
+        var popup = window.open(url, "QnA List", popupOption);
+      }
+    </script>
   </body>
 </html>

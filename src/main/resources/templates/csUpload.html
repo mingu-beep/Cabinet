@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cabinet</title>
+  <!-- 부트스트랩 -->
+  <!-- Bootstrap CSS -->
+  <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous"
+  />
+  <!-- custom css -->
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<main class="container text-center">
+  <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
+    QnA 등록하기
+  </h1>
+  <form th:action="@{upload}" class="col-12" id="uploadForm" style="float: none; margin: 0 auto" method="POST">
+    <section class="title-section row">
+      <label
+              class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+              for="bdTitle"
+      >제목</label
+      >
+      <input
+              th:field="*{csDTO.csTitle}"
+              type="text"
+              class="form-control my-3 col-6 mx-2"
+              id="bdTitle"
+      />
+    </section>
+    <section class="content-section row">
+      <label
+              class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+              for="bdContent"
+      >내용</label
+      >
+      <textarea
+              th:field="*{csDTO.csContent}"
+              type="text"
+              class="form-control my-3 col-6 mx-2"
+              id="bdContent"
+              style="height: 15rem"
+      ></textarea>
+    </section>
+    <button class="btn btn-focus my-5" style="width: 5rem" id="upload">올리기</button>
+    <a class="btn btn-notFocus my-5" href="all" style="width: 5rem"
+    >취소</a
+    >
+  </form>
+</main>
+<!-- fontawesome -->
+<script
+        src="https://kit.fontawesome.com/f97d0d047b.js"
+        crossorigin="anonymous"
+></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+></script>
+<script th:inline="javascript">
+    document.getElementById("upload").onclick = function() {
+      document.getElementById("uploadForm").submit();
+      self.close();
+    }
+  </script>
+</body>
+</html>

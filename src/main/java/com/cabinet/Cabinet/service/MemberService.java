@@ -24,6 +24,18 @@ public class MemberService {
 	private SqlSessionTemplate memberSqlSession;
 	private MemberDAO memberDao;
 
+	public boolean isAdmin(String memID) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		if(memberDao.findAdminByID(memID) > 0)
+			return true;
+		return false;
+	}
+
+	public void checkAnswer(int csNo) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		memberDao.checkAnswer(csNo);
+	}
+
 	//회원가입 서비스
 	public int member_service(MemberDTO memberDTO) {
 		int resultCnt = 0;

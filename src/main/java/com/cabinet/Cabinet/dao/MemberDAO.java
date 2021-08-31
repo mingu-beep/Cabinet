@@ -19,6 +19,9 @@ public interface MemberDAO {
 	MemberDTO loginMember(@Param("memID") String memID); //유저 로그인 메서드
 	//Param 어노테이션을 사용하면 mapper에서 해당이름으로 사용할 수 있다.
 
+	int findAdminByID(String memID);
+	void checkAnswer(int csNo);
+
 	// 회원가입시 중복 아이디, 이메일 체크 메서드
 	boolean existById(String id);
 	boolean existByEmail(String email);

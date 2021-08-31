@@ -20,18 +20,35 @@ public class ReplyService {
         return replyDao.replyList(bdNo);
     }
 
+    public List<ReplyDTO> replyCsListService(int csNo) {
+        replyDao = replySqlSession.getMapper(ReplyDAO.class);
+        return replyDao.replyCsList(csNo);
+    }
+
     public int replyInsertService(ReplyDTO replyDTO) {
         replyDao = replySqlSession.getMapper(ReplyDAO.class);
         return replyDao.replyInsert(replyDTO);
+    }
+    public int csReplyInsertService(ReplyDTO replyDTO) {
+        replyDao = replySqlSession.getMapper(ReplyDAO.class);
+        return replyDao.replyCsInsert(replyDTO);
     }
 
     public int replyUpdateService(ReplyDTO replyDTO) {
         replyDao = replySqlSession.getMapper(ReplyDAO.class);
         return replyDao.replyUpdate(replyDTO);
     }
+    public int replyCsUpdateService(ReplyDTO replyDTO) {
+        replyDao = replySqlSession.getMapper(ReplyDAO.class);
+        return replyDao.replyCsUpdate(replyDTO);
+    }
 
     public int replyDeleteService(int replyNo) {
         replyDao = replySqlSession.getMapper(ReplyDAO.class);
         return replyDao.replyDelete(replyNo);
+    }
+    public int replyCsDeleteService(int replyNo) {
+        replyDao = replySqlSession.getMapper(ReplyDAO.class);
+        return replyDao.replyCsDelete(replyNo);
     }
 }

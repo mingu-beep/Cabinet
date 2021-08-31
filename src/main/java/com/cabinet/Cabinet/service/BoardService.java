@@ -4,6 +4,7 @@ import com.cabinet.Cabinet.dao.BoardDAO;
 
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.BoardVO;
+import com.cabinet.Cabinet.dto.CsDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -118,4 +119,24 @@ public class BoardService {
 		
 		return productList;
 	}
+
+    public List<CsDTO> findAllQnA(){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAllQnA();
+    }
+	public List<CsDTO> findMyQnA(String memID){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findMyQnA(memID);
+    }
+
+    public void setCsData(CsDTO csDTO){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        boardDao.addCs(csDTO);
+    }
+
+    public CsDTO findByCsNo(int csNo) {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findByCsNo(csNo);
+    }
+
 }

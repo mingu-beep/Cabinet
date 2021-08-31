@@ -132,6 +132,7 @@ public class MemberController {
 			// 세션에 저장
 			session.setAttribute("memID", memberDTO.getMemID());
 			session.setAttribute("memName", memberDTO.getMemName());
+			session.setAttribute("memNo", memberDTO.getMemNo());
 			session.setMaxInactiveInterval(60*5);
 
 			if(login == 0)

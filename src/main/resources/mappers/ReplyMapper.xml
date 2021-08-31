@@ -21,16 +21,39 @@
             bdNo=#{bdNo}
     </select>
 
+    <select id="replyCsList" parameterType="_int" resultType="com.cabinet.Cabinet.dto.ReplyDTO">
+        select
+        *
+        from
+        TB_CSREPLY
+        where
+        csNo=#{bdNo}
+    </select>
+
     <insert id="replyInsert" parameterType="com.cabinet.Cabinet.dto.ReplyDTO">
         insert into
             TB_REPLY(replyNo, bdNo, replyContent, replyWriter, regDate)
         values
             (#{replyNo}, #{bdNo}, #{replyContent}, #{replyWriter}, now())
     </insert>
+    <insert id="replyCsInsert" parameterType="com.cabinet.Cabinet.dto.ReplyDTO">
+        insert into
+        TB_CSREPLY(replyNo, csNo, replyContent, replyWriter, regDate)
+        values
+        (#{replyNo}, #{bdNo}, #{replyContent}, #{replyWriter}, now())
+    </insert>
 
     <update id="replyUpdate" parameterType="com.cabinet.Cabinet.dto.ReplyDTO">
         update
             TB_REPLY
+        set
+            replyContent = #{replyContent}
+        where
+            replyNo = #{replyNo}
+    </update>
+    <update id="replyCsUpdate" parameterType="com.cabinet.Cabinet.dto.ReplyDTO">
+        update
+            TB_CSREPLY
         set
             replyContent = #{replyContent}
         where
@@ -42,6 +65,12 @@
             TB_REPLY
         where
              replyNo = #{replyNo}
+    </delete>
+    <delete id="replyCsDelete" parameterType="_int">
+        delete from
+            TB_CSREPLY
+        where
+            replyNo = #{replyNo}
     </delete>
 
 </mapper>

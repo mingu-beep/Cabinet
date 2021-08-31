@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.BoardVO;
+import com.cabinet.Cabinet.dto.CsDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
 
@@ -38,5 +39,11 @@ public interface BoardDAO {
 	List<ProductDTO> findProduct(List<Integer> searchNum);
 
 	List<BoardVO> findAll();
+
+    void addCs(CsDTO csDTO);
+    CsDTO findByCsNo(int csNo);
+    List<CsDTO> findAllQnA();
+    List<CsDTO> findMyQnA(String memID);
+
 }
 

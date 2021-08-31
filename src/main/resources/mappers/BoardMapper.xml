@@ -124,6 +124,36 @@
 		WHERE
 			(bdTitle LIKE CONCAT('%', #{keyword}, '%') OR bdContent LIKE CONCAT('%', #{keyword}, '%'))
 		ORDER BY bdNo DESC
+	</select>
+
+	<select id="findAllQnA" resultType="com.cabinet.Cabinet.dto.CsDTO">
+		select
+			*
+		from
+			TB_CS
 
 	</select>
+	<select id="findMyQnA" parameterType="string" resultType="com.cabinet.Cabinet.dto.CsDTO">
+		select
+			*
+		from
+			TB_CS
+		where
+			memID = #{memID}
+	</select>
+	<select id="findByCsNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.CsDTO">
+		select
+			*
+		from
+			TB_CS
+		where
+			csNo = #{csNo}
+	</select>
+
+	<insert id="addCs" parameterType="com.cabinet.Cabinet.dto.CsDTO">
+		insert into
+			TB_CS(csTitle, csContent, csDate, memID)
+		values
+			(#{csTitle}, #{csContent}, now(), #{memID})
+	</insert>
 </mapper>

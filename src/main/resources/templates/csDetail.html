@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cabinet</title>
+    <!-- 부트스트랩 -->
+    <!-- Bootstrap CSS -->
+    <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous"
+    />
+    <!-- custom css -->
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<main class="container text-center">
+    <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
+        QnA 내용
+    </h1>
+    <div class="detail col-5 justify-content-center">
+        <p class="border-bottom py-3 font-weight-bold" th:text="${csDetail.csTitle}">제목</p>
+        <p th:text="${csDetail.csContent}">설명</p>
+    </div>
+
+    <label for="content">comment</label>
+    <form name="commentInsertForm">
+        <div class="input-group">
+            <input type="hidden" id="replyWriter" th:value="${memID}"/>
+            <input type="hidden" name="csNo" id="thisCsNo" th:value="${csDetail.csNo}"/>
+            <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+           </span>
+        </div>
+    </form>
+
+    <div class="container">
+        <div class="commentList"></div>
+    </div>
+</main>
+<!-- fontawesome -->
+<script
+        src="https://kit.fontawesome.com/f97d0d047b.js"
+        crossorigin="anonymous"
+></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script th:inline="javascript">
+    var csNo = $("#thisCsNo").val(); //게시글 번호
+
+    $(document).ready(function(){
+        commentList(); //페이지 로딩시 댓글 목록 출력
+    });
+
+    $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시
+        var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
+        commentInsert(insertData); //Insert 함수호출(아래)
+    });
+
+    //댓글 목록
+    function commentList(){
+        $.ajax({
+            url : '/reply/csList',
+            type : 'get',
+            data : {'csNo':csNo},
+            success : function(data){
+                var a ='';
+                $.each(data, function(key, value){
+                    a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+                    a += '<div class="commentInfo'+value.replyNo+'">'+' 작성자 : '+value.replyWriter;
+                    a += '<a onclick="commentUpdate(\''+ value.replyWriter +'\','+value.replyNo+',\''+value.replyContent+'\');"> 수정 </a>';
+                    a += '<a onclick="commentDelete(\''+ value.replyWriter +'\','+value.replyNo+');"> 삭제 </a> </div>';
+                    a += '<div class="commentContent'+value.replyNo+'"> <p> 내용 : '+value.replyContent +'</p>';
+                    a += '</div></div>';
+
+                });
+
+                $(".commentList").html(a);
+            }
+        });
+    }
+
+    //댓글 등록
+    function commentInsert(insertData){
+        $.ajax({
+            url : '/reply/csInsert',
+            type : 'post',
+            data : insertData,
+            success : function(data){
+                if(data == 1) {
+                    commentList(); //댓글 작성 후 댓글 목록 reload
+                    $('[name=content]').val('');
+                }
+            },
+            error : function(){
+                console.log("error at commentInsert");
+            }
+        });
+    }
+
+    function checkWriter(replyWriter){
+
+        $.ajax({
+          url: "/reply/checkWriter",
+          type: "post",
+          data: {"writer" : replyWriter},
+          async: false,
+          success: function(data){
+            result = data;
+            console.log(result);
+            console.log(data);
+          },
+          error: function(data){
+            console.log("error");
+          }
+        });
+
+        return result;
+    }
+
+    //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경
+    function commentUpdate(replyWriter, replyNo, content){
+        if(checkWriter(replyWriter)){
+          if(confirm("댓글을 수정하시겠습니까?")){
+
+              var a ='';
+
+              a += '<div class="input-group">';
+              a += '<input type="text" class="form-control" name="content_'+replyNo+'" value="'+content+'"/>';
+              a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+replyNo+');">수정</button> </span>';
+              a += '</div>';
+
+              $('.commentContent'+replyNo).html(a);
+          }
+        }
+        else{
+          alert("수정은 작성자 본인만 가능합니다.");
+        }
+
+
+    }
+
+    //댓글 수정
+    function commentUpdateProc(replyNo){
+        var updateContent = $('[name=content_'+replyNo+']').val();
+
+        $.ajax({
+            url : '/reply/csUpdate',
+            type : 'post',
+            data : {'content' : updateContent, 'replyNo' : replyNo},
+            success : function(data){
+                if(data == 1) commentList(bdNo); //댓글 수정후 목록 출력
+            }
+        });
+    }
+
+    //댓글 삭제
+    function commentDelete(replyWriter, replyNo){
+     if(checkWriter(replyWriter)){
+
+          if(confirm("댓글을 삭제하시겠습니까?")){
+            var a ='';
+
+            $.ajax({
+                url : '/reply/csDelete/'+replyNo,
+                type : 'post',
+                success : function(data){
+                    if(data == 1) commentList(bdNo); //댓글 삭제후 목록 출력
+                }
+            });
+          }
+
+      }
+      else {
+        alert("삭제는 작성자 본인만 가능합니다.");
+      }
+    }
+
+  </script>
+</body>
+</html>
