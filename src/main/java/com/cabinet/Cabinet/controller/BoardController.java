@@ -8,6 +8,7 @@ import com.cabinet.Cabinet.service.BoardService;
 
 import com.cabinet.Cabinet.service.CategoryService;
 import com.cabinet.Cabinet.service.EventService;
+import com.cabinet.Cabinet.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +55,9 @@ public class BoardController {
 
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private MemberService memberService;
     
     //deal
     @GetMapping("/all")
@@ -121,7 +125,8 @@ public class BoardController {
                 productDTO.setPdImg("/upload/"+file.getOriginalFilename());
 
                 boardService.setBoardData(boardDTO, productDTO);
-
+                categoryService.updateCtCNT(Integer.parseInt(boardDTO.getCtNo()));
+                memberService.updatePOSTCNT(session.getAttribute("memID").toString());
             }
         }
         return "redirect:/board/all";
@@ -136,7 +141,7 @@ public class BoardController {
         model.addAttribute("bdNo", bdNo);
         model.addAttribute("boardDTO",boardService.getBoardWithBdNo(bdNo));
         model.addAttribute("productDTO",boardService.getProductWithBdNo(bdNo));
-        //boardService.updateContent(boardDTO);
+
         return "update";
     }
 

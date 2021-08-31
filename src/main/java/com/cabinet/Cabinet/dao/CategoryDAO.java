@@ -5,9 +5,11 @@ import com.cabinet.Cabinet.dto.CategoryDTO;
 import java.util.List;
 
 public interface CategoryDAO {
-    public List<CategoryDTO> findAll();
+    List<CategoryDTO> findAll();
 
-    public boolean updateByCtNo(CategoryDTO categoryDTO);
-    public boolean deleteByCtNo(int ctNo);
-    public void insertNewCategory(String ctType);
+    boolean updateByCtNo(CategoryDTO categoryDTO);
+    boolean deleteByCtNo(int ctNo);
+    void insertNewCategory(String ctType);
+
+    void updateCtCNT(int ctNo);
 }

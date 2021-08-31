@@ -105,4 +105,9 @@ public class MemberService {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		memberDao.deleteMember(memNo);
 	}
+
+	public void updatePOSTCNT(String memID){
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		memberDao.updatePOSTCNT(memID);
+	}
 }

@@ -102,4 +102,13 @@
 		where
 			memNo = #{memNo}
 	</delete>
+
+	<update id="updatePOSTCNT" parameterType="string">
+		update
+			TB_MEMBER
+		set
+			POSTCNT = (POSTCNT + 1)
+		where
+			memID = #{memID}
+	</update>
 </mapper>

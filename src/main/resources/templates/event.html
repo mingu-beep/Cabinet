@@ -20,6 +20,10 @@
     <header th:replace="/fragments/header.html :: header"></header>
     <nav th:replace="/fragments/nav.html :: nav"></nav>
     <main>
+      <div class="row text-center" th:if="${eventList.isEmpty()}">
+        <i class="fas fa-exclamation fa-7x my-5 col-12 caution"></i>
+        <p class="col-12 font-weight-bold font-italic my-2" style="font-size:2rem; color:gray;">등록된 이벤트가 없습니다.</p>
+      </div>
       <div class="card-group row">
         <div class="card col-4 col-sm-6" th:each="event, now : ${eventList}">
             <img

@@ -40,4 +40,9 @@ public class CategoryService {
         categoryDAO = categorySqlSession.getMapper(CategoryDAO.class);
         categoryDAO.insertNewCategory(ctType);
     }
+
+    public void updateCtCNT(int ctNo) {
+        categoryDAO = categorySqlSession.getMapper(CategoryDAO.class);
+        categoryDAO.updateCtCNT(ctNo);
+    }
 }

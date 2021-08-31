@@ -31,4 +31,13 @@
         where
             ctNo = #{ctNo}
     </delete>
+
+    <update id="updateCtCNT" parameterType="_int">
+        update
+            TB_CATEGORY
+        set
+            ctCNT = (ctCNT + 1)
+        where
+            ctNo = #{ctNo}
+    </update>
 </mapper>
