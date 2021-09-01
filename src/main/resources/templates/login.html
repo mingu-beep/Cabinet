@@ -50,9 +50,9 @@
             th:field="*{memPW}"
           />
           <div class="mb-3 text-muted text-right fs-08rem">
-            <a class="findIdBtn" href="" onclick="forFind()">아이디 찾기</a>
+            <a class="findIdBtn" href="" onclick="forFind()" style = "text-decoration: none">아이디 찾기</a>
             |
-            <a class="findPwBtn" aria-pressed="true">비밀번호 찾기</a>
+            <a class="findPwBtn"  href="" onclick="forFindPw()" style = "text-decoration: none">비밀번호 찾기</a>
           </div>
           <div class="checkbox mb-3">
             <label>
@@ -92,14 +92,24 @@
       crossorigin="anonymous"
     ></script>
     <script type="text/javascript">
-    function forFind(){
-        const memName = "";
-        const memEmail = "";
-        var url = `/member/findId?name=${memName}&email=${memEmail}`;
-    	  var winWidth = 600;
-    	  var winHeight = 500;
-    	  var popupOption = "width=" + winWidth + ", height=" + winHeight;
-    	  window.open(url, "아이디/비밀번호 찾기", popupOption);
+    	function forFind(){
+	        const memName = "";
+	        const memEmail = "";
+	        var url = `/member/findId?name=${memName}&email=${memEmail}`;
+	    	var winWidth = 600;
+	    	var winHeight = 500;
+	    	var popupOption = "width=" + winWidth + ", height=" + winHeight;
+	    	window.open(url, "아이디 찾기", popupOption);
+    	}
+    	function forFindPw(){
+    		const memId = "";
+    		const memName = "";
+	        const memEmail = "";
+	        var url = `/member/findPw?id=${memId}&name=${memName}&email=${memEmail}`;
+	    	var winWidth = 600;
+	    	var winHeight = 500;
+	    	var popupOption = "width=" + winWidth + ", height=" + winHeight;
+	    	window.open(url, "비밀번호 찾기", popupOption);
     	}
     </script>
   </body>

@@ -75,6 +75,11 @@ public class MemberService {
 		return memberDao.findId(name, email);
 	}
 	
+	public String findPw(String id, String name, String email) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		return memberDao.findPw(id, name, email);
+	}
+	
 	public int checkIdAndPw(LoginDTO loginDTO) {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		System.out.println(loginDTO.getMemID());

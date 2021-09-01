@@ -22,30 +22,64 @@
 </nav>
 <main class="text-center container">
   <input type="hidden" id="type" th:value="${type}"/>
-  <div class="row justify-content-center">
-    <form
-            method="get"
-            class="mt-5 text-center"
-            style="float: none; margin: 0 auto"
-    >
-   	  <label for="name">이름</label>
-      <input type="text" name="name" id="name" class="form-control" required="required" th:value="${namevalue}"/>
-      <label for="email">이메일</label>
-      <input type="email" name="email" id="email" class="form-control" required="required"  th:value="${emailValue}"/>
-      <br />
-      <button class="btn" type="submit">찾기</button>
-    </form>
-  </div>
-  <div th:if="${namevalue != ''}">
-	  <div th:if="${value != null}" class="result mt-5">
-	    <p th:text="'아이디는 '+${value}+'입니다'"></p>
-	      <br/>
-	      <button class="btn" id="close">닫기</button>
+  <!-- id찾기 -->
+  <div th:if="${type.equals('id')}">
+	  <div class="row justify-content-center">
+	    <form
+	            method="get"
+	            class="mt-5 text-center"
+	            style="float: none; margin: 0 auto"
+	    >
+	   	  <label for="name">이름</label>
+	      <input type="text" name="name" id="name" class="form-control" required="required" th:value="${nameValue}"/>
+	      <label for="email">이메일</label>
+	      <input type="email" name="email" id="email" class="form-control" required="required"  th:value="${emailValue}"/>
+	      <br />
+	      <button class="btn" type="submit">찾기</button>
+	    </form>
 	  </div>
-	  <div th:unless="${value != null}" class="result mt-5">
-	  	<p>일치하는 회원이 없습니다.</p>
-	      <br/>
-	      <button class="btn" id="close">닫기</button>
+	  <div th:if="${namevalue != ''}">
+		  <div th:if="${value != null}" class="result mt-5">
+		    <p th:text="'아이디는 '+${value}+'입니다'"></p>
+		      <br/>
+		      <button class="btn" onclick="window.close()">닫기</button>
+		  </div>
+		  <div th:unless="${value != null}" class="result mt-5">
+		  	<p>일치하는 회원이 없습니다.</p>
+		      <br/>
+		      <button class="btn" onclick="window.close()">닫기</button>
+		  </div>
+	  </div>
+  </div>
+  <!-- 비밀번호 찾기 -->
+  <div th:unless="${type.equals('id')}">
+	  <div class="row justify-content-center">
+	    <form
+	            method="get"
+	            class="mt-5 text-center"
+	            style="float: none; margin: 0 auto"
+	    >
+	      <label for="id">아이디</label>
+	      <input type="text" name="id" id="id" class="form-control" required="required" th:value="${idValue}"/>
+	   	  <label for="name">이름</label>
+	      <input type="text" name="name" id="name" class="form-control" required="required" th:value="${nameValue}"/>
+	      <label for="email">이메일</label>
+	      <input type="email" name="email" id="email" class="form-control" required="required"  th:value="${emailValue}"/>
+	      <br />
+	      <button class="btn" type="submit">찾기</button>
+	    </form>
+	  </div>
+	  <div th:if="${idValue != ''}">
+		  <div th:if="${value != null}" class="result mt-5">
+		    <p th:text="'비밀번호는 '+${value}+'입니다'"></p>
+		      <br/>
+		      <button class="btn" onclick="window.close()">닫기</button>
+		  </div>
+		  <div th:unless="${value != null}" class="result mt-5">
+		  	<p>일치하는 회원이 없습니다.</p>
+		      <br/>
+		      <button class="btn" onclick="window.close()">닫기</button>
+		  </div>
 	  </div>
   </div>
 </main>
@@ -71,7 +105,7 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
 ></script>
-<script th:inline="javascript">
+<!--<script th:inline="javascript">
   $("#sendToParent").click(function(){
     var resultInput = $("#value").val();
 
@@ -88,6 +122,6 @@
 
     self.close();
   });
-</script>
+</script>-->
 </body>
 </html>

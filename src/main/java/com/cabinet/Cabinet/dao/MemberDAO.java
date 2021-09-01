@@ -28,7 +28,9 @@ public interface MemberDAO {
 
 	//아이디 찾기
 	String findId(@Param("name") String name, @Param("email") String email);
-	
+	//비밀번호 찾기
+	String findPw(@Param("id") String id, @Param("name") String name, @Param("email") String email);
+
 	// 로그인시 회원 체크 메서드
 	boolean checkLogin(LoginDTO loginDTO);
 	int checkAdmin(String memID);

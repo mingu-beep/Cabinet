@@ -84,16 +84,16 @@
 		AND
 		memEmail = #{email}
 	</select>
-	<select id="findPW" resultType="com.cabinet.Cabinet.dto.MemberDTO">
+	<select id="findPw" parameterType="String" resultType="string">
 		SELECT
-		*
+		memPw
 		FROM
 		TB_MEMBER
-		WHERE memID = #{memID}
+		WHERE memID = #{id}
 		AND
-		memName = #{memName}
+		memName = #{name}
 		AND
-		memEmail = #{memEmail}
+		memEmail = #{email}
 	</select>
 
 	<delete id="deleteMember" parameterType="_int">

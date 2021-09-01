@@ -54,15 +54,32 @@ public class MemberController {
 	}
 
 	@GetMapping("/findId")
-	private String checkName(@RequestParam("name") String namevalue, @RequestParam("email") String emailValue, MemberDTO memberDTO , Model model) {
-		System.out.println(namevalue);
+	private String checkName(@RequestParam("name") String nameValue, @RequestParam("email") String emailValue, MemberDTO memberDTO , Model model) {
+		System.out.println(nameValue);
 		System.out.println(emailValue);
-		String idresult = memberService.findId(namevalue, emailValue);
+		String idresult = memberService.findId(nameValue, emailValue);
 		System.out.println(idresult);
 		
 			model.addAttribute("type", "id");
 			model.addAttribute("value", idresult);
-			model.addAttribute("namevalue", namevalue);
+			model.addAttribute("namevalue", nameValue);
+			model.addAttribute("emailValue", emailValue);
+		
+		return "find";
+	}	
+	
+	@GetMapping("/findPw")
+	private String checkName(@RequestParam("id") String idValue, @RequestParam("name") String nameValue, @RequestParam("email") String emailValue, MemberDTO memberDTO , Model model) {
+		System.out.println(idValue);
+		System.out.println(nameValue);
+		System.out.println(emailValue);
+		String pwresult = memberService.findPw(idValue, nameValue, emailValue);
+		System.out.println(pwresult);
+		
+			model.addAttribute("type", "pw");
+			model.addAttribute("value", pwresult);
+			model.addAttribute("idvalue", idValue);
+			model.addAttribute("namevalue", nameValue);
 			model.addAttribute("emailValue", emailValue);
 		
 		return "find";
