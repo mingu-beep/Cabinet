@@ -50,7 +50,7 @@
             th:field="*{memPW}"
           />
           <div class="mb-3 text-muted text-right fs-08rem">
-            <a class="findIdBtn" href="/member/findId">아이디 찾기</a>
+            <a class="findIdBtn" href="" onclick="forFind()">아이디 찾기</a>
             |
             <a class="findPwBtn" aria-pressed="true">비밀번호 찾기</a>
           </div>
@@ -91,6 +91,16 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
-    <script src="/js/popup.js"></script>
+    <script type="text/javascript">
+    function forFind(){
+        const memName = "";
+        const memEmail = "";
+        var url = `/member/findId?name=${memName}&email=${memEmail}`;
+    	  var winWidth = 600;
+    	  var winHeight = 500;
+    	  var popupOption = "width=" + winWidth + ", height=" + winHeight;
+    	  window.open(url, "아이디/비밀번호 찾기", popupOption);
+    	}
+    </script>
   </body>
 </html>

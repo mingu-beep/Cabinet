@@ -28,20 +28,25 @@
             class="mt-5 text-center"
             style="float: none; margin: 0 auto"
     >
-      <input type="text" name="value" id="value" class="form-control" th:value="${value}"/>
+   	  <label for="name">이름</label>
+      <input type="text" name="name" id="name" class="form-control" required="required" th:value="${namevalue}"/>
+      <label for="email">이메일</label>
+      <input type="email" name="email" id="email" class="form-control" required="required"  th:value="${emailValue}"/>
       <br />
-      <button class="btn" type="submit">회원 확인</button>
+      <button class="btn" type="submit">찾기</button>
     </form>
   </div>
-  <div th:if="${value != ''}" class="result mt-5">
-    <p>아이디는 : ${value}입니다.</p>
-      <br/>
-      <button class="btn" id="close">닫기</button>
-  </div>
-  <div th:unless="${value != ''}" class="result mt-5">
-  	<p>일치하는 회원이 없습니다.</p>
-      <br/>
-      <button class="btn" id="close">닫기</button>
+  <div th:if="${namevalue != ''}">
+	  <div th:if="${value != null}" class="result mt-5">
+	    <p th:text="'아이디는 '+${value}+'입니다'"></p>
+	      <br/>
+	      <button class="btn" id="close">닫기</button>
+	  </div>
+	  <div th:unless="${value != null}" class="result mt-5">
+	  	<p>일치하는 회원이 없습니다.</p>
+	      <br/>
+	      <button class="btn" id="close">닫기</button>
+	  </div>
   </div>
 </main>
 <!-- fontawesome -->

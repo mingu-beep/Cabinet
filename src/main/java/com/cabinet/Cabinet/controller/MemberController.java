@@ -54,13 +54,16 @@ public class MemberController {
 	}
 
 	@GetMapping("/findId")
-	private String checkName(@RequestParam String namevalue, @RequestParam String emailValue, MemberDTO memberDTO , Model model) {
+	private String checkName(@RequestParam("name") String namevalue, @RequestParam("email") String emailValue, MemberDTO memberDTO , Model model) {
+		System.out.println(namevalue);
+		System.out.println(emailValue);
 		String idresult = memberService.findId(namevalue, emailValue);
-		if(idresult == null) {
+		System.out.println(idresult);
+		
 			model.addAttribute("type", "id");
 			model.addAttribute("value", idresult);
-			return "find";
-		}
+			model.addAttribute("namevalue", namevalue);
+			model.addAttribute("emailValue", emailValue);
 		
 		return "find";
 	}	
