@@ -59,6 +59,15 @@ public class BoardService {
     	return boardDao.getBoard();
 	}
 
+    public List<ProductDTO> mainProductData() {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.mainProduct();
+    }
+    public List<BoardDTO> mainBoardData() {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+    	return boardDao.mainBoard();
+	} 
+    
     public BoardDTO getBoardWithBdNo(int bdNo) {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.getBoardWithBdNo(bdNo);
@@ -67,6 +76,15 @@ public class BoardService {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.getProductWithBdNo(bdNo);
     }
+    
+    public List<ProductDTO> viewProductData() {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.viewProduct();
+    }
+    public List<BoardDTO> viewBoardData() {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+    	return boardDao.viewBoard();
+	} 
     
     public void deleteBoard(int bdNo) {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);

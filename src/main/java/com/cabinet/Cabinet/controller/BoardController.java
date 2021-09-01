@@ -175,6 +175,8 @@ public class BoardController {
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
+        model.addAttribute("boardList",boardService.viewBoardData());
+        model.addAttribute("productList",boardService.viewProductData());
 
         return "hot";
     }

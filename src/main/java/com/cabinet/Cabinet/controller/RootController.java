@@ -37,7 +37,8 @@ public class RootController {
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-
+        model.addAttribute("boardList", boardService.mainBoardData());
+        model.addAttribute("productList", boardService.mainProductData());
         return "index";
     }
     

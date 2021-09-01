@@ -18,7 +18,15 @@ public interface BoardDAO {
     // 모든 정보를 받아오는 썸네일용 쿼리
     List<BoardDTO> getBoard();
     List<ProductDTO> getProduct();
+    
+    //메인에서 역순으로 보이는 부분
+    List<BoardDTO> mainBoard();
+    List<ProductDTO> mainProduct();
 
+    //조회수 순으로 보는 부분
+    List<BoardDTO> viewBoard();
+    List<ProductDTO> viewProduct();
+    
     BoardDTO getBoardWithBdNo(int bdNo);
     ProductDTO getProductWithBdNo(int bdNo);
     List<ProductDTO> getProductWithMemID(String memID);

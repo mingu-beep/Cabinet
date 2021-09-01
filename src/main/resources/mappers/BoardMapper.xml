@@ -23,6 +23,23 @@
 		insert into TB_BOARD (ctNo, memID, memName, bdTitle, bdContent, bdDate)
 		values (#{ctNo}, #{memID}, #{memName}, #{bdTitle}, #{bdContent}, #{writeDate})
 	</insert>
+	
+	<select id="mainBoard" resultType="com.cabinet.Cabinet.dto.BoardDTO">
+			SELECT
+			*
+            FROM
+            TB_BOARD
+            ORDER BY bdNo desc
+	</select>
+	
+	<select id="mainProduct" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+			SELECT
+			*
+            FROM
+            TB_PRODUCT
+            ORDER BY bdNo desc
+	</select>
+	
 	<select id="boardNo" parameterType="com.cabinet.Cabinet.dto.BoardDTO" resultType="_int">
 		SELECT
 			bdNo
@@ -156,4 +173,20 @@
 		values
 			(#{csTitle}, #{csContent}, now(), #{memID})
 	</insert>
+	
+	<select id="viewBoard" resultType="com.cabinet.Cabinet.dto.BoardDTO">
+		SELECT
+			*
+        FROM
+           TB_BOARD
+        ORDER BY 
+			bdView desc;
+	</select>
+	<select id="viewProduct" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+		SELECT
+			*
+        FROM
+           TB_PRODUCT
+        ORDER BY bdNo desc;
+	</select>
 </mapper>
