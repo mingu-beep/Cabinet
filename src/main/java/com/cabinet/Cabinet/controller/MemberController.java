@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -127,7 +129,40 @@ public class MemberController {
 		return mav;
 	}
 
-
+	//회원정보 수정
+	@GetMapping("/mypage")
+	private String getupdateMember(Model model, MemberDTO memberDTO,  final HttpSession session) {
+		Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+        int memNo = Integer.parseInt(session.getAttribute("memNo").toString());
+        System.out.println(memNo);
+        model.addAttribute("memNo", memNo);
+        model.addAttribute("memberDTO", memberService.getMemWithMemNo(memNo));
+        
+        return "mypage";
+	}
+	@PostMapping("/mypage")
+	private ModelAndView postupdateMember(Model model, ModelAndView mav, MemberDTO memberDTO, final HttpSession session) throws ParseException {
+		System.out.println(memberDTO.getMemNo());
+		mav.addObject("memberDTO", memberDTO);	//페이지가자마자 보일 수 있도록 하는 부분 return도 mav필수
+		mav.setViewName("redirect:/member/mypage");
+		try {
+			System.out.println("회원정보 수정 In");
+			memberService.updateMemberInfo(memberDTO);
+			System.out.println(memberDTO.getMemPhone());
+			System.out.println("회원정보 수정 Out");
+			mav.addObject("data", new Message("회원정보 수정이 완료되었습니다.", "mypage"));
+			mav.setViewName("message");
+		}
+		catch (Exception e) {
+			mav.addObject("data", new Message("중복 정보가 존재합니다.\n다시 입력해주세요.", "mypage"));
+			mav.setViewName("message");
+		}
+		return mav;
+	}
+	
 	// 로그인 관련 컨트롤러
 	@GetMapping("/login")
 	public String getLogin(Model model) {
@@ -185,18 +220,6 @@ public class MemberController {
 		mav.addObject("data", new Message("로그아웃 되었습니다!", "/"));
 		mav.setViewName("message");
 		return mav;
-	}
-	
-	@GetMapping("/mypage")
-	public String memberMypage(Model model, final HttpSession session) {
-
-		Object memName = session.getAttribute("memName");
-		if (session.getAttribute("memName") != null) {
-			model.addAttribute("memName", memName);
-			model.addAttribute("memID", session.getAttribute("memID").toString());
-		}
-		model.addAttribute("categories", categoryService.getAllCategory());
-		return "mypage";
 	}
 
 	@GetMapping("/mylist")
