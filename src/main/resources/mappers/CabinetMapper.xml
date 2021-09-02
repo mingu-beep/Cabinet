@@ -14,15 +14,15 @@
         update
             TB_CABINET
         set
-            cnPW = #{cnPW}, cnReser = #{cnReser}, cnExist=1
+            pdNo=#{pdNo}, cnPW = #{cnPW}, cnReser = #{cnReser}
         where
             cnNo = #{cnNo}
     </update>
-    <update id="updateCabinet" parameterType="com.cabinet.Cabinet.dto.CabinetDTO">
+    <update id="reSetCabinet" parameterType="com.cabinet.Cabinet.dto.CabinetDTO">
         update
         TB_CABINET
         set
-        cnPW = 0000, cnReser = "CABINET_ADMIN", cnExist=0
+        pdNo = null, cnPW = 0000, cnReser = "CABINET_ADMIN", cnExist=0
         where
         cnNo = #{cnNo}
     </update>
