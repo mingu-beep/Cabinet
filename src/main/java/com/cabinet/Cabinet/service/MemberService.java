@@ -115,4 +115,11 @@ public class MemberService {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		memberDao.updatePOSTCNT(memID);
 	}
+
+	public void updateQCNT(String memID){
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		memberDao.updateQCNT(memID);
+	}
+
+
 }

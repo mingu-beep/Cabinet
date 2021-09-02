@@ -42,5 +42,6 @@ public interface MemberDAO {
 	void deleteMember(int memNo);
 
 	void updatePOSTCNT(String memID);
+	void updateQCNT(String memID);
 
 }

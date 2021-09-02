@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cabinet</title>
+  <!-- 부트스트랩 -->
+  <!-- Bootstrap CSS -->
+  <link
+          rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous"
+  />
+  <!-- custom css -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+<nav class="navbar navbar-light" style="background-color: var(--blue)">
+  <div class="navbar-brand" style="color: white">Cabinet</div>
+</nav>
+<main class="text-center container">
+  <div class="row justify-content-center">
+    <form
+            method="post"
+            class="mt-5 text-center"
+            style="float: none; margin: 0 auto"
+    >
+      <input type="hidden" name="bdNo" id="bdNo" th:value="${bdNo}"/>
+      <input type="hidden" name="oppID" id="oppID" th:value="${oppID}"/>
+      <label for="location">캐비넷 위치</label>
+      <select name="location" id="location">
+        <option value="none">=== 선택 ===</option>
+        <option th:each="cabinet, now:${cabinetList}" th:value="${cabinet.cnNo}" th:text="${cabinet.cnLo}">위치</option>
+      </select>
+      <div class="pw-session" style="display:none;">
+        <label for="pw" >비밀번호</label>
+        <input class="forPW" maxlength="4" type="number" name="pw" id='pw' placeholder="4자리의 비밀번호를 입력해주세요."/>
+      </div>
+      <div class="setBtn" style="display:none;">
+        <button class="btn btn-focus">캐비넷 예약하기</button>
+      </div>
+    </form>
+  </div>
+</main>
+<!-- fontawesome -->
+<script
+        src="https://kit.fontawesome.com/f97d0d047b.js"
+        crossorigin="anonymous"
+></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script
+        src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"
+></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script th:inline="javascript">
+    $('#location').change(function() {
+      var state = $('#location option:selected').val();
+      if(state)
+        $('.pw-session').show();
+    });
+
+    $('.forPW').blur(function() {
+      $('.setBtn').show();
+    });
+</script>
+</body>
+</html>

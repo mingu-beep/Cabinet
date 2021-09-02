@@ -157,4 +157,9 @@ public class BoardService {
         return boardDao.findByCsNo(csNo);
     }
 
+    public void completeDeal(String oppID, int bdNo) {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        boardDao.setComplete(oppID, bdNo);
+    }
+
 }

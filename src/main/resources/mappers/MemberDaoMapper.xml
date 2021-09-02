@@ -111,4 +111,13 @@
 		where
 			memID = #{memID}
 	</update>
+
+	<update id="updateQCNT" parameterType="string">
+		update
+		TB_MEMBER
+		set
+			QCNT = (QCNT + 1)
+		where
+		memID = #{memID}
+	</update>
 </mapper>

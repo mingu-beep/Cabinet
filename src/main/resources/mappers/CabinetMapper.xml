@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cabinet.Cabinet.dao.CabinetDAO">
+    <select id="findLocation" resultType="com.cabinet.Cabinet.dto.CabinetDTO">
+        select
+            *
+        from
+            TB_CABINET
+        where
+            cnExist = 0 and cnReser = 'CABINET_ADMIN';
+    </select>
+
+    <update id="updateCabinet" parameterType="com.cabinet.Cabinet.dto.CabinetDTO">
+        update
+            TB_CABINET
+        set
+            cnPW = #{cnPW}, cnReser = #{cnReser}, cnExist=1
+        where
+            cnNo = #{cnNo}
+    </update>
+</mapper>

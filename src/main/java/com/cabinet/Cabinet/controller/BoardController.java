@@ -10,6 +10,8 @@ import com.cabinet.Cabinet.service.CategoryService;
 import com.cabinet.Cabinet.service.EventService;
 import com.cabinet.Cabinet.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,7 +74,7 @@ public class BoardController {
         model.addAttribute("boardList",boardService.getBoardData());
         model.addAttribute("productList",boardService.getProductData());
 
-        return "deal"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
+        return "mainBoard"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
                            // 따라서 return 값은 html 파일 이름!
     }
 
@@ -166,7 +168,20 @@ public class BoardController {
 
         return  "redirect:/member/mylist?memID=" + session.getAttribute("memID").toString();
     }
-    
+
+    @GetMapping("/comDeal")
+    public String completeDeal(Model model, @RequestParam("bdNo") int bdNo) {
+        model.addAttribute("product", boardService.getProductWithBdNo(bdNo));
+        return "checkDeal";
+    }
+    @GetMapping("/directCom")
+    public ResponseEntity completeDirect(@RequestParam("oppID")String oppID, @RequestParam("bdNo") int bdNo) {
+        System.out.println(oppID);
+        boardService.completeDeal(oppID, bdNo);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 
     @GetMapping("/hot")
     public String goodsHot(Model model, final HttpSession session) {

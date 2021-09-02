@@ -7,7 +7,7 @@ import com.cabinet.Cabinet.dto.BoardDTO;
 import com.cabinet.Cabinet.dto.BoardVO;
 import com.cabinet.Cabinet.dto.CsDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
-import com.fasterxml.jackson.databind.deser.impl.CreatorCandidate.Param;
+import org.apache.ibatis.annotations.Param;
 
 public interface BoardDAO {
 
@@ -37,8 +37,8 @@ public interface BoardDAO {
     void deleteBoard(int bdNo);
 
     int boardNo(BoardDTO boardDTO);
-    //BoardDTO getBoardOne(int idx);
 
+    void setComplete(@Param("oppID") String oppID, @Param("bdNo") int bdNo);
 
     void updateView(int bdNo);
     

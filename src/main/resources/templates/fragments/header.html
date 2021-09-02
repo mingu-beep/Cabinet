@@ -14,10 +14,21 @@
         </a>
       </div>
       <div class="col-4 text-right">
+        <a th:if="${memName != null}" onclick="goToRoom()">채팅방</a>
         <a href="/cs/main">고객센터</a>
       </div>
     </div>
   </div>
+  <script th:inline="javascript">
+      function goToRoom() {
+      var url = '/room'
+      var winWidth = 600;
+      var winHeight = 650;
+      var popupOption = "width=" + winWidth + ", height=" + winHeight;
+
+      window.open(url, "Cabinet QnA", popupOption);
+  }
+  </script>
 </header>
 
 <div th:fragment="admin-header">

@@ -189,4 +189,13 @@
            TB_PRODUCT
         ORDER BY bdNo desc;
 	</select>
+
+	<update id="setComplete">
+		update
+			TB_PRODUCT
+		set
+			comOpponent=#{oppID},pdSell = true, comDate = now()
+		where
+			bdNo = #{bdNo}
+	</update>
 </mapper>

@@ -4,6 +4,7 @@ import com.cabinet.Cabinet.dao.MemberDAO;
 import com.cabinet.Cabinet.dto.LoginDTO;
 import com.cabinet.Cabinet.dto.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -203,5 +205,9 @@ public class MemberController {
 		return "mylist";
 	}
 
-
+	@PostMapping("/checkOpponent")
+	@ResponseBody
+	public boolean checkOpponentID(@RequestParam HashMap<Object, Object> params) {
+		return memberService.checkIdDuplicate(params.get("oppID").toString());
+	}
 }

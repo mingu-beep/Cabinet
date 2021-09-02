@@ -33,15 +33,13 @@
         <p th:text="${product.pdName}" id="pdName">물품명</p>
         <p th:text="${product.pdPrice} + '원'">가격</p>
         <p th:text="${board.bdContent}">설명</p>
-        <p th:text="${memID == 'morethansix'}">타입</p>
-        <p th:text="${memID == 'morethansix01'}">타입</p>
         <div th:if="${memID != null}">
           <a class="btn btn-notFocus my-5" name="requestTransaction" style="width: 6rem"
           >거래 요청</a
           >
         </div>
         <div th:if="${board.memID.equals(memID)}">
-          <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" onclick="return confirm('수정을 하시겠습니까?');" style="width: 6rem"
+          <a class="btn btn-notFocus my-5" name="complete" style="width: 6rem"
           >판매 완료</a
           >
           <a class="btn btn-notFocus my-5" th:href="@{update(bdNo=${board.bdNo})}" onclick="return confirm('수정하시겠습니까?');" style="width: 6rem"
@@ -119,6 +117,30 @@
       }
     });
 
+    $('[name=complete]').click(function(){
+      if(confirm("거래를 완료하시겠습니까?")){
+        var url = '/board/comDeal?bdNo=' + bdNo;
+        var winWidth = 600;
+        var winHeight = 400;
+        var popupOption = "width=" + winWidth + ", height=" + winHeight;
+
+        var popup = window.open(url, "Cabinet", popupOption);
+        var popupInterval = window.setInterval(function() {
+
+        try{
+          if(popup == null || popup.closed) {
+              window.clearInterval(popupInterval);
+              popup=null;
+
+              location.href="/board/all";
+          }
+        } catch(e) {
+          console.log("error");
+        }
+
+      }, 500);
+      }
+    });
     function createRoom(roomData) {
           $.ajax({ // 방 만들기
              url: "/dealRoom",

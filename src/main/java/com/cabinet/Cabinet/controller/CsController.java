@@ -5,6 +5,7 @@ import com.cabinet.Cabinet.dto.CsDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.dto.ReplyDTO;
 import com.cabinet.Cabinet.service.BoardService;
+import com.cabinet.Cabinet.service.MemberService;
 import com.cabinet.Cabinet.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.List;
 
 @Controller
 @RequestMapping("/cs")
@@ -27,6 +26,9 @@ public class CsController {
 
     @Autowired
     BoardService boardService;
+
+    @Autowired
+    MemberService memberService;
 
     @GetMapping("/main")
     public String boardCS(Model model, final HttpSession session) {
@@ -62,7 +64,7 @@ public class CsController {
 
         csDTO.setMemID((String)session.getAttribute("memID"));
         boardService.setCsData(csDTO);
-
+        memberService.updateQCNT(csDTO.getMemID());
         return new ResponseEntity(HttpStatus.OK);
     }
 
