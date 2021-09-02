@@ -9,4 +9,9 @@ public interface CabinetDAO {
     List<CabinetDTO> findLocation();
 
     void updateCabinet(CabinetDTO cabinetDTO);
+
+    void reSetCabinet(int cnNo);
+
+    String getPassword(int cnNo);
+
 }

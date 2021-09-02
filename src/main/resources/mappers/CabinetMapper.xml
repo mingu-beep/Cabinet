@@ -18,4 +18,21 @@
         where
             cnNo = #{cnNo}
     </update>
+    <update id="updateCabinet" parameterType="com.cabinet.Cabinet.dto.CabinetDTO">
+        update
+        TB_CABINET
+        set
+        cnPW = 0000, cnReser = "CABINET_ADMIN", cnExist=0
+        where
+        cnNo = #{cnNo}
+    </update>
+
+    <select id="getPassword" resultType="string">
+        select
+            cnPW
+        from
+            TB_CABINET
+        where
+            cnNo = #{cnNo}
+    </select>
 </mapper>

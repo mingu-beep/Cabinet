@@ -50,13 +50,31 @@ public class CabinetController {
     @GetMapping("/getPassword")
     @ResponseBody
     public String sendPassword(@RequestParam("cnNo") String cnNo){
-        return "<0101";
+        String pw = cabinetService.getPassword(Integer.parseInt(cnNo));
+        String result = "<" + pw;
+        return result;
     }
 
     @GetMapping("/sendData")
     @ResponseBody
-    public ResponseEntity takeDataFromCabinet(@RequestParam("choice") String choice, @RequestParam("status") String status){
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity takeDataFromCabinet(@RequestParam("cnNo") String cnNo, @RequestParam("choice") String choice, @RequestParam("state") String state){
+        // choice : 1. put in 2. put out
+        // state : Y(물건 ㅇㅇ) N(물건 ㄴㄴ)
 
+        if(choice.equals('1')){
+            if(state.equals('Y')){ // 넣는데 물건이 있어 -> 거래완료
+
+            } else if (state.equals('N')) { // 넣는데 물건이 없어 -> 거래 미완료
+
+            }
+        } else if (choice.equals('2')) {
+            if(state.equals('Y')){ // 빼는 데 물건이 있어 -> 거래 미완료
+
+            } else if (state.equals('N')) { // 빼는 데 물건이 없어 -> 거래 완료
+                cabinetService.reSetCabinet(Integer.parseInt(cnNo));
+            }
+        }
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

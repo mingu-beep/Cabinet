@@ -30,4 +30,13 @@ public class CabinetService {
         cabinetDAO.updateCabinet(cabinet);
     }
 
+    public String getPassword(int cnNo) {
+        cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
+        return cabinetDAO.getPassword(cnNo);
+    }
+
+    public void reSetCabinet(int cnNo) {
+        cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
+        cabinetDAO.reSetCabinet(cnNo);
+    }
 }
