@@ -22,7 +22,10 @@
     <main>
       <div class="text-center container mt-5">
         <div th:if="${memName != null}">
-          <a class="btn btn-focus my-2" th:href="@{mylist(memID=${memID})}">내가 올린 물건 </a>
+          <a class="btn btn-focus my-2" th:href="@{mylist(memID=${memID})}">내가 올린 물건</a>
+        </div>
+        <div th:if="${memName != null}">
+          <a class="btn btn-focus my-2" th:href="@{mydeal(memID=${memID})}">내가 거래한 물건</a>
         </div>
         <form
           class="form-signin col-12 col-sm-10 col-md-8"
@@ -52,36 +55,6 @@
               "
               style="margin: 0"
             >
-              아이디
-            </p>
-            <input
-              type="text"
-              id="inputId"
-              class="form-control my-3 col-6 mx-2"
-              placeholder="아이디"
-              required=""
-              autofocus=""
-            />
-            <a
-              href="#"
-              class="btn btn-sm btn-focus col-2 my-auto"
-              role="button"
-              aria-pressed="true"
-              >중복 확인</a
-            >
-          </div>
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
               비밀번호
             </p>
             <input
@@ -91,6 +64,29 @@
               placeholder="비밀번호"
               required=""
               autofocus=""
+            />
+          </div>
+          <div class="row">
+            <p
+                    class="
+                col-3
+                text-center
+                d-flex
+                flex-column
+                justify-content-center
+                font-weight-bold
+              "
+                    style="margin: 0"
+            >
+              이름
+            </p>
+            <input
+                    type="text"
+                    id="inputName"
+                    class="form-control my-3 col-6 mx-2"
+                    placeholder="이름"
+                    required=""
+                    autofocus=""
             />
           </div>
           <div class="row">
@@ -116,59 +112,7 @@
               autofocus=""
             />
           </div>
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              이름
-            </p>
-            <input
-              type="text"
-              id="inputName"
-              class="form-control my-3 col-6 mx-2"
-              placeholder="이름"
-              required=""
-              autofocus=""
-            />
-          </div>
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              이메일
-            </p>
-            <input
-              type="email"
-              id="inputEmail"
-              class="form-control my-3 col-6 mx-2"
-              placeholder="이메일"
-              required=""
-              autofocus=""
-            />
-            <a
-              href="#"
-              class="btn btn-sm btn-focus col-2 my-auto"
-              role="button"
-              aria-pressed="true"
-              >중복 확인</a
-            >
-          </div>
+
           <div class="row">
             <p
               class="
@@ -191,13 +135,6 @@
               required=""
               autofocus=""
             />
-            <a
-              href="#"
-              class="btn btn-sm btn-focus col-2 my-auto"
-              role="button"
-              aria-pressed="true"
-              >인증번호 받기</a
-            >
           </div>
           <div class="row">
             <p
@@ -244,57 +181,6 @@
               autofocus=""
             />
           </div>
-          <div class="row my-3">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              성별
-            </p>
-            <div class="col-6 d-flex justify-content-between">
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  type="radio"
-                  id="genderMale"
-                  name="gender"
-                  class="custom-control-input"
-                />
-                <label class="custom-control-label" for="genderMale"
-                  >남자</label
-                >
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  type="radio"
-                  id="genderFemale"
-                  name="gender"
-                  class="custom-control-input"
-                />
-                <label class="custom-control-label" for="genderFemale"
-                  >여자</label
-                >
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input
-                  type="radio"
-                  id="genderNoChoice"
-                  name="gender"
-                  class="custom-control-input"
-                  checked
-                />
-                <label class="custom-control-label" for="genderNoChoice"
-                  >선택 안함</label
-                >
-              </div>
-            </div>
-          </div>
           <button
             class="btn btn-lg btn-block btn-focus my-2 col-5 mt-5"
             style="float: none; margin: 0 auto"
@@ -302,7 +188,7 @@
           >
             수정하기
           </button>
-          <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+          <p class="mt-5 mb-3 text-muted">© 2021</p>
         </form>
       </div>
     </main>
