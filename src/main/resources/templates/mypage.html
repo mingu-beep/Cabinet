@@ -27,9 +27,13 @@
         <div th:if="${memName != null}">
           <a class="btn btn-focus my-2" th:href="@{mydeal(memID=${memID})}">내가 거래한 물건</a>
         </div>
+         <input type="hidden" id="type" th:value="${type}"/>
         <form
+          th:action="@{mypage(memNo=${memNo})}"
+          th:object="${memberDTO}"
           class="form-signin col-12 col-sm-10 col-md-8"
           style="float: none; margin: 0 auto"
+          method="POST"
         >
           <h1
             class="
@@ -45,29 +49,6 @@
           </h1>
           <div class="row">
             <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              비밀번호
-            </p>
-            <input
-              type="password"
-              id="inputPassword"
-              class="form-control my-3 col-6 mx-2"
-              placeholder="비밀번호"
-              required=""
-              autofocus=""
-            />
-          </div>
-          <div class="row">
-            <p
                     class="
                 col-3
                 text-center
@@ -81,12 +62,39 @@
               이름
             </p>
             <input
+                    th:field="*{memName}"
+                    th:value="${memberDTO.memName}"
                     type="text"
-                    id="inputName"
+                    id="memName"
                     class="form-control my-3 col-6 mx-2"
                     placeholder="이름"
                     required=""
                     autofocus=""
+                    readonly="readonly"
+            />
+          </div>
+          <div class="row">
+            <p
+              class="
+                col-3
+                text-center
+                d-flex
+                flex-column
+                justify-content-center
+                font-weight-bold
+              "
+              style="margin: 0"
+            >
+              비밀번호
+            </p>
+            <input
+              th:field="*{memPW}"
+              type="password"
+              id="memPW"
+              class="form-control my-3 col-6 mx-2"
+              placeholder="비밀번호"
+              required=""
+              autofocus=""
             />
           </div>
           <div class="row">
@@ -128,8 +136,10 @@
               휴대폰
             </p>
             <input
+              th:field="*{memPhone}"
+              th:value="${memberDTO.memPhone}"
               type="text"
-              id="inputPhone"
+              id="memPhone"
               class="form-control my-3 col-6 mx-2"
               placeholder="숫자만 입력해주세요"
               required=""
@@ -151,32 +161,12 @@
               주소
             </p>
             <input
+              th:field="*{memAdrs}"
+              th:value="${memberDTO.memAdrs}"
               type="text"
-              id="inputAddress"
+              id="memAdrs"
               class="form-control my-3 col-6 mx-2"
               placeholder="주소를 입력해주세요"
-              required=""
-              autofocus=""
-            />
-          </div>
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              생일
-            </p>
-            <input
-              type="date"
-              id="inputBDay"
-              class="form-control my-3 col-6 mx-2"
               required=""
               autofocus=""
             />

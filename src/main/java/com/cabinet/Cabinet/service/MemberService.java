@@ -1,6 +1,9 @@
 package com.cabinet.Cabinet.service;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +52,17 @@ public class MemberService {
 
 		return resultCnt;
 	}
-
+	
+	public MemberDTO getMemWithMemNo(int memNo) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		return memberDao.getMemWithMemNo(memNo);
+	}
+	
+	public void updateMemberInfo(MemberDTO memberDTO) throws ParseException {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		memberDao.updateMember(memberDTO);
+	}
+	
 	public Map<String, String> validateHandling(Errors errors) {
 		Map<String, String> validatorResult = new HashMap<>();
 
@@ -120,6 +133,11 @@ public class MemberService {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		memberDao.updateQCNT(memID);
 	}
-
+//	public void keepLogin(String id, String sessionId, Date sessionLimit) {
+//		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		paramMap.put("id", id);
+//		paramMap.put("sessionId", sessionId);
+//		paramMap.put("sessionLimit", sessionLimit);
+//	}
 
 }

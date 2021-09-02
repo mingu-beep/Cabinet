@@ -1,5 +1,6 @@
 package com.cabinet.Cabinet.dao;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -35,6 +36,10 @@ public interface MemberDAO {
 	boolean checkLogin(LoginDTO loginDTO);
 	int checkAdmin(String memID);
 
+	//회원정보 수정
+	MemberDTO getMemWithMemNo(int memNo);
+	void updateMember(MemberDTO memberDTO);
+	
 	List<ProductDTO> getProductWithMemID(String memID);
 
 	List<MemberDTO> getAllMember();
@@ -44,4 +49,6 @@ public interface MemberDAO {
 	void updatePOSTCNT(String memID);
 	void updateQCNT(String memID);
 
+//	void keepLogin(String id, String sessionId, Date sessionLimit) throws Exception;
+//	
 }

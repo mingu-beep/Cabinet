@@ -26,6 +26,24 @@
 		values (#{memID}, #{memPW}, #{memName}, #{memEmail}, #{memPhone}, #{memAdrs}, #{memBday})
 	</insert>
 
+	<!-- 회원정보 수정 -->
+	<select id="getMemWithMemNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.MemberDTO">
+		select *
+		from TB_MEMBER
+		where memNo = #{memNo}
+	</select>
+	<update id="updateMember"  parameterType="com.cabinet.Cabinet.dto.MemberDTO">
+		update
+				TB_MEMBER
+		set
+				memName = #{memName},
+				memPw = #{memPW},
+                memPhone = #{memPhone},
+                memAdrs = #{memAdrs}
+        where
+                memNo = #{memNo}
+	</update>
+
     <!-- 중복 아이디 조회 -->
 	<select id="existById" parameterType="String" resultType="_boolean">
 		select if(count(*) >= 1, 1, 0)
