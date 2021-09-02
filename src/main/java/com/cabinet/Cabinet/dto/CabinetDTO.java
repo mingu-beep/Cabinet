@@ -1,11 +1,20 @@
 package com.cabinet.Cabinet.dto;
 
 public class CabinetDTO {
+    private int pdNo;
     private int cnNo;
     private String cnLo;
     private String cnPW;
     private boolean cnExist;
     private String cnReser;
+
+    public int getPdNo() {
+        return pdNo;
+    }
+
+    public void setPdNo(int pdNo) {
+        this.pdNo = pdNo;
+    }
 
     public int getCnNo() {
         return cnNo;

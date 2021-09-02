@@ -67,6 +67,14 @@
 		WHERE memID = #{memID}
 		ORDER BY bdNo asc
 	</select>
+	<select id="getMyDeal" parameterType="String" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+		select
+			*
+		from
+			TB_PRODUCT
+		where
+			comOpponent = #{memID}
+	</select>
 
 	<select id="getAllMember" resultType="com.cabinet.Cabinet.dto.MemberDTO">
 		SELECT

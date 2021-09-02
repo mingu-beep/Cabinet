@@ -22,8 +22,50 @@
   <main>
     <div class="album py-5">
       <div class="container">
+        <div th:if="${type.equals('search')}">
+          <h1
+                  class="
+                        h5
+                        font-weight-bold font-weight-normal
+                        color-blue
+                        mb-3
+                        pb-3
+                        border-bottom
+                      "
+                  th:if="${keyword != null}"
+                  th:text="'검색어 ' + ${keyword} + '에 대한 결과'"
+          >
+          </h1>
+          <h1
+                  class="
+                        h5
+                        font-weight-bold font-weight-normal
+                        color-blue
+                        mb-3
+                        pb-3
+                        border-bottom
+                      "
+                  th:unless="${keyword != null}"
+                  th:text="'검색어 에 대한 결과'"
+          >
+          </h1>
+        </div>
+        <div th:if="${type.equals('category') && keyword}">
+          <h1
+                  class="
+                        h5
+                        font-weight-bold font-weight-normal
+                        color-blue
+                        mb-3
+                        pb-3
+                        border-bottom
+                      "
+                  th:text="'카테고리 ' + ${keyword} + '에 대한 결과'"
+          >
 
-        <div class="row text-center" th:if="${boardList == null}">
+          </h1>
+        </div>
+        <div class="row text-center" th:if="${boardList == null || boardList.isEmpty()}">
           <i class="fas fa-exclamation fa-7x my-5 col-12 caution"></i>
           <p class="col-12 font-weight-bold font-italic my-2" style="font-size:2rem; color:gray;">검색 결과가 없습니다.</p>
         </div>

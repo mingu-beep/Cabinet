@@ -22,17 +22,9 @@
     <main>
       <div class="text-center container mt-5">
         <div th:if="${memName != null}">
-          <a class="btn btn-focus my-2" th:href="@{mylist(memID=${memID})}">내가 올린 물건</a>
-        </div>
-        <div th:if="${memName != null}">
-          <a class="btn btn-focus my-2" th:href="@{mydeal(memID=${memID})}">내가 거래한 물건</a>
-        </div>
-        <form
-          class="form-signin col-12 col-sm-10 col-md-8"
-          style="float: none; margin: 0 auto"
-        >
-          <h1
-            class="
+          <div class="text-center my-4 col-12 col-sm-10 col-md-8" style="float: none; margin: 0 auto">
+            <h1
+                    class="
               h5
               font-weight-bold font-weight-normal
               color-blue
@@ -40,156 +32,185 @@
               pb-3
               border-bottom
             "
-          >
-            회원정보 수정
-          </h1>
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
             >
-              비밀번호
-            </p>
-            <input
-              type="password"
-              id="inputPassword"
-              class="form-control my-3 col-6 mx-2"
-              placeholder="비밀번호"
-              required=""
-              autofocus=""
-            />
-          </div>
-          <div class="row">
-            <p
-                    class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-                    style="margin: 0"
-            >
-              이름
-            </p>
-            <input
-                    type="text"
-                    id="inputName"
-                    class="form-control my-3 col-6 mx-2"
-                    placeholder="이름"
-                    required=""
-                    autofocus=""
-            />
-          </div>
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              비밀번호 확인
-            </p>
-            <input
-              type="password"
-              id="ConfirmPassword"
-              class="form-control my-3 col-6 mx-2"
-              placeholder="비밀번호"
-              required=""
-              autofocus=""
-            />
+              내 거래 정보
+            </h1>
+            <div class="d-flex justify-content-center" style="float: none; margin: 0 auto">
+              <a class="btn btn-focus my-2 mx-2" th:href="@{mylist(memID=${memID})}">내가 올린 물건</a>
+              <a class="btn btn-focus my-2 mx-2 dealBtn" style="color:white;">내가 거래한 물건</a>
+            </div>
+
           </div>
 
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              휴대폰
-            </p>
-            <input
-              type="text"
-              id="inputPhone"
-              class="form-control my-3 col-6 mx-2"
-              placeholder="숫자만 입력해주세요"
-              required=""
-              autofocus=""
-            />
-          </div>
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              주소
-            </p>
-            <input
-              type="text"
-              id="inputAddress"
-              class="form-control my-3 col-6 mx-2"
-              placeholder="주소를 입력해주세요"
-              required=""
-              autofocus=""
-            />
-          </div>
-          <div class="row">
-            <p
-              class="
-                col-3
-                text-center
-                d-flex
-                flex-column
-                justify-content-center
-                font-weight-bold
-              "
-              style="margin: 0"
-            >
-              생일
-            </p>
-            <input
-              type="date"
-              id="inputBDay"
-              class="form-control my-3 col-6 mx-2"
-              required=""
-              autofocus=""
-            />
-          </div>
-          <button
-            class="btn btn-lg btn-block btn-focus my-2 col-5 mt-5"
-            style="float: none; margin: 0 auto"
-            type="submit"
+          <form
+                  class="form-signin col-12 col-sm-10 col-md-8"
+                  style="float: none; margin: 0 auto"
           >
-            수정하기
-          </button>
-          <p class="mt-5 mb-3 text-muted">© 2021</p>
-        </form>
+            <h1
+                    class="
+              h5
+              font-weight-bold font-weight-normal
+              color-blue
+              mb-3
+              pb-3
+              border-bottom
+            "
+            >
+              회원정보 수정
+            </h1>
+            <div class="row">
+              <p
+                      class="
+                col-3
+                text-center
+                d-flex
+                flex-column
+                justify-content-center
+                font-weight-bold
+              "
+                      style="margin: 0"
+              >
+                비밀번호
+              </p>
+              <input
+                      type="password"
+                      id="inputPassword"
+                      class="form-control my-3 col-6 mx-2"
+                      placeholder="비밀번호"
+                      required=""
+                      autofocus=""
+              />
+            </div>
+            <div class="row">
+              <p
+                      class="
+                col-3
+                text-center
+                d-flex
+                flex-column
+                justify-content-center
+                font-weight-bold
+              "
+                      style="margin: 0"
+              >
+                이름
+              </p>
+              <input
+                      type="text"
+                      id="inputName"
+                      class="form-control my-3 col-6 mx-2"
+                      placeholder="이름"
+                      required=""
+                      autofocus=""
+              />
+            </div>
+            <div class="row">
+              <p
+                      class="
+                col-3
+                text-center
+                d-flex
+                flex-column
+                justify-content-center
+                font-weight-bold
+              "
+                      style="margin: 0"
+              >
+                비밀번호 확인
+              </p>
+              <input
+                      type="password"
+                      id="ConfirmPassword"
+                      class="form-control my-3 col-6 mx-2"
+                      placeholder="비밀번호"
+                      required=""
+                      autofocus=""
+              />
+            </div>
+
+            <div class="row">
+              <p
+                      class="
+                col-3
+                text-center
+                d-flex
+                flex-column
+                justify-content-center
+                font-weight-bold
+              "
+                      style="margin: 0"
+              >
+                휴대폰
+              </p>
+              <input
+                      type="text"
+                      id="inputPhone"
+                      class="form-control my-3 col-6 mx-2"
+                      placeholder="숫자만 입력해주세요"
+                      required=""
+                      autofocus=""
+              />
+            </div>
+            <div class="row">
+              <p
+                      class="
+                col-3
+                text-center
+                d-flex
+                flex-column
+                justify-content-center
+                font-weight-bold
+              "
+                      style="margin: 0"
+              >
+                주소
+              </p>
+              <input
+                      type="text"
+                      id="inputAddress"
+                      class="form-control my-3 col-6 mx-2"
+                      placeholder="주소를 입력해주세요"
+                      required=""
+                      autofocus=""
+              />
+            </div>
+            <div class="row">
+              <p
+                      class="
+                col-3
+                text-center
+                d-flex
+                flex-column
+                justify-content-center
+                font-weight-bold
+              "
+                      style="margin: 0"
+              >
+                생일
+              </p>
+              <input
+                      type="date"
+                      id="inputBDay"
+                      class="form-control my-3 col-6 mx-2"
+                      required=""
+                      autofocus=""
+              />
+            </div>
+            <button
+                    class="btn btn-lg btn-block btn-focus my-2 col-5 mt-5"
+                    style="float: none; margin: 0 auto"
+                    type="submit"
+            >
+              수정하기
+            </button>
+            <p class="mt-5 mb-3 text-muted">© 2021</p>
+          </form>
+        </div>
+
+        <div th:unless="${memName != null}">
+            <i class="fas fa-exclamation fa-7x my-5 col-12 caution"></i>
+            <p class="col-12 font-weight-bold font-italic my-2" style="font-size:2rem; color:gray;">잘못된 접근입니다.</p>
+        </div>
       </div>
     </main>
     <!-- fontawesome -->
@@ -214,5 +235,18 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+  <script th:inline="javascript">
+
+    $(".dealBtn").click(function(){
+      var url = "/member/mydeal";
+      var winWidth = 600;
+      var winHeight = 520;
+      var popupOption = "width=" + winWidth + ", height=" + winHeight;
+
+      var popup = window.open(url, "Cabinet - 거래 확인", popupOption);
+    });
+
+
+  </script>
   </body>
 </html>

@@ -121,5 +121,8 @@ public class MemberService {
 		memberDao.updateQCNT(memID);
 	}
 
-
+	public List<ProductDTO> getDealWithMemID(String memID) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		return memberDao.getMyDeal(memID);
+	}
 }

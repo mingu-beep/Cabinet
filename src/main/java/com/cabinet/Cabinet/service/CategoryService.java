@@ -45,4 +45,9 @@ public class CategoryService {
         categoryDAO = categorySqlSession.getMapper(CategoryDAO.class);
         categoryDAO.updateCtCNT(ctNo);
     }
+
+    public String getCtName(int ctNo){
+        categoryDAO = categorySqlSession.getMapper(CategoryDAO.class);
+        return categoryDAO.findByCtNo(ctNo);
+    }
 }

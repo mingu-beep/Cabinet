@@ -36,6 +36,7 @@ public interface MemberDAO {
 	int checkAdmin(String memID);
 
 	List<ProductDTO> getProductWithMemID(String memID);
+	List<ProductDTO> getMyDeal(String memID);
 
 	List<MemberDTO> getAllMember();
 
