@@ -14,4 +14,5 @@ public interface CabinetDAO {
 
     String getPassword(int cnNo);
 
+    boolean findByPdNo(int pdNo);
 }

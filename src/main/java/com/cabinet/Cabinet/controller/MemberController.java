@@ -3,6 +3,7 @@ package com.cabinet.Cabinet.controller;
 import com.cabinet.Cabinet.dao.MemberDAO;
 import com.cabinet.Cabinet.dto.LoginDTO;
 import com.cabinet.Cabinet.dto.Message;
+import com.cabinet.Cabinet.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -32,9 +33,15 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 
+	@Autowired
+	CategoryService categoryService;
+
 	@GetMapping("/join")
 	public String memberJoin(Model model) {
 		model.addAttribute("memberDTO", new MemberDTO());
+
+		model.addAttribute("categories", categoryService.getAllCategory());
+
 		return "join";
 	}
 
@@ -160,6 +167,7 @@ public class MemberController {
 	@GetMapping("/login")
 	public String getLogin(Model model) {
 		model.addAttribute("loginDTO", new LoginDTO());
+		model.addAttribute("categories", categoryService.getAllCategory());
 		return "login";
 	}
 	@PostMapping("/login")
@@ -213,8 +221,6 @@ public class MemberController {
 		mav.setViewName("message");
 		return mav;
 	}
-	
-
 
 	@GetMapping("/mylist")
 	public String goodsMine(Model model, final HttpSession session, @RequestParam("memID")String memID) {
@@ -226,8 +232,14 @@ public class MemberController {
 
 		System.out.println(memID);
 		model.addAttribute("productList",memberService.getProductWithMemID(memID));
-
+		model.addAttribute("categories", categoryService.getAllCategory());
 		return "mylist";
+	}
+
+	@GetMapping("/mydeal")
+	public String dealMine(Model model, final HttpSession session) {
+		model.addAttribute("dealList",memberService.getDealWithMemID(session.getAttribute("memID").toString()));
+		return "myDeal";
 	}
 
 	@PostMapping("/checkOpponent")

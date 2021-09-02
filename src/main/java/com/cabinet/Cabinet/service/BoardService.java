@@ -162,4 +162,13 @@ public class BoardService {
         boardDao.setComplete(oppID, bdNo);
     }
 
+    public List<ProductDTO> findProductByCtNo(int ctNo) {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.getProductByCtNo(ctNo);
+    }
+    public List<BoardDTO> findBoardByCtNo(int ctNo) {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.getBoardByCtNo(ctNo);
+    }
+
 }

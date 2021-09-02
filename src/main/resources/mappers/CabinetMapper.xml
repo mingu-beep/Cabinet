@@ -35,4 +35,13 @@
         where
             cnNo = #{cnNo}
     </select>
+
+    <select id="findByPdNo" resultType="_boolean">
+        select
+            cnExist
+        from
+            TB_CABINET
+        where
+            pdNo = #{pdNo}
+    </select>
 </mapper>

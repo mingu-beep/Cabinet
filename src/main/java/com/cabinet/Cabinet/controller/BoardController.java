@@ -74,6 +74,8 @@ public class BoardController {
         model.addAttribute("boardList",boardService.getBoardData());
         model.addAttribute("productList",boardService.getProductData());
 
+        model.addAttribute("categories", categoryService.getAllCategory());
+
         return "mainBoard"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
                            // 따라서 return 값은 html 파일 이름!
     }
@@ -89,6 +91,9 @@ public class BoardController {
         boardService.viewCount(bdNo);
         model.addAttribute("board",boardService.getBoardWithBdNo(bdNo));
         model.addAttribute("product",boardService.getProductWithBdNo(bdNo));
+
+        model.addAttribute("categories", categoryService.getAllCategory());
+
     	return "detail";
     }
     
@@ -144,6 +149,8 @@ public class BoardController {
         model.addAttribute("boardDTO",boardService.getBoardWithBdNo(bdNo));
         model.addAttribute("productDTO",boardService.getProductWithBdNo(bdNo));
 
+        model.addAttribute("categories", categoryService.getAllCategory());
+
         return "update";
     }
 
@@ -193,6 +200,8 @@ public class BoardController {
         model.addAttribute("boardList",boardService.viewBoardData());
         model.addAttribute("productList",boardService.viewProductData());
 
+        model.addAttribute("categories", categoryService.getAllCategory());
+
         return "hot";
     }
 
@@ -205,6 +214,9 @@ public class BoardController {
         }
 
         model.addAttribute("eventList", eventService.getAllInfo());
+
+        model.addAttribute("categories", categoryService.getAllCategory());
+
         return "event";
     }
 }

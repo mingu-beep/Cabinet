@@ -20,8 +20,9 @@ public class CabinetService {
         return cabinetDAO.findLocation();
     }
 
-    public void setCabinet(int cnNo, String cnPW, String memID) {
+    public void setCabinet(int bdNo, int cnNo, String cnPW, String memID) {
         CabinetDTO cabinet = new CabinetDTO();
+        cabinet.setPdNo(bdNo);
         cabinet.setCnNo(cnNo);
         cabinet.setCnPW(cnPW);
         cabinet.setCnReser(memID);
@@ -38,5 +39,10 @@ public class CabinetService {
     public void reSetCabinet(int cnNo) {
         cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
         cabinetDAO.reSetCabinet(cnNo);
+    }
+
+    public boolean searchCabinet(int pdNo){
+        cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
+        return cabinetDAO.findByPdNo(pdNo);
     }
 }

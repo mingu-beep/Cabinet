@@ -5,6 +5,7 @@ import com.cabinet.Cabinet.dto.CsDTO;
 import com.cabinet.Cabinet.dto.ProductDTO;
 import com.cabinet.Cabinet.dto.ReplyDTO;
 import com.cabinet.Cabinet.service.BoardService;
+import com.cabinet.Cabinet.service.CategoryService;
 import com.cabinet.Cabinet.service.MemberService;
 import com.cabinet.Cabinet.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class CsController {
 
     @Autowired
     MemberService memberService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @GetMapping("/main")
     public String boardCS(Model model, final HttpSession session) {

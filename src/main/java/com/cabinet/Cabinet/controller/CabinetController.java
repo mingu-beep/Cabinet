@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/cabinet")
@@ -40,10 +41,16 @@ public class CabinetController {
         String oppID = request.getParameter("oppID");
         int bdNo = Integer.parseInt(request.getParameter("bdNo"));
 
-        cabinetService.setCabinet(cnNo, cnPW, session.getAttribute("memID").toString());
+        cabinetService.setCabinet(bdNo, cnNo, cnPW, session.getAttribute("memID").toString());
         boardService.completeDeal(oppID, bdNo);
 
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/checkInner")
+    @ResponseBody
+    public boolean checkInner(@RequestParam HashMap<Object, Object> params) {
+        return cabinetService.searchCabinet(Integer.parseInt(params.get("pdNo").toString()));
     }
 
     // 아두이노 통신용

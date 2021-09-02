@@ -40,4 +40,13 @@
         where
             ctNo = #{ctNo}
     </update>
+
+    <select id="findByCtNo" resultType="string">
+        select
+            ctType
+        from
+            TB_CATEGORY
+        where
+            ctNo = #{ctNo}
+    </select>
 </mapper>

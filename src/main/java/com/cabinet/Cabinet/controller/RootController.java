@@ -1,5 +1,6 @@
 package com.cabinet.Cabinet.controller;
 
+import com.cabinet.Cabinet.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,9 @@ public class RootController {
     private BoardService boardService;
     private BoardDAO boardDao;
 
+    @Autowired
+    CategoryService categoryService;
+
     @GetMapping("/")
     public String home(Model model, final HttpSession session) {
 
@@ -39,6 +43,9 @@ public class RootController {
         }
         model.addAttribute("boardList", boardService.mainBoardData());
         model.addAttribute("productList", boardService.mainProductData());
+
+        model.addAttribute("categories", categoryService.getAllCategory());
+
         return "index";
     }
     
@@ -49,6 +56,9 @@ public class RootController {
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
+
+        model.addAttribute("categories", categoryService.getAllCategory());
+
         return "story";
     } // Controller에서 리턴하는 String은 View의 이름
 
@@ -75,19 +85,39 @@ public class RootController {
 	        }
 	        
 			System.out.println("검색키워드=" + keyword);
-
+                model.addAttribute("type", "search");
 	        if(keyword != ""){
                 System.out.println(boardService.searchBoard(keyword));
                 List<Integer> searchresult = boardService.searchBoard(keyword);
-
+                model.addAttribute("keyword", keyword);
                 System.out.println(boardService.findProduct(searchresult));
                 System.out.println(boardService.findBoard(searchresult));
                 model.addAttribute("productList", boardService.findProduct(searchresult));
                 model.addAttribute("boardList",  boardService.findBoard(searchresult));
 	        }
 
+            model.addAttribute("categories", categoryService.getAllCategory());
+
 			return "searchlist";
 
 	}
+
+	@GetMapping("/category")
+    public String searchCategory(Model model, @RequestParam("ctNo") int ctNo, final HttpSession session) {
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+            model.addAttribute("memID", session.getAttribute("memID").toString());
+        }
+
+        model.addAttribute("type", "category");
+        model.addAttribute("keyword", categoryService.getCtName(ctNo));
+
+        model.addAttribute("productList", boardService.findProductByCtNo(ctNo));
+        model.addAttribute("boardList",  boardService.findBoardByCtNo(ctNo));
+
+        model.addAttribute("categories", categoryService.getAllCategory());
+        return "searchlist";
+    }
 
 }

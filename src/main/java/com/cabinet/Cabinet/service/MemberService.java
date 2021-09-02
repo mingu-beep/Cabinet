@@ -133,11 +133,9 @@ public class MemberService {
 		memberDao = memberSqlSession.getMapper(MemberDAO.class);
 		memberDao.updateQCNT(memID);
 	}
-//	public void keepLogin(String id, String sessionId, Date sessionLimit) {
-//		Map<String, Object> paramMap = new HashMap<String, Object>();
-//		paramMap.put("id", id);
-//		paramMap.put("sessionId", sessionId);
-//		paramMap.put("sessionLimit", sessionLimit);
-//	}
+	public List<ProductDTO> getDealWithMemID(String memID) {
+		memberDao = memberSqlSession.getMapper(MemberDAO.class);
+		return memberDao.getMyDeal(memID);
+	}
 
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class ProductDTO {
 
+    private int pdNo;
     private int ctNo;
     private int bdNo;
     private int pdPrice;
@@ -13,6 +14,14 @@ public class ProductDTO {
     private String location;
     private String pdImg;
     private Date pdUpDate;
+
+    public int getPdNo() {
+        return pdNo;
+    }
+
+    public void setPdNo(int pdNo) {
+        this.pdNo = pdNo;
+    }
 
     public Date getPdUpDate() {
         return pdUpDate;

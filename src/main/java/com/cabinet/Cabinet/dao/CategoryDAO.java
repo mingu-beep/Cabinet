@@ -12,4 +12,5 @@ public interface CategoryDAO {
     void insertNewCategory(String ctType);
 
     void updateCtCNT(int ctNo);
+    String findByCtNo(int ctNo);
 }

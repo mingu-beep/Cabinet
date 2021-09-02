@@ -167,6 +167,29 @@
 			csNo = #{csNo}
 	</select>
 
+	<select id="getProductByCtNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.ProductDTO">
+		select
+		*
+		from
+		TB_PRODUCT
+		where
+		ctNo = #{ctNo}
+		order by
+		bdNo
+	</select>
+
+	<select id="getBoardByCtNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardDTO">
+		select
+		*
+		from
+		TB_BOARD
+		where
+		ctNo = #{ctNo}
+		order by
+		bdNo
+	</select>
+
+
 	<insert id="addCs" parameterType="com.cabinet.Cabinet.dto.CsDTO">
 		insert into
 			TB_CS(csTitle, csContent, csDate, memID)

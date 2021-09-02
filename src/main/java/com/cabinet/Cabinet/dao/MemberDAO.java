@@ -41,6 +41,7 @@ public interface MemberDAO {
 	void updateMember(MemberDTO memberDTO);
 	
 	List<ProductDTO> getProductWithMemID(String memID);
+	List<ProductDTO> getMyDeal(String memID);
 
 	List<MemberDTO> getAllMember();
 

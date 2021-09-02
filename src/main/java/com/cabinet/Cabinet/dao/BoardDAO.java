@@ -29,7 +29,6 @@ public interface BoardDAO {
     
     BoardDTO getBoardWithBdNo(int bdNo);
     ProductDTO getProductWithBdNo(int bdNo);
-    List<ProductDTO> getProductWithMemID(String memID);
     
     void updateBoard(BoardDTO boardDTO);
     void updateProduct(ProductDTO productDTO);
@@ -43,8 +42,10 @@ public interface BoardDAO {
     void updateView(int bdNo);
     
 	List<Integer> searchBoard(String keyword); // 메인검색
-	List<BoardDTO> findBoard(List<Integer> searchNum);
-	List<ProductDTO> findProduct(List<Integer> searchNum);
+
+    List<BoardDTO> getBoardByCtNo(int ctNo);
+    List<ProductDTO> getProductByCtNo(int ctNo);
+
 
 	List<BoardVO> findAll();
 
