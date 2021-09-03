@@ -193,14 +193,37 @@
           >
             수정하기
           </button>
-          <p class="mt-5 mb-3 text-muted">© 2021</p>
         </form>
-
+		
         <div th:unless="${memName != null}">
             <i class="fas fa-exclamation fa-7x my-5 col-12 caution"></i>
             <p class="col-12 font-weight-bold font-italic my-2" style="font-size:2rem; color:gray;">잘못된 접근입니다.</p>
         </div>
-      </div>
+
+		<div class="text-center my-4 col-12 col-sm-10 col-md-8" style="float: none; margin: 0 auto">
+            <h1
+                    class="
+              h5
+              font-weight-bold font-weight-normal
+              color-blue
+              mb-3
+              pb-3
+              border-bottom
+            "
+            >
+              회원 탈퇴
+            </h1>
+            <div class="d-flex justify-content-center" style="float: none; margin: 0 auto">
+	           <a
+	            class="btn btn-lg btn-notFocus my-2 col-5 mt-5"
+	            th:href="@{delete(memNo=${memberDTO.memNo})}"
+	            onclick="return confirm('탈퇴하시겠습니까?');"
+	          >
+	            탈퇴하기
+	          </a>
+            </div>
+         </div>
+                   <p class="mt-5 mb-3 text-muted">© 2021</p>
     </main>
     <!-- fontawesome -->
     <script

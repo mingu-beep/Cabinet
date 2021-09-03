@@ -221,7 +221,19 @@ public class MemberController {
 		mav.setViewName("message");
 		return mav;
 	}
-
+	
+	@RequestMapping(value = "/delete")
+	public String deleteMember(Model model, final HttpSession session,HttpServletRequest request, @RequestParam("memNo") int memNo) {
+    	Object memID = session.getAttribute("memID");
+        if (session.getAttribute("memID") != null) {
+            memberService.deleteMember(memNo);
+            model.addAttribute("memID", memID);
+        }	
+		request.getSession().invalidate();
+		request.getSession(true);
+        return "redirect:/";
+	}
+	
 	@GetMapping("/mylist")
 	public String goodsMine(Model model, final HttpSession session, @RequestParam("memID")String memID) {
 
