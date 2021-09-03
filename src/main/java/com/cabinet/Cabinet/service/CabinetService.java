@@ -15,6 +15,11 @@ public class CabinetService {
     private SqlSessionTemplate cabinetSqlSession;
     private CabinetDAO cabinetDAO;
 
+    public List<CabinetDTO> getAll() {
+        cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
+        return cabinetDAO.getAll();
+    }
+
     public List<CabinetDTO> findLocation() {
         cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
         return cabinetDAO.findLocation();
@@ -44,5 +49,15 @@ public class CabinetService {
     public boolean searchCabinet(int pdNo){
         cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
         return cabinetDAO.findByPdNo(pdNo);
+    }
+
+    public void setExist(int cnNo) {
+        cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
+        cabinetDAO.updateExist(cnNo);
+    }
+
+    public List<CabinetDTO> findByLocName(String locName){
+        cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
+        return cabinetDAO.findByLocName(locName);
     }
 }

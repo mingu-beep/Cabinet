@@ -1,14 +1,8 @@
 package com.cabinet.Cabinet.controller;
 
-import com.cabinet.Cabinet.dto.BoardDTO;
-import com.cabinet.Cabinet.dto.CategoryDTO;
+import com.cabinet.Cabinet.dto.*;
 
-import com.cabinet.Cabinet.dto.EventDTO;
-import com.cabinet.Cabinet.dto.ProductDTO;
-import com.cabinet.Cabinet.service.BoardService;
-import com.cabinet.Cabinet.service.CategoryService;
-import com.cabinet.Cabinet.service.EventService;
-import com.cabinet.Cabinet.service.MemberService;
+import com.cabinet.Cabinet.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +35,12 @@ public class AdminController {
     @Autowired
     EventService eventService;
 
+    @Autowired
+    LocationService locationService;
+
+    @Autowired
+    CabinetService cabinetService;
+
     // 게시판 관리 페이지
     @GetMapping("/board")
     public String adminHome(Model model) {
@@ -51,16 +51,16 @@ public class AdminController {
         return "admin_board";
     }
 
-    @RequestMapping(value="/delete")
+    @RequestMapping(value = "/delete")
     public String deleteBoard(Model model, @RequestParam("bdNo") int bdNo) {
 
         boardService.deleteBoard(bdNo);
-        return  "redirect:/admin/board";
+        return "redirect:/admin/board";
     }
 
     // 카테고리 관리 페이지
     @GetMapping("category")
-    public String manageCategory(Model model){
+    public String manageCategory(Model model) {
         model.addAttribute("categories", categoryService.getAllCategory());
 
         return "admin_category";
@@ -68,7 +68,7 @@ public class AdminController {
 
     @PostMapping("/ctInsert")
     @ResponseBody
-    public int addNewCategory(@RequestParam HashMap<Object, Object> params){
+    public int addNewCategory(@RequestParam HashMap<Object, Object> params) {
 
         String newCtType = (String) params.get("ctType");
 
@@ -79,23 +79,23 @@ public class AdminController {
 
     @PostMapping("/ctUpdate")
     @ResponseBody
-    public int updateCategory(@RequestParam HashMap<Object, Object> params){
+    public int updateCategory(@RequestParam HashMap<Object, Object> params) {
 
-        int ctNo = Integer.parseInt((String)params.get("ctNo"));
+        int ctNo = Integer.parseInt((String) params.get("ctNo"));
         String ctType = (String) params.get("ctType");
 
         try {
             categoryService.updateCtType(ctNo, ctType);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return 0;
         }
 
         return 1;
     }
+
     @RequestMapping("/ctDelete/{ctNo}") //댓글 삭제
     @ResponseBody
-    public boolean deleteCategory(@PathVariable int ctNo){
+    public boolean deleteCategory(@PathVariable int ctNo) {
 
         return categoryService.deleteCategory(ctNo);
     }
@@ -127,7 +127,7 @@ public class AdminController {
                                     HttpServletRequest req) throws IOException, ParseException {
 
         System.out.println(eventDTO.getEvtTitle());
-        if(!file.getOriginalFilename().isEmpty()) {
+        if (!file.getOriginalFilename().isEmpty()) {
             System.out.println("I'm here");
             String path = "C:\\attached\\" + file.getOriginalFilename();
             file.transferTo(new File(path));
@@ -154,15 +154,15 @@ public class AdminController {
 
     @PostMapping("/postUpdateEvent")
     public ResponseEntity postUpdateEvent(Model model, EventDTO newEventDTO,
-                                    @RequestParam("evtNo") int evtNo,
-                                    HttpServletRequest req) throws IOException, ParseException {
+                                          @RequestParam("evtNo") int evtNo,
+                                          HttpServletRequest req) throws IOException, ParseException {
         newEventDTO.setEvtNo(evtNo);
         eventService.updateEventInfo(newEventDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/member/delEvent")
-    public ResponseEntity deleteEvent(@RequestParam HashMap<Object, Object> params){
+    public ResponseEntity deleteEvent(@RequestParam HashMap<Object, Object> params) {
         int evtNo = Integer.parseInt((String) params.get("evtNo"));
         eventService.deleteEvent(evtNo);
         return new ResponseEntity(HttpStatus.OK);
@@ -178,7 +178,7 @@ public class AdminController {
 
 
     @GetMapping("/member/delete")
-    public String deleteMember(@RequestParam("memNo") int memNo){
+    public String deleteMember(@RequestParam("memNo") int memNo) {
         memberService.deleteMember(memNo);
 
         return "redirect:/admin/member";
@@ -191,5 +191,62 @@ public class AdminController {
         model.addAttribute("csList", boardService.findAllQnA());
 
         return "admin_cs";
+    }
+
+    // 서비스 지역 관리
+    @GetMapping("/location")
+    public String manageLocation(Model model) {
+        model.addAttribute("locationList",locationService.getAllLocation());
+        return "admin_location";
+    }
+
+    // Location
+    @PostMapping("/locInsert")
+    @ResponseBody
+    public int addNewLocation(@RequestParam HashMap<Object, Object> params) {
+
+        String newLocName = (String) params.get("locName");
+
+        locationService.insertLocation(newLocName);
+
+        return 1;
+    }
+
+    @RequestMapping("/locList")
+    @ResponseBody
+    public List<LocationDTO> locationServiceList(@RequestParam HashMap<Object, Object> params) {
+
+        return locationService.getAllLocation();
+    }
+
+    @PostMapping("/locUpdate")
+    @ResponseBody
+    public int updateLocation(@RequestParam HashMap<Object, Object> params) {
+
+        int locNo = Integer.parseInt((String) params.get("locNo"));
+        String locName = (String) params.get("locName");
+
+        try {
+            locationService.updateLocName(locNo, locName);
+        } catch (Exception e) {
+            return 0;
+        }
+
+        return 1;
+    }
+
+    @RequestMapping("/locDelete/{locNo}") //댓글 삭제
+    @ResponseBody
+    public boolean deleteLocation(@PathVariable int locNo) {
+
+        return locationService.deleteLocation(locNo);
+    }
+
+    // Cabinet
+    @GetMapping("/location/cabinet")
+    public String showCabinet(Model model, @RequestParam("locNo") int locNo){
+        model.addAttribute("cabinetList", cabinetService.findByLocName(locationService.getLocName(locNo)));
+
+        return "admin_cabinet";
     }
 }

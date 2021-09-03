@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cabinet.Cabinet.dao.LocationDAO">
+    <select id="findAll" resultType="com.cabinet.Cabinet.dto.LocationDTO">
+        select
+        *
+        from
+        TB_LOCATION
+    </select>
+
+    <insert id="insertNewLocation" parameterType="String">
+        insert into TB_LOCATION(locName)
+        values (#{ctType})
+    </insert>
+
+    <update id="updateByLocNo" parameterType="com.cabinet.Cabinet.dto.LocationDTO">
+        update
+        TB_LOCATION
+        set
+        locName = #{locName}
+        where
+        locNo = #{locNo};
+    </update>
+
+    <delete id="deleteByLocNo" parameterType="_int">
+        delete from
+        TB_LOCATION
+        where
+        locNo = #{locNo}
+    </delete>
+
+    <update id="updateLocCNT" parameterType="_int">
+        update
+        TB_LOCATION
+        set
+        locCNT = (locCNT + 1)
+        where
+        locNo = #{locNo}
+    </update>
+
+    <select id="findByLocNo" resultType="String">
+        select
+            ctType
+        from
+            TB_LOCATION
+        where
+            locNo = #{locNo}
+    </select>
+
+
+    <select id="findLocName" resultType="String">
+        select
+        locName
+        from
+        TB_LOCATION
+        where
+        locNo = #{locNo}
+    </select>
+</mapper>

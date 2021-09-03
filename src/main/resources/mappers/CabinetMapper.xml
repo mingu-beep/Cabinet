@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cabinet.Cabinet.dao.CabinetDAO">
+
+    <select id="getAll" resultType="com.cabinet.Cabinet.dto.CabinetDTO">
+        select
+        *
+        from
+        TB_CABINET
+    </select>
+
     <select id="findLocation" resultType="com.cabinet.Cabinet.dto.CabinetDTO">
         select
             *
@@ -8,6 +16,15 @@
             TB_CABINET
         where
             cnExist = 0 and cnReser = 'CABINET_ADMIN';
+    </select>
+
+    <select id="findByLocName" resultType="com.cabinet.Cabinet.dto.CabinetDTO">
+        select
+            *
+        from
+            TB_CABINET
+        where
+            cnLo = #{locName};
     </select>
 
     <update id="updateCabinet" parameterType="com.cabinet.Cabinet.dto.CabinetDTO">
@@ -27,6 +44,14 @@
         cnNo = #{cnNo}
     </update>
 
+    <update id="updateExist" parameterType="_int">
+        update
+            TB_CABINET
+        set
+            cnExist = 1
+        where
+            cnNo = #{cnNo}
+    </update>
     <select id="getPassword" resultType="string">
         select
             cnPW

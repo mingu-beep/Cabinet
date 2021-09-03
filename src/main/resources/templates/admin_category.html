@@ -119,7 +119,7 @@
                 success : function(data){
                     var a ='';
                     $.each(data, function(key, value){
-                        a += '<tr>';
+                        a += '<tr class="categoryContent'+value.ctNo+'">';
                         a += '<td>' + value.ctNo + '</td>';
                         a += '<td class="ctType' + value.ctNo + '">' + value.ctType + '</td>';
                         a += '<td class="text-center ctCNT"' + value.ctNo + '>' + value.ctCNT + '</td>';
