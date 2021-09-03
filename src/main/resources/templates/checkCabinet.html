@@ -80,8 +80,25 @@
     });
 
     function sendData() {
-      document.getElementById("uploadForm").submit();
-      window.close();
+
+      if(confirm("거래를 완료하시겠습니까?")){
+          var location = $("#location option:selected").val();
+          var pw = $(".forPW").val()
+          $.ajax({
+            type:'post',
+            url:'/cs/upload',
+            data: {"location": location,
+                   "pw":pw},
+            success: function(data){
+              alert("거래가 완료되었습니다.");
+              window.close();
+            },
+            error: function() {
+
+            }
+          });
+
+        }
     }
 </script>
 </body>

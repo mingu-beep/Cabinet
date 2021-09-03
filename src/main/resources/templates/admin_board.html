@@ -55,7 +55,7 @@
                     <td >
                         <a th:href="${'/board/detail?bdNo='+board.bdNo}" th:text="${board.bdTitle}">bdTitle</a>
                     </td>
-                    <td th:text="${productList[now.index].pdName}">pdName</td>
+                    <td th:text="${board.pdName}">pdName</td>
                     <td th:text="${board.memID}">memID</td>
                     <td>
                         <a class="btn btn-notFocus py-0"

@@ -46,8 +46,7 @@ public class AdminController {
     @GetMapping("/board")
     public String adminHome(Model model) {
 
-        model.addAttribute("boardList", boardService.getBoardData());
-        model.addAttribute("productList", boardService.getProductData());
+        model.addAttribute("boardList", boardService.findAll_asc());
 
         return "admin_board";
     }

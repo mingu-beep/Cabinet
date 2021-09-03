@@ -4,7 +4,108 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.cabinet.Cabinet.dao.BoardDAO">
-<!-- mapper의 namespace에는 연결할 Dao의 경로를 적어주면 자동으로 연결된다-->
+
+	<select id="findAll_asc" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+		from
+			TB_BOARD as b
+		inner join
+			TB_PRODUCT as p
+		on
+			b.bdNo = p.pdNo
+		order by
+			b.bdNo asc;
+	</select>
+
+	<select id="findAll_desc" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+		b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+		from
+		TB_BOARD as b
+		inner join
+		TB_PRODUCT as p
+		on
+		b.bdNo = p.pdNo
+		order by
+		b.bdNo desc;
+	</select>
+
+	<select id="findAll_view" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+		b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+		from
+		TB_BOARD as b
+		inner join
+		TB_PRODUCT as p
+		on
+		b.bdNo = p.pdNo
+		order by
+		b.bdView;
+	</select>
+
+
+	<select id="findAllByCtNo" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+		from
+			TB_BOARD as b
+		inner join
+			TB_PRODUCT as p
+		on
+			b.bdNo = p.pdNo
+		where
+			p.ctNo = #{ctNo}
+		order by
+			b.bdNo asc;
+	</select>
+
+	<select id="findAllByLocName" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+		from
+			TB_BOARD as b
+		inner join
+			TB_PRODUCT as p
+		on
+			b.bdNo = p.pdNo
+		where
+			p.location = #{locName}
+		order by
+			b.bdNo asc;
+	</select>
+
+	<select id="findAllByBdNo" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+		from
+			TB_BOARD as b
+		inner join
+			TB_PRODUCT as p
+		on
+			b.bdNo = p.pdNo
+		where
+			b.bdNo = #{bdNo}
+		order by
+			b.bdNo asc;
+	</select>
+
+	<select id="findOneByBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.dealType
+		from
+			TB_BOARD as b
+		inner join
+			TB_PRODUCT as p
+		on
+			b.bdNo = p.pdNo
+		where
+			b.bdNo = #{bdNo}
+		order by
+			b.bdNo asc;
+	</select>
+
+
 	<insert id="insertContent" parameterType="java.util.HashMap">
 	<!-- id에는 Dao에서 선언한 메서드의 이름과 같게 설정해야 추상화 메서드를 구체화한 효과를 얻을 수 있다. -->
 		insert into TB_BOARD (
@@ -23,23 +124,7 @@
 		insert into TB_BOARD (ctNo, memID, memName, bdTitle, bdContent, bdDate)
 		values (#{ctNo}, #{memID}, #{memName}, #{bdTitle}, #{bdContent}, #{writeDate})
 	</insert>
-	
-	<select id="mainBoard" resultType="com.cabinet.Cabinet.dto.BoardDTO">
-			SELECT
-			*
-            FROM
-            TB_BOARD
-            ORDER BY bdNo desc
-	</select>
-	
-	<select id="mainProduct" resultType="com.cabinet.Cabinet.dto.ProductDTO">
-			SELECT
-			*
-            FROM
-            TB_PRODUCT
-            ORDER BY bdNo desc
-	</select>
-	
+
 	<select id="boardNo" parameterType="com.cabinet.Cabinet.dto.BoardDTO" resultType="_int">
 		SELECT
 			bdNo
@@ -54,34 +139,6 @@
 		values (#{bdNo}, #{ctNo}, #{pdName}, #{pdUpDate}, #{pdImg}, #{pdPrice}, #{dealType}, #{memID}, "주안")
 	</insert>
 
-
-	<select id="getProduct" resultType="com.cabinet.Cabinet.dto.ProductDTO">
-		select *
-		from TB_PRODUCT
-		order by bdNo asc
-	</select>
-	<select id="getBoard" resultType="com.cabinet.Cabinet.dto.BoardDTO">
-            SELECT
-			*
-            FROM
-            TB_BOARD
-            ORDER BY bdNo asc
-    </select>
-
-	<select id="findAll" resultType="com.cabinet.Cabinet.dto.BoardVO">
-		<![CDATA[
-		select
-			b.bdNo, b.bdTitle, p.pdPrice, p.pdImg, b.bdView
-		from
-			TB_BOARD as b
-		inner join
-			TB_PRODUCT as p
-		on
-			b.bdNo = p.pdNo
-		order by b.bdNo desc
-		limit #{pageStart}, #{perPageNum}
-		]]>
-	</select>
   	<update id="updateBoard" parameterType="com.cabinet.Cabinet.dto.BoardDTO">
             update
 				TB_BOARD
@@ -104,17 +161,6 @@
 		where
 			bdNo = #{bdNo}
 	</update>
-
-	<select id="getBoardWithBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardDTO">
-		select *
-		from TB_BOARD
-		where bdNo = #{bdNo}
-	</select>
-	<select id="getProductWithBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.ProductDTO">
-		select *
-		from TB_PRODUCT
-		where bdNo = #{bdNo}
-	</select>
 
 	<delete id="deleteBoard" parameterType="_int">
             delete
@@ -167,27 +213,8 @@
 			csNo = #{csNo}
 	</select>
 
-	<select id="getProductByCtNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.ProductDTO">
-		select
-		*
-		from
-		TB_PRODUCT
-		where
-		ctNo = #{ctNo}
-		order by
-		bdNo
-	</select>
 
-	<select id="getBoardByCtNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardDTO">
-		select
-		*
-		from
-		TB_BOARD
-		where
-		ctNo = #{ctNo}
-		order by
-		bdNo
-	</select>
+
 
 
 	<insert id="addCs" parameterType="com.cabinet.Cabinet.dto.CsDTO">
@@ -196,22 +223,7 @@
 		values
 			(#{csTitle}, #{csContent}, now(), #{memID})
 	</insert>
-	
-	<select id="viewBoard" resultType="com.cabinet.Cabinet.dto.BoardDTO">
-		SELECT
-			*
-        FROM
-           TB_BOARD
-        ORDER BY 
-			bdView desc;
-	</select>
-	<select id="viewProduct" resultType="com.cabinet.Cabinet.dto.ProductDTO">
-		SELECT
-			*
-        FROM
-           TB_PRODUCT
-        ORDER BY bdNo desc;
-	</select>
+
 
 	<update id="setComplete">
 		update

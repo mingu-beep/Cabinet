@@ -25,10 +25,37 @@ public class BoardService {
     private SqlSessionTemplate boardSqlSession;
     private BoardDAO boardDao;
 
-    public List<BoardVO> findAll() {
+    public List<BoardVO> findAll_asc(){
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.findAll();
+        return boardDao.findAll_asc();
     }
+    public List<BoardVO> findAll_desc(){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAll_desc();
+    }
+    public List<BoardVO> findAll_view(){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAll_view();
+    }
+
+    public List<BoardVO> findAllByCtNo(int ctNo){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAllByCtNo(ctNo);
+    }
+    public List<BoardVO> findAllByLocName(String location){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAllByLocName(location);
+    }
+    public List<BoardVO> findAllByBdNo(int bdNo){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAllByBdNo(bdNo);
+    }
+
+    public BoardVO findByBdNo(int bdNo){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findOneByBdNo(bdNo);
+    }
+
 
     public void setBoardData(BoardDTO boardDTO, ProductDTO productDTO) throws ParseException {
 
@@ -50,46 +77,21 @@ public class BoardService {
         boardDao.addProduct(productDTO);
 
     }
-    public List<ProductDTO> getProductData() {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.getProduct();
-    }
-    public List<BoardDTO> getBoardData() {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-    	return boardDao.getBoard();
-	}
 
-    public List<ProductDTO> mainProductData() {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.mainProduct();
-    }
-    public List<BoardDTO> mainBoardData() {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-    	return boardDao.mainBoard();
-	} 
-    
-    public BoardDTO getBoardWithBdNo(int bdNo) {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.getBoardWithBdNo(bdNo);
-    }
-    public ProductDTO getProductWithBdNo(int bdNo) {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.getProductWithBdNo(bdNo);
-    }
-    
-    public List<ProductDTO> viewProductData() {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.viewProduct();
-    }
-    public List<BoardDTO> viewBoardData() {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-    	return boardDao.viewBoard();
-	} 
-    
     public void deleteBoard(int bdNo) {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         boardDao.deleteBoard(bdNo);
-	}
+    }
+
+    public void completeDeal(String oppID, int bdNo) {
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        boardDao.setComplete(oppID, bdNo);
+    }
+
+
+
+
+
     public void updateContent(BoardDTO boardDTO, ProductDTO productDTO) throws ParseException {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
 
@@ -116,27 +118,17 @@ public class BoardService {
 		return searchNum;
 	}
 	
-	public List<BoardDTO> findBoard(List<Integer> searchNum) {
+	public List<BoardVO> findBoard(List<Integer> searchNum) {
 		boardDao = boardSqlSession.getMapper(BoardDAO.class);
 		
-		List<BoardDTO> boardList = new ArrayList<>();
+		List<BoardVO> boardList = new ArrayList<>();
 	    for(Integer no : searchNum){
-	        boardList.add(boardDao.getBoardWithBdNo(no));
+	        boardList.add(boardDao.findOneByBdNo(no));
 	    }
 	    
 	    return boardList;
 	}
 	
-	public List<ProductDTO> findProduct(List<Integer> searchNum) {
-		boardDao = boardSqlSession.getMapper(BoardDAO.class);
-		
-		List<ProductDTO> productList = new ArrayList<>();
-		for(Integer no : searchNum){
-	    	productList.add(boardDao.getProductWithBdNo(no));
-	    }
-		
-		return productList;
-	}
 
     public List<CsDTO> findAllQnA(){
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
@@ -155,20 +147,6 @@ public class BoardService {
     public CsDTO findByCsNo(int csNo) {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.findByCsNo(csNo);
-    }
-
-    public void completeDeal(String oppID, int bdNo) {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        boardDao.setComplete(oppID, bdNo);
-    }
-
-    public List<ProductDTO> findProductByCtNo(int ctNo) {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.getProductByCtNo(ctNo);
-    }
-    public List<BoardDTO> findBoardByCtNo(int ctNo) {
-        boardDao = boardSqlSession.getMapper(BoardDAO.class);
-        return boardDao.getBoardByCtNo(ctNo);
     }
 
 }

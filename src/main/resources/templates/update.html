@@ -23,7 +23,7 @@
   <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
     내 물건 내용 수정하기
   </h1>
-  <form th:action="@{update(bdNo=${bdNo})}" class="col-12" style="float: none; margin: 0 auto" method="POST" enctype="multipart/form-data">
+  <form th:action="@{update(bdNo=${board.bdNo})}" class="col-12" style="float: none; margin: 0 auto" method="POST" enctype="multipart/form-data">
     <section class="title-section row">
       <label
               class="
@@ -38,7 +38,7 @@
       >제목</label
       >
       <input
-              th:field="*{boardDTO.bdTitle}"
+              th:field="*{board.bdTitle}"
               type="text"
               class="form-control my-3 col-6 mx-2"
               id="bdTitle"
@@ -58,7 +58,7 @@
       >제품이름</label
       >
       <input
-              th:field="*{productDTO.pdName}"
+              th:field="*{board.pdName}"
               type="text"
               class="form-control my-3 col-6 mx-2"
               id="pdName"
@@ -76,11 +76,9 @@
                 "
       >카테고리</label
       >
-      <select name="language" class="category" th:field="*{productDTO.ctNo}">
-        <option th:value="'01'" th:text="가전제품" selected></option>
-        <option th:value="'02'" th:text="학용품"></option>
-        <option th:value="'03'" th:text="의류"></option>
-        <option th:value="'04'" th:text="잡화"></option>
+      <select name="language" class="category" th:field="*{board.ctNo}">
+        <option th:each="category, now:${categories}"
+                th:value="${category.ctNo}" th:text="${category.ctType}"></option>
       </select>
     </section>
     <section class="type-section row">
@@ -95,9 +93,27 @@
                 "
       >거래방법</label
       >
-      <select th:field="*{productDTO.dealType}">
+      <select th:field="*{board.dealType}">
         <option th:value="'01'" th:text="직거래" selected>한국어</option>
         <option th:value="'02'" th:text="캐비넷">영어</option>
+      </select>
+    </section>
+    <section class="location-section row">
+      <label
+              class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+      >거래 장소</label
+      >
+      <select th:field="*{board.location}" id="location">
+        <option value="0" selected>--선택--</option>
+        <option th:each="location, now :${locationList}"
+                th:value="${location.locNo}" th:text="${location.locName}">위치</option>
       </select>
     </section>
     <section class="price-section row">
@@ -114,7 +130,7 @@
       >가격</label
       >
       <input
-              th:field="*{productDTO.pdPrice}"
+              th:field="*{board.pdPrice}"
               type="text"
               class="form-control my-3 col-6 mx-2"
               id="bdPrice"
@@ -134,7 +150,7 @@
       >내용</label
       >
       <textarea
-              th:field="*{boardDTO.bdContent}"
+              th:field="*{board.bdContent}"
               type="text"
               class="form-control my-3 col-6 mx-2"
               id="bdContent"

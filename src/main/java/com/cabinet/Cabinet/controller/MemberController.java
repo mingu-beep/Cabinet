@@ -134,13 +134,14 @@ public class MemberController {
 	private String getupdateMember(Model model, MemberDTO memberDTO,  final HttpSession session) {
 		Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {
+			int memNo = Integer.parseInt(session.getAttribute("memNo").toString());
+			model.addAttribute("memID", session.getAttribute("memID").toString());
             model.addAttribute("memName", memName);
+			System.out.println(memNo);
+			model.addAttribute("memNo", memNo);
+			model.addAttribute("memberDTO", memberService.getMemWithMemNo(memNo));
         }
-        int memNo = Integer.parseInt(session.getAttribute("memNo").toString());
-        System.out.println(memNo);
-        model.addAttribute("memNo", memNo);
-        model.addAttribute("memberDTO", memberService.getMemWithMemNo(memNo));
-        
+
         return "mypage";
 	}
 	@PostMapping("/mypage")
@@ -235,7 +236,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/mylist")
-	public String goodsMine(Model model, final HttpSession session, @RequestParam("memID")String memID) {
+	public String goodsMine(Model model, final HttpSession session, @RequestParam("memID") String memID) {
 
 		Object memName = session.getAttribute("memName");
 		if (session.getAttribute("memName") != null) {

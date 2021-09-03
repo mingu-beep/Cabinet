@@ -92,9 +92,27 @@
                 "
           >거래방법</label
           >
-          <select th:field="*{productDTO.dealType}">
+          <select th:field="*{productDTO.dealType}" id="dealType" onchange="changeDealType()">
             <option th:value="'01'" th:text="직거래" selected>한국어</option>
             <option th:value="'02'" th:text="캐비넷">영어</option>
+          </select>
+        </section>
+        <section class="location-section row">
+          <label
+                  class="
+                  col-3
+                  text-center
+                  d-flex
+                  flex-column
+                  justify-content-center
+                  font-weight-bold
+                "
+          >거래 장소</label
+          >
+          <select th:field="*{productDTO.location}" id="location">
+            <option value="0" selected>--선택--</option>
+            <option th:each="location, now :${locationList}"
+                    th:value="${location.locNo}" th:text="${location.locName}">위치</option>
           </select>
         </section>
         <section class="price-section row">

@@ -74,7 +74,7 @@
             <div class="card mb-4">
               <img
                       class="card-img-top"
-                      th:src="${productList[now.index].pdImg}"
+                      th:src="${board.pdImg}"
                       alt="Thumbnail [100%x225]"
                       style="height: 225px; width: 100%; display: block"
                       src="/pdImg"
@@ -83,7 +83,7 @@
               <div class="card-body">
                 <p class="card-title" th:text="${board.bdTitle}">title</p>
                 <p class="card-description" th:text="${board.bdContent}" style="text-overflow:ellipsis;">description</p>
-                <p class="card-price" th:text="${productList[now.index].pdPrice} + '원'">0,000원</p>
+                <p class="card-price" th:text="${board.pdPrice} + '원'">0,000원</p>
                 <div
                         class="d-flex justify-content-between align-items-center"
                 >

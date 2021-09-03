@@ -2,13 +2,10 @@ package com.cabinet.Cabinet.controller;
 
 import com.cabinet.Cabinet.dao.BoardDAO;
 import com.cabinet.Cabinet.dto.BoardDTO;
-import com.cabinet.Cabinet.dto.CsDTO;
+import com.cabinet.Cabinet.dto.BoardVO;
 import com.cabinet.Cabinet.dto.ProductDTO;
-import com.cabinet.Cabinet.service.BoardService;
+import com.cabinet.Cabinet.service.*;
 
-import com.cabinet.Cabinet.service.CategoryService;
-import com.cabinet.Cabinet.service.EventService;
-import com.cabinet.Cabinet.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -60,6 +56,9 @@ public class BoardController {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private LocationService locationService;
     
     //deal
     @GetMapping("/all")
@@ -70,14 +69,45 @@ public class BoardController {
             model.addAttribute("memName", memName);
         }
 
+        model.addAttribute("locationList", locationService.getAllLocation());
         model.addAttribute("categories", categoryService.getAllCategory());
-        model.addAttribute("boardList",boardService.getBoardData());
-        model.addAttribute("productList",boardService.getProductData());
 
-        model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("boardList", boardService.findAll_asc());
 
         return "mainBoard"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
                            // 따라서 return 값은 html 파일 이름!
+    }
+
+    @GetMapping("/category")
+    public String goodsCabinet(Model model, final HttpSession session, @RequestParam("ctNo") int ctNo) {
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+
+        model.addAttribute("locationList", locationService.getAllLocation());
+        model.addAttribute("categories", categoryService.getAllCategory());
+
+        model.addAttribute("boardList", boardService.findAllByCtNo(ctNo));
+
+        return "mainBoard";
+    }
+
+    @GetMapping("/location")
+    public String goodsLocation(Model model, final HttpSession session, @RequestParam("locNo") int locNo) {
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+
+        model.addAttribute("locationList", locationService.getAllLocation());
+        model.addAttribute("categories", categoryService.getAllCategory());
+
+        model.addAttribute("boardList", boardService.findAllByLocName(locationService.getLocName(locNo)));
+
+        return "mainBoard";
     }
 
     @GetMapping("/detail")
@@ -88,11 +118,10 @@ public class BoardController {
             model.addAttribute("memName", memName);
             model.addAttribute("memID", session.getAttribute("memID").toString());
         }
-        boardService.viewCount(bdNo);
-        model.addAttribute("board",boardService.getBoardWithBdNo(bdNo));
-        model.addAttribute("product",boardService.getProductWithBdNo(bdNo));
-
         model.addAttribute("categories", categoryService.getAllCategory());
+
+        boardService.viewCount(bdNo);
+        model.addAttribute("board", boardService.findByBdNo(bdNo));
 
     	return "detail";
     }
@@ -105,7 +134,9 @@ public class BoardController {
             model.addAttribute("memName", memName);
         }
 
+        model.addAttribute("locationList", locationService.getAllLocation());
         model.addAttribute("categories", categoryService.getAllCategory());
+
         // View에서 정보를 받아오기 위해 Model에 boardDTO라는 이름으로 BoardDTO 객체를 등록한다.
         model.addAttribute("productDTO", new ProductDTO());
         model.addAttribute("boardDTO", new BoardDTO());
@@ -132,6 +163,7 @@ public class BoardController {
                 productDTO.setPdImg("/upload/"+file.getOriginalFilename());
 
                 boardService.setBoardData(boardDTO, productDTO);
+
                 categoryService.updateCtCNT(Integer.parseInt(boardDTO.getCtNo()));
                 memberService.updatePOSTCNT(session.getAttribute("memID").toString());
             }
@@ -140,16 +172,16 @@ public class BoardController {
     }
 
     @GetMapping("/update")
-    public String getupdate(Model model, BoardDTO boardDTO, @RequestParam("bdNo") int bdNo, final HttpSession session) {
+    public String getupdate(Model model, BoardVO boardVO, @RequestParam("bdNo") int bdNo, final HttpSession session) {
         Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-        model.addAttribute("bdNo", bdNo);
-        model.addAttribute("boardDTO",boardService.getBoardWithBdNo(bdNo));
-        model.addAttribute("productDTO",boardService.getProductWithBdNo(bdNo));
 
+        model.addAttribute("locationList", locationService.getAllLocation());
         model.addAttribute("categories", categoryService.getAllCategory());
+
+        model.addAttribute("board", boardService.findByBdNo(bdNo));
 
         return "update";
     }
@@ -178,14 +210,13 @@ public class BoardController {
 
     @GetMapping("/comDeal")
     public String completeDeal(Model model, @RequestParam("bdNo") int bdNo) {
-        model.addAttribute("product", boardService.getProductWithBdNo(bdNo));
+        model.addAttribute("product", boardService.findByBdNo(bdNo));
         return "checkDeal";
     }
     @GetMapping("/directCom")
     public ResponseEntity completeDirect(@RequestParam("oppID")String oppID, @RequestParam("bdNo") int bdNo) {
-        System.out.println(oppID);
-        boardService.completeDeal(oppID, bdNo);
 
+        boardService.completeDeal(oppID, bdNo);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -197,9 +228,8 @@ public class BoardController {
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-        model.addAttribute("boardList",boardService.viewBoardData());
-        model.addAttribute("productList",boardService.viewProductData());
 
+        model.addAttribute("boardList",boardService.findAll_view());
         model.addAttribute("categories", categoryService.getAllCategory());
 
         return "hot";

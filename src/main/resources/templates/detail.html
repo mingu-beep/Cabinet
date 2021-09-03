@@ -23,15 +23,14 @@
       <div class="detail col-5 justify-content-center">
         <img
           class="card-img-top"
-          th:src="${product.pdImg}"
+          th:src="${board.pdImg}"
           alt="Thumbnail [100%x500]"
           style="height: 500px; width: 100%; display: block"
-          src="/pdImg"
           data-holder-rendered="true"
         />
         <p class="border-bottom py-3 font-weight-bold" th:text="${board.bdTitle}">제목</p>
-        <p th:text="${product.pdName}" id="pdName">물품명</p>
-        <p th:text="${product.pdPrice} + '원'">가격</p>
+        <p th:text="${board.pdName}" id="pdName">물품명</p>
+        <p th:text="${board.pdPrice} + '원'">가격</p>
         <p th:text="${board.bdContent}">설명</p>
         <div th:if="${memID != null}">
           <a class="btn btn-notFocus my-5" name="requestTransaction" style="width: 6rem"

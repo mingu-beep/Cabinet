@@ -20,10 +20,13 @@
     <header th:replace="/fragments/header.html :: header"></header>
     <nav th:replace="/fragments/nav.html :: nav"></nav>
     <main>
-      <div class="text-center container mt-5">
-         <input type="hidden" id="type" th:value="${type}"/>
-
-          <div class="text-center my-4 col-12 col-sm-10 col-md-8" style="float: none; margin: 0 auto">
+      <div th:if="${memName == null}" class="text-center container mt-5">
+          <i class="fas fa-exclamation fa-7x my-5 col-12 caution"></i>
+          <p class="col-12 font-weight-bold font-italic my-2" style="font-size:2rem; color:gray;">잘못된 접근입니다.</p>
+      </div>
+      <div th:unless="${memName == null}" class="text-center container mt-5">
+        <input type="hidden" id="type" th:value="${type}"/>
+        <div class="text-center my-4 col-12 col-sm-10 col-md-8" style="float: none; margin: 0 auto">
             <h1
                     class="
               h5
@@ -42,14 +45,13 @@
             </div>
 
           </div>
-
-	        <form
-	          th:action="@{mypage(memNo=${memNo})}"
-	          th:object="${memberDTO}"
-	          class="form-signin col-12 col-sm-10 col-md-8"
-	          style="float: none; margin: 0 auto"
-	          method="POST"
-	        >
+        <form
+              th:action="@{mypage(memNo=${memNo})}"
+              th:object="${memberDTO}"
+              class="form-signin col-12 col-sm-10 col-md-8"
+              style="float: none; margin: 0 auto"
+              method="POST"
+            >
             <h1
                     class="
               h5
@@ -194,12 +196,6 @@
             수정하기
           </button>
         </form>
-		
-        <div th:unless="${memName != null}">
-            <i class="fas fa-exclamation fa-7x my-5 col-12 caution"></i>
-            <p class="col-12 font-weight-bold font-italic my-2" style="font-size:2rem; color:gray;">잘못된 접근입니다.</p>
-        </div>
-
 		<div class="text-center my-4 col-12 col-sm-10 col-md-8" style="float: none; margin: 0 auto">
             <h1
                     class="
@@ -222,8 +218,9 @@
 	            탈퇴하기
 	          </a>
             </div>
-         </div>
-                   <p class="mt-5 mb-3 text-muted">© 2021</p>
+        </div>
+        <p class="mt-5 mb-3 text-muted">© 2021</p>
+      </div>
     </main>
     <!-- fontawesome -->
     <script

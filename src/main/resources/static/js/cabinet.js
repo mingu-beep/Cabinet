@@ -21,7 +21,7 @@ function cabinetList() {
                 a += '<td>' + value.cnNo + '</td>';
                 a += '<td class="text-center cnLo' + value.cnLo + '">' + value.cnLo + '</td>';
                 console.log(value.cnNo + " : "+ value.cnExist);
-                if(value.cnExist){
+                if(value.cnReser != "CABINET_ADMIN"){
                     a += '<td class="cnExist'+value.cnNo+'">X</td>';
                     a += '<td>' + value.cnReser + '</td>'
                 }

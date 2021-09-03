@@ -41,8 +41,9 @@
             <a th:text="${cabinet.cnLo}">cnLo</a>
           </td>
           <td>
-            <a th:if="${cabinet.cnExist}" th:class="cnExist[[${cabinet.cnNo}]]" >X</a>
-            <a th:unless="${cabinet.cnExist}">O</a>
+            <a th:if="${cabinet.cnReser.equals('CABINET_ADMIN')}">O</a>
+            <a th:unless="${cabinet.cnReser.equals('CABINET_ADMIN')}" th:class="${'cnExist' +cabinet.cnNo}" >X</a>
+
           </td>
           <td>
             <a th:if="${cabinet.cnReser.equals('CABINET_ADMIN')}"></a>

@@ -41,8 +41,7 @@ public class RootController {
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-        model.addAttribute("boardList", boardService.mainBoardData());
-        model.addAttribute("productList", boardService.mainProductData());
+        model.addAttribute("boardList", boardService.findAll_desc());
 
         model.addAttribute("categories", categoryService.getAllCategory());
 
@@ -85,14 +84,12 @@ public class RootController {
 	        }
 	        
 			System.out.println("검색키워드=" + keyword);
-                model.addAttribute("type", "search");
+	        model.addAttribute("type", "search");
 	        if(keyword != ""){
-                System.out.println(boardService.searchBoard(keyword));
+
                 List<Integer> searchresult = boardService.searchBoard(keyword);
                 model.addAttribute("keyword", keyword);
-                System.out.println(boardService.findProduct(searchresult));
-                System.out.println(boardService.findBoard(searchresult));
-                model.addAttribute("productList", boardService.findProduct(searchresult));
+
                 model.addAttribute("boardList",  boardService.findBoard(searchresult));
 	        }
 
@@ -109,14 +106,12 @@ public class RootController {
             model.addAttribute("memName", memName);
             model.addAttribute("memID", session.getAttribute("memID").toString());
         }
-
+        model.addAttribute("categories", categoryService.getAllCategory());
         model.addAttribute("type", "category");
         model.addAttribute("keyword", categoryService.getCtName(ctNo));
 
-        model.addAttribute("productList", boardService.findProductByCtNo(ctNo));
-        model.addAttribute("boardList",  boardService.findBoardByCtNo(ctNo));
+        model.addAttribute("boardList",  boardService.findAllByCtNo(ctNo));
 
-        model.addAttribute("categories", categoryService.getAllCategory());
         return "searchlist";
     }
 
