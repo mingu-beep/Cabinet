@@ -21,7 +21,7 @@
   <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
     QnA 등록하기
   </h1>
-  <form th:action="@{upload}" class="col-12" id="uploadForm" style="float: none; margin: 0 auto" method="POST">
+  <form class="col-12" id="uploadForm" style="float: none; margin: 0 auto">
     <section class="title-section row">
       <label
               class="
@@ -32,14 +32,13 @@
                   justify-content-center
                   font-weight-bold
                 "
-              for="bdTitle"
+              for="csTitle"
       >제목</label
       >
       <input
-              th:field="*{csDTO.csTitle}"
               type="text"
               class="form-control my-3 col-6 mx-2"
-              id="bdTitle"
+              id="csTitle"
       />
     </section>
     <section class="content-section row">
@@ -52,18 +51,17 @@
                   justify-content-center
                   font-weight-bold
                 "
-              for="bdContent"
+              for="csContent"
       >내용</label
       >
       <textarea
-              th:field="*{csDTO.csContent}"
               type="text"
               class="form-control my-3 col-6 mx-2"
-              id="bdContent"
+              id="csContent"
               style="height: 15rem"
       ></textarea>
     </section>
-    <button class="btn btn-focus my-5" style="width: 5rem" id="upload">올리기</button>
+    <a class="btn btn-focus my-5" style="width: 5rem; color:white;" id="upload">올리기</a>
     <a class="btn btn-notFocus my-5" href="all" style="width: 5rem"
     >취소</a
     >
@@ -91,11 +89,32 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"
 ></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <script th:inline="javascript">
-    document.getElementById("upload").onclick = function() {
-      document.getElementById("uploadForm").submit();
-      self.close();
-    }
+
+    $("#upload").click(function(){
+
+        if(confirm("질문을 등록하시겠습니까?")){
+          var csTitle = $("#csTitle").val();
+            var csContent = $("#csContent").val();
+            $.ajax({
+              type:'post',
+              url:'/cs/upload',
+              data: {"csTitle": csTitle,
+                     "csContent":csContent},
+              success: function(data){
+                alert("질문 등록이 완료되었습니다.");
+                window.close();
+              },
+              error: function() {
+
+              }
+            });
+
+        }
+
+    });
   </script>
 </body>
 </html>

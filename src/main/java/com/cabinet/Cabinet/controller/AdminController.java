@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -122,11 +123,12 @@ public class AdminController {
     }
 
     @PostMapping("/postEvent")
-    public ResponseEntity postEvent(Model model, EventDTO eventDTO,
-                                    @RequestParam("file") MultipartFile file,
-                                    HttpServletRequest req) throws IOException, ParseException {
+    public ResponseEntity postEvent(@RequestParam HashMap<Object, Object> params, @RequestParam("file") MultipartFile file) throws IOException {
 
-        System.out.println(eventDTO.getEvtTitle());
+        EventDTO eventDTO = new EventDTO();
+        eventDTO.setEvtTitle(params.get("evtTitle").toString());
+        eventDTO.setEvtContent(params.get("evtContent").toString());
+        eventDTO.setEvtDate(params.get("evtDate").toString());
         if (!file.getOriginalFilename().isEmpty()) {
             System.out.println("I'm here");
             String path = "C:\\attached\\" + file.getOriginalFilename();
@@ -138,7 +140,7 @@ public class AdminController {
             return new ResponseEntity(HttpStatus.OK);
         }
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity(HttpStatus.OK);
 
 
     }

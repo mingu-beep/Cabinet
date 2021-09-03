@@ -21,7 +21,7 @@
   <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
     이벤트 추가
   </h1>
-  <form th:action="@{postEvent}" class="col-12" style="float: none; margin: 0 auto" method="POST" enctype="multipart/form-data" id="eventForm">
+  <form class="col-12" style="float: none; margin: 0 auto" enctype="multipart/form-data" id="eventForm">
     <section class="title-section row">
       <label
               class="
@@ -39,6 +39,7 @@
               th:field="*{eventDTO.evtTitle}"
               type="text"
               class="form-control my-3 col-6 mx-2"
+              name="evtTitle"
               id="evtTitle"
       />
     </section>
@@ -59,7 +60,8 @@
       <input
               th:field="*{eventDTO.evtDate}"
               type="date"
-              id="memBday"
+              name="evtDate"
+              id="evtDate"
               class="form-control my-3 col-6 mx-2"
 
       />
@@ -81,6 +83,7 @@
               th:field="*{eventDTO.evtContent}"
               type="text"
               class="form-control my-3 col-6 mx-2"
+              name="evtContent"
               id="evtContent"
               style="height: 6rem"
       ></textarea>
@@ -110,7 +113,7 @@
         </div>
       </div>
     </section>
-    <button id = "subBtn" class="btn btn-focus my-5" style="width: 5rem">올리기</button>
+    <a id = "subBtn" class="btn btn-focus my-5" style="width: 5rem; color:white;" onclick="sendData()">올리기</a>
     <a class="btn btn-notFocus my-5" href="all" style="width: 5rem" onclick="self.close();"
     >취소</a
     >
@@ -138,10 +141,29 @@
           integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
           crossorigin="anonymous"
   ></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
   <script th:inline="javascript">
-    document.getElementById("subBtn").onclick = function() {
-      document.getElementById("eventForm").submit();
-      self.close();
+    function sendData() {
+      var form = $("form")[0];
+      var formData = new FormData(form);
+
+      $.ajax({
+        url:"/admin/postEvent",
+        enctype: 'multipart/form-data',
+        type:"post",
+        cache:false,
+        processData:false,
+        contentType:false,
+        data: formData,
+        success: function(data) {
+          alert("이벤트 등록을 완료했습니다.");
+          window.close();
+        },
+        error: function(){
+          console.log("실패");
+        }
+      });
     }
   </script>
 </body>

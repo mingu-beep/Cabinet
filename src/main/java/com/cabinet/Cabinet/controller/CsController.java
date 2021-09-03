@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.HashMap;
 
 @Controller
 @RequestMapping("/cs")
@@ -44,8 +45,6 @@ public class CsController {
 
         }
 
-
-
         return "cs";
     }
 
@@ -62,10 +61,14 @@ public class CsController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity postUpload(Model model, CsDTO csDTO,
+    public ResponseEntity postUpload(Model model,
                                      final HttpSession session,
-                                     HttpServletRequest req) throws IOException, ParseException {
+                                     @RequestParam HashMap<Object,Object> params){
 
+        CsDTO csDTO = new CsDTO();
+        System.out.println("here");
+        csDTO.setCsTitle(params.get("csTitle").toString());
+        csDTO.setCsContent(params.get("csContent").toString());
         csDTO.setMemID((String)session.getAttribute("memID"));
         boardService.setCsData(csDTO);
         memberService.updateQCNT(csDTO.getMemID());
