@@ -32,13 +32,22 @@
         locNo = #{locNo}
     </delete>
 
-    <update id="updateLocCNT" parameterType="_int">
+    <update id="upLocCNT" parameterType="string">
         update
         TB_LOCATION
         set
         locCNT = (locCNT + 1)
         where
-        locNo = #{locNo}
+        locName = #{locName}
+    </update>
+
+    <update id="downLocCNT" parameterType="string">
+        update
+        TB_LOCATION
+        set
+        locCNT = (locCNT + 1)
+        where
+        locName = #{locName}
     </update>
 
     <select id="findByLocNo" resultType="String">

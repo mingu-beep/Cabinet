@@ -39,14 +39,18 @@ public class LocationService {
         locationDAO.insertNewLocation(locName);
     }
 
-    public void updateLocCNT(int locNo) {
-        locationDAO = locationSqlSession.getMapper(LocationDAO.class);
-        locationDAO.updateLocCNT(locNo);
-    }
-
     public String getLocName(int locNo){
         locationDAO = locationSqlSession.getMapper(LocationDAO.class);
         return locationDAO.findLocName(locNo);
     }
 
+    public void upLocCNT(String locName){
+        locationDAO = locationSqlSession.getMapper(LocationDAO.class);
+        locationDAO.upLocCNT(locName);
+    }
+
+    public void downLocCNT(String locName){
+        locationDAO = locationSqlSession.getMapper(LocationDAO.class);
+        locationDAO.downLocCNT(locName);
+    }
 }

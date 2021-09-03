@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cabinet.Cabinet.dao.CabinetDAO">
 
+    <insert id="insertCabinet" parameterType="string">
+        insert into
+            TB_CABINET(cnLo, cnPW)
+        values
+            (#{locName}, "0000");
+
+    </insert>
+
     <select id="getAll" resultType="com.cabinet.Cabinet.dto.CabinetDTO">
         select
         *
@@ -69,4 +77,11 @@
         where
             pdNo = #{pdNo}
     </select>
+
+    <delete id="deleteCabinet" parameterType="_int">
+        delete from
+            TB_CABINET
+        where
+            cnNo = #{cnNo}
+    </delete>
 </mapper>

@@ -10,7 +10,9 @@ public interface CabinetDAO {
     List<CabinetDTO> findLocation();
     List<CabinetDTO> findByLocName(String locName);
 
+    void insertCabinet(String locName);
     void updateCabinet(CabinetDTO cabinetDTO);
+    boolean deleteCabinet(int cnNo);
 
     void reSetCabinet(int cnNo);
 

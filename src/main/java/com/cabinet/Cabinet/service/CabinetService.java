@@ -25,6 +25,10 @@ public class CabinetService {
         return cabinetDAO.findLocation();
     }
 
+    public void insertCabinet(String locName){
+        cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
+        cabinetDAO.insertCabinet(locName);
+    }
     public void setCabinet(int bdNo, int cnNo, String cnPW, String memID) {
         CabinetDTO cabinet = new CabinetDTO();
         cabinet.setPdNo(bdNo);
@@ -59,5 +63,10 @@ public class CabinetService {
     public List<CabinetDTO> findByLocName(String locName){
         cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
         return cabinetDAO.findByLocName(locName);
+    }
+
+    public void deleteCabinet(int cnNo) {
+        cabinetDAO = cabinetSqlSession.getMapper(CabinetDAO.class);
+        cabinetDAO.deleteCabinet(cnNo);
     }
 }

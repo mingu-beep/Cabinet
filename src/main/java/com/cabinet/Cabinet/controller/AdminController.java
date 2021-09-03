@@ -245,8 +245,37 @@ public class AdminController {
     // Cabinet
     @GetMapping("/location/cabinet")
     public String showCabinet(Model model, @RequestParam("locNo") int locNo){
-        model.addAttribute("cabinetList", cabinetService.findByLocName(locationService.getLocName(locNo)));
+        String locName = locationService.getLocName(locNo);
+
+        model.addAttribute("locNo", locNo);
+        model.addAttribute("locName", locName);
+        model.addAttribute("cabinetList", cabinetService.findByLocName(locName));
 
         return "admin_cabinet";
+    }
+
+    @PostMapping("/cabinetInsert")
+    @ResponseBody
+    public int addNewCabinet(@RequestParam HashMap<Object, Object> params) {
+
+        String locName = params.get("locName").toString();
+        locationService.upLocCNT(locName);
+        cabinetService.insertCabinet(locName);
+
+        return 1;
+    }
+
+    @RequestMapping("/cnList")
+    @ResponseBody
+    public List<CabinetDTO> cabinetServiceList(@RequestParam("locName") String locName) {
+        return cabinetService.findByLocName(locName);
+    }
+
+    @RequestMapping("/cabinetDelete/{cnNo}")
+    @ResponseBody
+    public ResponseEntity deleteCabinet(@PathVariable int cnNo, @RequestParam HashMap<Object, Object> params) {
+        locationService.downLocCNT(params.get("locName").toString());
+        cabinetService.deleteCabinet(cnNo);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

@@ -11,8 +11,8 @@ public interface LocationDAO {
     boolean deleteByLocNo(int locNo);
     void insertNewLocation(String locName);
 
-    void updateLocCNT(int locNo);
-    String findByLocNo(int locNo);
+    void upLocCNT(String locName);
+    void downLocCNT(String locName);
 
     String findLocName(int locNo);
 }

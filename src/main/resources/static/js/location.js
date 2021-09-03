@@ -5,6 +5,21 @@ function showCabinet(locNo){
     var popupOption = "width=" + winWidth + ", height=" + winHeight;
 
     var popup = window.open(url, "Cabinet - 캐비넷 확인", popupOption);
+
+    var popupInterval = window.setInterval(function() {
+
+            try{
+              if(popup == null || popup.closed) {
+                  window.clearInterval(popupInterval);
+                  popup=null;
+
+                  location.reload(true);
+              }
+            } catch(e) {
+              console.log("error");
+            }
+
+          }, 500);
 }
 
 function insertLocation() {

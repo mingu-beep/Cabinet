@@ -18,16 +18,18 @@
   </head>
   <body>
     <main class="container text-center">
-      <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
+      <input class="locName" type="hidden" th:value="${locName}"/>
+      <h1 class="h5 font-weight-bold mt-5 font-weight-normal color-blue my-3">
         Cabinet 목록
       </h1>
+      <button class="btn btn-focus my-3" type="button" onclick="insertCabinet()">추가</button>
       <table class="table table-striped table-sm">
         <thead>
         <tr>
           <th>#</th>
           <th class="text-center">위치</th>
-          <th class="text-center">물건 갯수</th>
-          <th></th>
+          <th class="text-center">사용가능여부</th>
+          <th class="text-center">예약자</th>
           <th></th>
         </tr>
         </thead>
@@ -39,13 +41,17 @@
             <a th:text="${cabinet.cnLo}">cnLo</a>
           </td>
           <td>
-            <a th:if="${cabinet.cnExist == '1'}">O</a>
-            <a th:unless="${cabinet.cnExist == '1'}">X</a>
+            <a th:if="${cabinet.cnExist}" th:class="cnExist[[${cabinet.cnNo}]]" >X</a>
+            <a th:unless="${cabinet.cnExist}">O</a>
           </td>
           <td>
             <a th:if="${cabinet.cnReser.equals('CABINET_ADMIN')}"></a>
             <a th:unless="${cabinet.cnReser.equals('CABINET_ADMIN')}"
                th:text="${cabinet.cnReser}"></a>
+          </td>
+          <td>
+            <a class="btn btn-notFocus py-0"
+                 th:onclick="cabinetDelete([[${cabinet.cnNo}]])">삭제</a>
           </td>
         </tr>
         </tbody>
@@ -74,22 +80,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script th:inline="javascript">
-      function checkCabinet(pdNo) {
-        $.ajax({
-          url:'/cabinet/checkInner',
-          data:{'pdNo':pdNo},
-          type:'post',
-          success: function(data) {
-            if(data){
-                alert("Cabinet에 물건이 있습니다.")
-            }
-            else{
-                alert("Cabinet에 물건이 없습니다.");
-            }
-          }
-        });
-      }
-    </script>
+    <script src="/js/cabinet.js"></script>
   </body>
 </html>
