@@ -71,17 +71,17 @@ public class CabinetController {
 
         System.out.println("cnNo = " + cnNo + "  /  choice = " + choice + "  /  state = " + state);
 
-        if(choice.equals('1')){
-            if(state.equals('Y')){ // 넣는데 물건이 있어 -> 거래완료
+        if(choice.equals("1")){
+            if(state.equals("Y")){ // 넣는데 물건이 있어 -> 거래완료
                 System.out.print("In if : 1,Y");
                 cabinetService.setExist(Integer.parseInt(cnNo));
-            } else if (state.equals('N')) { // 넣는데 물건이 없어 -> 거래 미완료
+            } else if (state.equals("N")) { // 넣는데 물건이 없어 -> 거래 미완료
                 System.out.print("In if : 1,N");
             }
-        } else if (choice.equals('2')) {
-            if(state.equals('Y')){ // 빼는 데 물건이 있어 -> 거래 미완료
+        } else if (choice.equals("2")) {
+            if(state.equals("Y")){ // 빼는 데 물건이 있어 -> 거래 미완료
                 System.out.print("In if : 2,Y");
-            } else if (state.equals('N')) { // 빼는 데 물건이 없어 -> 거래 완료
+            } else if (state.equals("N")) { // 빼는 데 물건이 없어 -> 거래 완료
                 System.out.print("In if : 2,N");
                 cabinetService.reSetCabinet(Integer.parseInt(cnNo));
             }

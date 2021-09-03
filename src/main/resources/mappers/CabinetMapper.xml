@@ -39,7 +39,7 @@
         update
         TB_CABINET
         set
-        pdNo = null, cnPW = 0000, cnReser = "CABINET_ADMIN", cnExist=0
+        pdNo = null, cnPW = "0000", cnReser = "CABINET_ADMIN", cnExist=0
         where
         cnNo = #{cnNo}
     </update>

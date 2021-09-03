@@ -50,8 +50,8 @@
 	</select>
 
 	<insert id="addProduct" parameterType="com.cabinet.Cabinet.dto.ProductDTO">
-		insert into TB_PRODUCT (bdNo, ctNo, pdName, pdUpDate, pdImg, pdPrice, dealType, memID)
-		values (#{bdNo}, #{ctNo}, #{pdName}, #{pdUpDate}, #{pdImg}, #{pdPrice}, #{dealType}, #{memID})
+		insert into TB_PRODUCT (bdNo, ctNo, pdName, pdUpDate, pdImg, pdPrice, dealType, memID, location)
+		values (#{bdNo}, #{ctNo}, #{pdName}, #{pdUpDate}, #{pdImg}, #{pdPrice}, #{dealType}, #{memID}, "주안")
 	</insert>
 
 
