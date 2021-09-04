@@ -34,15 +34,16 @@ public class CabinetController {
     }
 
     @PostMapping("/comDeal")
-    public ResponseEntity postComplete(HttpServletRequest request, final HttpSession session){
+    @ResponseBody
+    public ResponseEntity postComplete(@RequestParam("bdNo") int bdNo, @RequestParam("oppID") String oppID, @RequestParam HashMap<Object, Object> params, final HttpSession session){
 
-        int cnNo = Integer.parseInt(request.getParameter("location"));
-        String cnPW = request.getParameter("pw");
-        String oppID = request.getParameter("oppID");
-        int bdNo = Integer.parseInt(request.getParameter("bdNo"));
-
-        cabinetService.setCabinet(bdNo, cnNo, cnPW, session.getAttribute("memID").toString());
+        System.out.println(bdNo);
+        System.out.println(oppID);
+        int cnNo = Integer.parseInt(params.get("location").toString());
+        String cnPW = params.get("pw").toString();
         boardService.completeDeal(oppID, bdNo);
+        cabinetService.setCabinet(bdNo, cnNo, cnPW, session.getAttribute("memID").toString());
+
 
         return new ResponseEntity(HttpStatus.OK);
     }

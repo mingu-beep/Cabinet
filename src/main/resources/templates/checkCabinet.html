@@ -33,14 +33,14 @@
       <label for="location">캐비넷 위치</label>
       <select name="location" id="location">
         <option value="none">=== 선택 ===</option>
-        <option th:each="cabinet, now:${cabinetList}" th:value="${cabinet.cnNo}" th:text="${cabinet.cnLo}">위치</option>
+        <option th:each="cabinet, now:${cabinetList}" th:value="${cabinet.cnNo}" th:text="${cabinet.cnLo + '(' + cabinet.cnNo + ')'}">위치</option>
       </select>
       <div class="pw-session" style="display:none;">
         <label for="pw" >비밀번호</label>
         <input class="forPW" maxlength="4" type="number" name="pw" id='pw' placeholder="4자리의 비밀번호를 입력해주세요."/>
       </div>
       <div class="setBtn" style="display:none;">
-        <button class="btn btn-focus" type="submit" onclick="sendData()">캐비넷 예약하기</button>
+        <a class="btn btn-focus" style="color:white" onclick="sendData()">캐비넷 예약하기</a>
       </div>
     </form>
   </div>
@@ -69,6 +69,11 @@
 ></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script th:inline="javascript">
+
+    $(document).keypress(function(e) {
+        if (e.keyCode == 13) e.preventDefault();
+    });
+
     $('#location').change(function() {
       var state = $('#location option:selected').val();
       if(state)
@@ -81,12 +86,15 @@
 
     function sendData() {
 
+      var oppID = $("#opponent").val();
+      var bdNo = $("#bdNo").val();
+
       if(confirm("거래를 완료하시겠습니까?")){
           var location = $("#location option:selected").val();
           var pw = $(".forPW").val()
           $.ajax({
             type:'post',
-            url:'/cs/upload',
+            url:"/cabinet/comDeal?bdNo="+bdNo+"&oppID="+oppID,
             data: {"location": location,
                    "pw":pw},
             success: function(data){
