@@ -68,7 +68,14 @@
             <i class="fas fa-user-plus fa-lg"></i>
           </a>
           <a
-                  th:unless="${memName == null}"
+                  th:if="${memName != null && memName.equals('캐비넷관리자')}"
+                  class="nav-link"
+                  href="/admin/board"
+          >
+            <i class="fas fa-user-cog fa-lg"></i>
+          </a>
+          <a
+                  th:if="${memName != null && !memName.equals('캐비넷관리자')}"
                   class="nav-link"
                   href="/member/mypage"
           >
