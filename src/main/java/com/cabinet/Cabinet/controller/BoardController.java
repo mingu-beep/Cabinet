@@ -178,7 +178,7 @@ public class BoardController {
                 memberService.updatePOSTCNT(session.getAttribute("memID").toString());
             }
         }
-        return "redirect:/board/all";
+        return "redirect:/board/all?include=none";
     }
 
     @GetMapping("/update")
@@ -204,7 +204,7 @@ public class BoardController {
             boardService.updateContent(boardDTO, productDTO);
         }
         
-        return "redirect:/board/all";
+        return "redirect:/board/all?include=none";
     }
 
     @RequestMapping(value="/delete")
