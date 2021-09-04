@@ -109,7 +109,7 @@
 
 	<select id="findOneByBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
-			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.dealType, p.pdSell
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.dealType, p.pdSell, p.location
 		from
 			TB_BOARD as b
 		inner join

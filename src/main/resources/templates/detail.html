@@ -28,9 +28,10 @@
           style="height: 500px; width: 100%; display: block"
           data-holder-rendered="true"
         />
-        <p class="border-bottom py-3 font-weight-bold" th:text="${board.bdTitle}">제목</p>
-        <p th:text="${board.pdName}" id="pdName">물품명</p>
-        <p th:text="${board.pdPrice} + '원'">가격</p>
+        <p class="border-bottom py-3 font-weight-bold" th:text="${'제목 | ' + board.bdTitle}" style="font-size:1.2rem">제목</p>
+        <p class="border-bottom pb-3" th:text="${'물품명 | ' + board.pdName}" id="pdName">물품명</p>
+        <p th:text="${'위치 | ' + board.location}" id="location">위치</p>
+        <p class="border-bottom pb-3" th:text="${'가격 | ' + board.pdPrice} + '원'">가격</p>
         <p th:text="${board.bdContent}">설명</p>
         <div th:if="${memID != null}">
           <a class="btn btn-notFocus my-5" name="requestTransaction" style="width: 6rem"
