@@ -76,7 +76,9 @@
             type: 'post',
             data: {"oppID": oppID},
             success: function(data){
+                var a = '';
                 if(!data) {
+                    $(".completeInfo").html(a);
                     $("#id_check").text("존재하는 아이디가 없습니다.");
                     $("#id_check").css("color", "red");
                     $("#id_check").attr("disabled",true);
@@ -88,7 +90,6 @@
 
                     const type = $("#type").val();
 
-                    var a = '';
                     if(type == "1"){
                         console.log("직거래");
                         a += '<a class="btn btn-focus directBtn" onclick="comDeal()" style="color:white;">거래 완료</a>'
@@ -97,9 +98,8 @@
                         console.log("캐비넷");
                         a += '<a class="btn btn-focus" href="/cabinet/comDeal?bdNo='+bdNo+'&oppID='+oppID+'">캐비넷 찾기</a>'
                     }
-
-                    $(".completeInfo").html(a);
                 }
+                $(".completeInfo").html(a);
             }
         });
     });
