@@ -39,9 +39,9 @@
         <tr th:each="deal, now: ${dealList}">
             <td th:text="${deal.pdNo}">pdNo</td>
             <td th:text="${deal.pdName}">pdName</td>
-            <td th:if="${deal.dealType.equals('1')}">직거래</td>
-            <td>
-                <a th:unless="${deal.dealType.equals('1')}" th:onclick="'checkCabinet(' + ${deal.pdNo} +')'">Cabinet</a>
+            <td th:if="${deal.dealType == 1}">직거래</td>
+            <td th:unless="${deal.dealType == 1}" >
+                <a th:onclick="'checkCabinet(' + ${deal.pdNo} +')'">Cabinet</a>
             </td>
             <td th:text="${deal.pdPrice}">pdPrice</td>
         </tr>
@@ -85,6 +85,9 @@
                 else{
                     alert("Cabinet에 물건이 없습니다.");
                 }
+            },
+            error: function(){
+                console.log("에러");
             }
         });
     }

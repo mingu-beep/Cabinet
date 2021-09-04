@@ -24,7 +24,7 @@
           <a class="nav-link" href="/intro">소개</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/board/all">거래 게시판</a>
+          <a class="nav-link" href="/board/all?include=none">거래 게시판</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/board/hot">핫플레이스</a>
@@ -58,7 +58,7 @@
           <a
                   th:unless="${memName == null}"
                   class="nav-link"
-                  href="/member/login"
+                  href="/member/logout"
           >
             <i class="fas fa-sign-out-alt fa-lg"></i>
           </a>

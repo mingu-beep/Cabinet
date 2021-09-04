@@ -11,8 +11,11 @@ import org.apache.ibatis.annotations.Param;
 
 public interface BoardDAO {
 
-    // 모든 정보를 받아오는 썸네일용 쿼리
+    // 모든 정보를 받아오는 쿼리
     List<BoardVO> findAll_asc();
+    // 완료 상품을 제외한 상품을 받아오는 쿼리
+    List<BoardVO> findAll_notCom();
+
     //메인에서 역순으로 보이는 부분
     List<BoardVO> findAll_desc();
     //조회수 순으로 보는 부분

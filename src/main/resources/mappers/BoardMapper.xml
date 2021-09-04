@@ -7,7 +7,7 @@
 
 	<select id="findAll_asc" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
-			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
 		from
 			TB_BOARD as b
 		inner join
@@ -18,22 +18,39 @@
 			b.bdNo asc;
 	</select>
 
+	<select id="findAll_notCom" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
+		from
+			TB_BOARD as b
+		inner join
+			TB_PRODUCT as p
+		on
+			b.bdNo = p.pdNo
+		where
+			p.pdSell != "1"
+		order by
+			b.bdNo asc;
+	</select>
+
 	<select id="findAll_desc" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
-		b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+		b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
 		from
 		TB_BOARD as b
 		inner join
 		TB_PRODUCT as p
 		on
 		b.bdNo = p.pdNo
+		where
+		p.pdSell != 1
 		order by
 		b.bdNo desc;
 	</select>
 
 	<select id="findAll_view" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
-		b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+		b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
 		from
 		TB_BOARD as b
 		inner join
@@ -47,7 +64,7 @@
 
 	<select id="findAllByCtNo" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
-			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
 		from
 			TB_BOARD as b
 		inner join
@@ -62,7 +79,7 @@
 
 	<select id="findAllByLocName" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
-			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
 		from
 			TB_BOARD as b
 		inner join
@@ -77,7 +94,7 @@
 
 	<select id="findAllByBdNo" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
-			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
 		from
 			TB_BOARD as b
 		inner join
@@ -92,7 +109,7 @@
 
 	<select id="findOneByBdNo" parameterType="_int" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
-			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.dealType
+			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.dealType, p.pdSell
 		from
 			TB_BOARD as b
 		inner join

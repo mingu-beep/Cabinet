@@ -10,14 +10,21 @@ public class BoardVO
     private String bdContent;
     private String memID;
     private String memName;
-    private Date writeDate;
     private int bdView;
     private int pdPrice;
     private int dealType;
     private String pdName;
     private String location;
     private String pdImg;
-    private Date pdUpDate;
+    private int pdSell;
+
+    public int getPdSell() {
+        return pdSell;
+    }
+
+    public void setPdSell(int pdSell) {
+        this.pdSell = pdSell;
+    }
 
     public int getBdNo() {
         return bdNo;
@@ -65,14 +72,6 @@ public class BoardVO
 
     public void setMemName(String memName) {
         this.memName = memName;
-    }
-
-    public Date getWriteDate() {
-        return writeDate;
-    }
-
-    public void setWriteDate(Date writeDate) {
-        this.writeDate = writeDate;
     }
 
     public int getBdView() {
@@ -123,11 +122,4 @@ public class BoardVO
         this.pdImg = pdImg;
     }
 
-    public Date getPdUpDate() {
-        return pdUpDate;
-    }
-
-    public void setPdUpDate(Date pdUpDate) {
-        this.pdUpDate = pdUpDate;
-    }
 }

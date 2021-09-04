@@ -17,29 +17,31 @@
     <link rel="stylesheet" href="/css/style.css" />
 </head>
 <body>
-<main class="container text-center">
+<main class="container text-center"  style="height:600px;">
     <h1 class="h5 font-weight-bold my-5 font-weight-normal color-blue my-3">
         QnA 내용
     </h1>
-    <div class="detail col-5 justify-content-center">
+    <div class="detail col-12 justify-content-center">
         <p class="border-bottom py-3 font-weight-bold" th:text="${csDetail.csTitle}">제목</p>
         <p th:text="${csDetail.csContent}">설명</p>
     </div>
 
-    <label for="content">comment</label>
-    <form name="commentInsertForm">
-        <div class="input-group">
-            <input type="hidden" id="replyWriter" th:value="${memID}"/>
-            <input type="hidden" name="csNo" id="thisCsNo" th:value="${csDetail.csNo}"/>
-            <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
-           </span>
-        </div>
-    </form>
+    <div class="col-10" style="position:absolute; bottom:6rem;">
+        <form name="commentInsertForm">
+            <label for="content">comment</label>
+            <div class="input-group">
+                <input type="hidden" id="replyWriter" th:value="${memID}"/>
+                <input type="hidden" name="csNo" id="thisCsNo" th:value="${csDetail.csNo}"/>
+                <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+               </span>
+            </div>
+        </form>
 
-    <div class="container">
-        <div class="commentList"></div>
+        <div class="container my-2">
+            <div class="commentList"></div>
+        </div>
     </div>
 </main>
 <!-- fontawesome -->

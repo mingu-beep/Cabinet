@@ -62,7 +62,8 @@ public class BoardController {
     
     //deal
     @GetMapping("/all")
-    public String goodsAll(Model model, final HttpSession session, @RequestParam Map<String, Object> paramMap) {
+    public String goodsAll(Model model, final HttpSession session,
+                           @RequestParam("include") String include) {
 
         Object memName = session.getAttribute("memName");
         if (session.getAttribute("memName") != null) {
@@ -72,7 +73,15 @@ public class BoardController {
         model.addAttribute("locationList", locationService.getAllLocation());
         model.addAttribute("categories", categoryService.getAllCategory());
 
-        model.addAttribute("boardList", boardService.findAll_asc());
+        model.addAttribute("include", include);
+
+        if(include.equals("none")){
+            model.addAttribute("boardList", boardService.findAll_notCom());
+        }
+        else if(include.equals("complete")){
+            model.addAttribute("boardList", boardService.findAll_asc());
+        }
+
 
         return "mainBoard"; // 반환 타입이 String일 경우 어떤 templates을 불러올 건지 명시해줘야한다.
                            // 따라서 return 값은 html 파일 이름!
@@ -86,6 +95,7 @@ public class BoardController {
             model.addAttribute("memName", memName);
         }
 
+        model.addAttribute("include","");
         model.addAttribute("locationList", locationService.getAllLocation());
         model.addAttribute("categories", categoryService.getAllCategory());
 
@@ -101,7 +111,7 @@ public class BoardController {
         if (session.getAttribute("memName") != null) {
             model.addAttribute("memName", memName);
         }
-
+        model.addAttribute("include","");
         model.addAttribute("locationList", locationService.getAllLocation());
         model.addAttribute("categories", categoryService.getAllCategory());
 

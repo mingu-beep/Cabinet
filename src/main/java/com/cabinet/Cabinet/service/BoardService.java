@@ -29,6 +29,10 @@ public class BoardService {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.findAll_asc();
     }
+    public List<BoardVO> findAll_notCom(){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAll_notCom();
+    }
     public List<BoardVO> findAll_desc(){
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.findAll_desc();

@@ -33,10 +33,21 @@
                       class="card-img-top"
                       th:src="${board.pdImg}"
                       alt="Thumbnail [100%x225]"
-                      style="height: 225px; width: 100%; display: block"
-                      src="/pdImg"
+                      style="height: 225px; width: 100%; display: block;"
                       data-holder-rendered="true"
               />
+              <div
+                      th:if="${board.pdSell != 0}"
+                      class="card-img-top d-flex justify-content-center align-items-center"
+                      style="height: 225px; width: 100%; display: block;
+                             background-color:black; opacity:0.5;
+                             z-index:2; position:absolute; top:0"
+                      data-holder-rendered="true"
+              >
+                <span class="text-weight-bold p-3"
+                      style="border: 5px solid white; border-radius:10%; color:white;
+                              font-size:1.5rem">판매 완료</span>
+              </div>
               <div class="card-body">
                 <p class="card-title" th:text="${board.bdTitle}">title</p>
                 <p class="card-description" th:text="${board.bdContent}" style="text-overflow:ellipsis;">description</p>
@@ -46,6 +57,7 @@
                 >
                   <div class="btn-group">
                     <a
+                            th:if="${board.pdSell == 0}"
                             th:href="@{/board/detail(bdNo=${board.bdNo})}"
                             class="btn btn-sm btn-outline-secondary btn-focus"
                     >
