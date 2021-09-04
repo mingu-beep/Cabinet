@@ -58,7 +58,7 @@
 		on
 		b.bdNo = p.pdNo
 		order by
-		b.bdView;
+		b.bdView desc;
 	</select>
 
 
