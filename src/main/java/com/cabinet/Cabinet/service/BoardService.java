@@ -50,6 +50,10 @@ public class BoardService {
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.findAllByLocName(location);
     }
+    public List<BoardVO> findAllByDealType(int type){
+        boardDao = boardSqlSession.getMapper(BoardDAO.class);
+        return boardDao.findAllByDealType(type);
+    }
     public List<BoardVO> findAllByBdNo(int bdNo){
         boardDao = boardSqlSession.getMapper(BoardDAO.class);
         return boardDao.findAllByBdNo(bdNo);

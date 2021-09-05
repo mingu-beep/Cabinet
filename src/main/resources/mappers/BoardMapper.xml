@@ -92,6 +92,21 @@
 			b.bdNo asc;
 	</select>
 
+	<select id="findAllByDealType" resultType="com.cabinet.Cabinet.dto.BoardVO">
+		select
+		b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
+		from
+		TB_BOARD as b
+		inner join
+		TB_PRODUCT as p
+		on
+		b.bdNo = p.pdNo
+		where
+		p.dealType = #{dealType}
+		order by
+		b.bdNo asc;
+	</select>
+
 	<select id="findAllByBdNo" resultType="com.cabinet.Cabinet.dto.BoardVO">
 		select
 			b.bdNo, p.pdNo, b.bdTitle, bdContent, p.pdName, p.pdPrice, p.pdImg, b.bdView, b.memID, p.pdSell
@@ -153,7 +168,7 @@
 
 	<insert id="addProduct" parameterType="com.cabinet.Cabinet.dto.ProductDTO">
 		insert into TB_PRODUCT (bdNo, ctNo, pdName, pdUpDate, pdImg, pdPrice, dealType, memID, location)
-		values (#{bdNo}, #{ctNo}, #{pdName}, #{pdUpDate}, #{pdImg}, #{pdPrice}, #{dealType}, #{memID}, "주안")
+		values (#{bdNo}, #{ctNo}, #{pdName}, #{pdUpDate}, #{pdImg}, #{pdPrice}, #{dealType}, #{memID}, #{location})
 	</insert>
 
   	<update id="updateBoard" parameterType="com.cabinet.Cabinet.dto.BoardDTO">

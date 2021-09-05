@@ -112,7 +112,7 @@
           <select th:field="*{productDTO.location}" id="location">
             <option value="0" selected>--선택--</option>
             <option th:each="location, now :${locationList}"
-                    th:value="${location.locNo}" th:text="${location.locName}">위치</option>
+                    th:value="${location.locName}" th:text="${location.locName}">위치</option>
           </select>
         </section>
         <section class="price-section row">

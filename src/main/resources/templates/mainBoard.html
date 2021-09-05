@@ -57,6 +57,23 @@
             <a class="dropdown-item" th:each="category, now:${categories}"
                th:href="@{category(ctNo=${category.ctNo})}" th:text="${category.ctType}"></a>
           </div>
+        </div>
+        <br />
+        <div class="btn-group dropright my-2 w-100">
+          <button
+                  type="button"
+                  class="btn btn-notFocus dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  style="background: none"
+          >
+            거래 방법
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="/board/deal?type=1">직거래</a>
+            <a class="dropdown-item" href="/board/deal?type=2">Cabinet</a>
+          </div>
           <a
                   th:if="${include.equals('none')}"
                   class="btn btn-notFocus my-2"

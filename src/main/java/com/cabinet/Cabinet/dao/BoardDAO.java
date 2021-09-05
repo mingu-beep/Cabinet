@@ -24,6 +24,7 @@ public interface BoardDAO {
     // 거래게시판에서 콤보 박스 선택용
     List<BoardVO> findAllByCtNo(int ctNo);
     List<BoardVO> findAllByLocName(String locName);
+    List<BoardVO> findAllByDealType(int type);
 
     // 검색용
     List<BoardVO> findAllByBdNo(int bdNo);

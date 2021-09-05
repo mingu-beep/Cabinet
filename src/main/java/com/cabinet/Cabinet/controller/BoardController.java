@@ -120,6 +120,22 @@ public class BoardController {
         return "mainBoard";
     }
 
+    @GetMapping("/deal")
+    public String goodsDeal(Model model, final HttpSession session, @RequestParam("type") int type) {
+
+        Object memName = session.getAttribute("memName");
+        if (session.getAttribute("memName") != null) {
+            model.addAttribute("memName", memName);
+        }
+        model.addAttribute("include","");
+        model.addAttribute("locationList", locationService.getAllLocation());
+        model.addAttribute("categories", categoryService.getAllCategory());
+
+        model.addAttribute("boardList", boardService.findAllByDealType(type));
+
+        return "mainBoard";
+    }
+
     @GetMapping("/detail")
     public String detailView(@RequestParam("bdNo") int bdNo, Model model, final HttpSession session) {
         System.out.println(bdNo);
