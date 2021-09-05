@@ -28,12 +28,27 @@
           style="height: 500px; width: 100%; display: block"
           data-holder-rendered="true"
         />
-        <p class="border-bottom py-3 font-weight-bold" th:text="${'제목 | ' + board.bdTitle}" style="font-size:1.2rem">제목</p>
-        <p class="border-bottom pb-3" th:text="${'물품명 | ' + board.pdName}" id="pdName">물품명</p>
-        <p th:text="${'위치 | ' + board.location}" id="location">위치</p>
-        <p class="border-bottom pb-3" th:text="${'가격 | ' + board.pdPrice} + '원'">가격</p>
+        <div class="border-bottom py-3">
+          <span class="font-weight-bold" style="font-size:1.2rem">제목 | </span>
+          <span class="font-weight-bold" th:text="${board.bdTitle}" style="font-size:1.2rem">제목</span>
+        </div>
+
+        <div class="border-bottom py-3" >
+          <span>물품명 | </span>
+          <span th:text="${board.pdName}" id="pdName">물품명</span>
+        </div>
+
+        <div class="border-bottom py-3" >
+          <span>위치 | </span>
+          <span th:text="${board.location}" id="location">위치</span>
+          <br>
+          <span>가격 | </span>
+          <span th:text="${board.pdPrice}">가격</span>
+          <span>원</span>
+        </div>
+
         <p th:text="${board.bdContent}">설명</p>
-        <div th:if="${memID != null}">
+        <div th:if="${memID != null && !board.memID.equals(memID)}">
           <a class="btn btn-notFocus my-5" name="requestTransaction" style="width: 6rem"
           >거래 요청</a
           >

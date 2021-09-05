@@ -10,10 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
@@ -61,6 +59,7 @@ public class AdminController {
     // 카테고리 관리 페이지
     @GetMapping("category")
     public String manageCategory(Model model) {
+
         model.addAttribute("categories", categoryService.getAllCategory());
 
         return "admin_category";

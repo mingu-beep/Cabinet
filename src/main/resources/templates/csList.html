@@ -37,7 +37,7 @@
         <a th:href="${'/cs/detail?csNo='+cs.csNo}" th:text="${cs.csTitle}">csTitle</a>
       </td>
       <td th:if="${cs.csCom == 0}" >답변 전</td>
-      <td th:unless="${cs.csCom == 0}" th:text="답변 완료">답변 후</td>
+      <td th:unless="${cs.csCom == 0}">답변 완료</td>
     </tr>
     </tbody>
   </table>

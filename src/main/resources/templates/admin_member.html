@@ -57,7 +57,7 @@
         <td th:text="${member.memEmail}">memEmail</td>
         <td>
           <a class="btn btn-notFocus py-0"
-             th:href="@{/admin/delete(memNo=${member.memNo})}"
+             th:href="@{/admin/member/delete(memNo=${member.memNo})}"
              onclick="return confirm('회원을 탈퇴시키시겠습니까?');"
           >탈퇴</a></td>
       </tr>
