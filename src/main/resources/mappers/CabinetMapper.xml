@@ -23,7 +23,9 @@
         from
             TB_CABINET
         where
-            cnExist = 0 and cnReser = 'CABINET_ADMIN';
+            cnExist = 0 and cnReser = 'CABINET_ADMIN'
+        order by
+            cnLo desc;
     </select>
 
     <select id="findByLocName" resultType="com.cabinet.Cabinet.dto.CabinetDTO">
