@@ -20,15 +20,15 @@
 
 ## 2. 프로젝트 
 
-1. 사용 기술 <br>
+### 1. 사용 기술 <br>
   Web : Java,  Spring boot, BootStrap, Thymeleaf, HTML, CSS, JavaScript, jQuery, Ajax, MyBatis <br>
   DB : MySQL <br>
   Arduino : Arduino Sketch <br>
   형상 관리 : Git, Github
-2. 요구 사항 <br>
+### 2. 요구 사항 <br>
   ![web_table](https://github.com/mingu-beep/Cabinet/assets/82128032/2935249f-2c58-4e04-9b7c-7d52401de715)
-3. 구현 기능 <br>
-  a. 사용자 서비스 및 기능
+### 3. 구현 기능 <br>
+#### a. 사용자 서비스 및 기능
     - 회원 가입
       - 아이디 및 이메일 입력 시 Ajax를 활용하여 중복 확인이 가능하도록 함
     - 로그인 
@@ -45,7 +45,7 @@
       - 등록된 QnA 확인 가능
 
 
-    b. 관리자 서비스 기능
+#### b. 관리자 서비스 기능
       - 게시글 관리
       - 카테고리 관리 : 물품 카테고리 추가/수정/삭제 기능, 카테고리별 물품 수 확인 가능
       - 이벤트 관리
@@ -54,7 +54,7 @@
       - 서비스 지역 관리
   
 
-4. DB 구조 <br>
+### 4. DB 구조 <br>
   ![db_struct](https://github.com/mingu-beep/Cabinet/assets/82128032/19471be1-0038-49ed-917a-dced2ae8149c)
   
 
